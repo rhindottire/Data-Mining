@@ -1,4 +1,4 @@
-# Welcome to my Data-Mininng Pages
+# Welcome to my Data-Mining Pages
 
 <!-- This is a small sample book to give you a feel for how book content is
 structured.
