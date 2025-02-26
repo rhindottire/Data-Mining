@@ -31,7 +31,8 @@ jobs:
           MYSQL_URL: ${{ secrets.MYSQL_URL }}
           POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
         run: |
-          jupyter nbconvert --to notebook --execute pendata/Tugas1.ipynb --output pendata/Tugas1.ipynb
+          jupyter nbconvert --to notebook --execute pendata/Tugas1.ipynb --output Tugas1.ipynb
+          mv Tugas1.ipynb pendata/Tugas1.ipynb
 
       - name: Build Jupyter Book
         run: |
