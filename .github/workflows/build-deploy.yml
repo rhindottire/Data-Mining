@@ -26,12 +26,16 @@ jobs:
           pip install -r requirements.txt
           pip install pandas sqlalchemy pymysql psycopg2-binary jupyter nbconvert
 
-      - name: Run Jupyter Notebook (Execute pendata/Tugas1.ipynb)
-        env:
-          MYSQL_URL: ${{ secrets.MYSQL_URL }}
-          POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
+      - name: Set environment variables
         run: |
-          jupyter nbconvert --to notebook --execute pendata/Tugas1.ipynb --output Tugas1.ipynb
+          echo "::add-mask::${{ secrets.MYSQL_URL }}"
+          echo "::add-mask::${{ secrets.POSTGRES_URL }}"
+          echo "MYSQL_URL=${{ secrets.MYSQL_URL }}" >> $GITHUB_ENV
+          echo "POSTGRES_URL=${{ secrets.POSTGRES_URL }}" >> $GITHUB_ENV
+
+      - name: Run Jupyter Notebook (Execute pendata/Tugas1.ipynb)
+        run: |
+          jupyter nbconvert --to notebook --execute pendata/Tugas1.ipynb --output Tugas.ipynb
 
       - name: Build Jupyter Book
         run: |
