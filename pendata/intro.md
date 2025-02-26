@@ -1,17 +1,30 @@
-# Welcome to my Data-Mining Pages
+# Introduction
 
-<!-- This is a small sample book to give you a feel for how book content is
-structured.
-It shows off a few of the major file types, as well as some sample content.
-It does not go in-depth into any particular topic - check out [the Jupyter Book documentation](https://jupyterbook.org) for more information.
+<pre>
+  NIM     : 230411100197
+  NAME    : ACHMAD RIDHO FA'Z
+  EMAIL   : achmadaliridho46@gmail.com
+  MAJOR   : Teknik Informatika
+  SUBJECT : Penambangan Data
+</pre>
 
-Check out the content pages bundled with this sample book to see more. -->
+---
 
-NIM     : 230411100197 \
-NAME    : ACHMAD RIDHO FA'Z \
-EMAIL   : achmadaliridho46@gmail.com \
-MAJOR   : Teknik Informatika \
-SUBJECT : Penambangan Data
+## Welcome to my Data-Mining Pages
 
-<!-- ```{tableofcontents}
-``` -->
+We're here discuss about these topic:
+
+- **Data Understanding**: -
+- **Etc**: -
+
+```{tableofcontents}
+```
+
+---
+
+### Study and Refrence source:
+
+Lorem:
+
+- [Text](https://link) - paragraph.
+- [Text](https://link) - paragraph.

@@ -24,6 +24,14 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
+          pip install pandas sqlalchemy pymysql psycopg2-binary jupyter nbconvert
+
+      - name: Run Jupyter Notebook (Execute pendata/Tugas1.ipynb)
+        env:
+          MYSQL_URL: ${{ secrets.MYSQL_URL }}
+          POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
+        run: |
+          jupyter nbconvert --to notebook --execute pendata/Tugas1.ipynb --output pendata/Tugas1_output.ipynb
 
       - name: Build Jupyter Book
         run: |
