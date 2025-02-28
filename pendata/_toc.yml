@@ -4,4 +4,7 @@
 format: jb-book
 root: intro
 chapters:
+- file: aboutData
+- file: dataProcess
 - file: Tugas1
+- file: Tugas2

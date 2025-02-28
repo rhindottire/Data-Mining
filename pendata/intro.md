@@ -2,7 +2,7 @@
 
 <pre>
   NIM     : 230411100197
-  NAME    : ACHMAD RIDHO FA'Z
+  NAME    : ACHMAD RIDHO FA'IZ
   EMAIL   : achmadaliridho46@gmail.com
   MAJOR   : Teknik Informatika
   SUBJECT : Penambangan Data
@@ -10,21 +10,18 @@
 
 ---
 
-## Welcome to my Data-Mining Pages
+# Welcome to my Data Mining Pages
 
-We're here discuss about these topic:
-
-- **Data Understanding**: -
-- **Etc**: -
+This page serves as a resource hub for exploring key concepts in **Data Mining**. Here you'll find structured discussions on various topics, references to essential learning materials, and curated study resources to enhance your understanding of the subject.
 
 ```{tableofcontents}
 ```
 
 ---
 
-### Study and Refrence source:
+# References and Study resources:
 
-Lorem:
+Here are some valuable resources to help you get started with **Data Mining**:
 
-- [Text](https://link) - paragraph.
-- [Text](https://link) - paragraph.
+- **Course and Lecturer**: [MULA'AB, S.Si., M.Kom](https://moelaab.github.io/datamining) - A comprehensive guide to Data Mining concepts and techniques.
+- **YouTube**: [KuliahInformatika](https://www.youtube.com/@KuliahInformatika/playlists) - Playlists on Data Analytics & Data Mining for _visual learners_.
