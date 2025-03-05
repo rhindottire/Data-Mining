@@ -17,7 +17,7 @@ Data dihasilkan dari berbagai macam sumber, dan sumber tersebut dapat dikategori
 - **Medical Records**: Sistem layanan kesehatan menyimpan data pasien, termasuk diagnosis, perawatan, dan riwayat medis.
 - **IoT Devices**: Perangkat pintar, seperti pelacak kebugaran atau sistem otomasi rumah, menghasilkan aliran data sensor yang berkelanjutan
 
-# What is Big Data?
+## What is Big Data?
 Big Data mengacu pada kumpulan data yang sangat besar, kompleks, dan berkembang pesat sehingga alat dan metode pemrosesan data tradisional tidak dapat menanganinya secara efektif. Big Data dicirikan oleh **4V**:
 
 1. **Volume**: Banyaknya data yang dihasilkan seperti platform media sosial menghasilkan data berukuran terabyte setiap hari.
@@ -25,10 +25,10 @@ Big Data mengacu pada kumpulan data yang sangat besar, kompleks, dan berkembang 
 3. **Variety**: Keragaman tipe data termasuk yang terstruktur (database), tidak terstruktur (teks & gambar), dan semi terstruktur (file JSON).
 4. **Veracity**: Keandalan dan kualitas data. Big Data sering kali berisi data yang berisik, tidak lengkap, atau tidak konsisten.
 
-## Why is Big Data Important?
+### Why is Big Data Important?
 Big Data berkaitan erat dengan topik **Data Analytics** dan **Data Mining** karena menyediakan bahan mentah untuk analisis. Tanpa Big Data, banyak aplikasi modern berbasis data _(recommendation systems, market trend prediction, and fraud detection)_ tidak akan mungkin terjadi. Tantangan Big Data _(storage, processing, and analysis)_ telah mengarah pada pengembangan alat dan teknologi canggih seperti **Hadoop, Spark, and Cloud computing**.
 
-# Data Analytics
+## Data Analytics
 Data analytics adalah proses pemeriksaan data untuk mengungkap pola, trend, dan wawasan. Ini dapat dibagi menjadi empat tipe utama:
 1. **Descriptive Analytics**:
    - Berfokus pada merangkum data historis untuk menjawab pertanyaan, “Apa yang terjadi?”.
@@ -43,7 +43,7 @@ Data analytics adalah proses pemeriksaan data untuk mengungkap pola, trend, dan 
    - Merekomendasikan tindakan untuk mencapai hasil yang diinginkan berdasarkan analisis data.
    - Contoh: Aplikasi navigasi menyarankan rute tercepat untuk menghindari kemacetan lalu lintas.
 
-# Data Mining
+## Data Mining
 Data Mining adalah bagian dari analisis data yang berfokus pada penemuan pola, hubungan, dan wawasan tersembunyi dari kumpulan data besar. Teknik utama meliputi:
 1. **Classification**:
    - Menetapkan titik data ke kategori atau label yang telah ditentukan sebelumnya.
@@ -58,14 +58,14 @@ Data Mining adalah bagian dari analisis data yang berfokus pada penemuan pola, h
    - Mengidentifikasi hubungan antar variabel.
    - Contoh: Analisis keranjang pasar untuk menemukan produk yang sering dibeli secara bersamaan (misalnya, “Pelanggan yang membeli X juga membeli Y”).
 
-# Relationship Between Big Data, Data Analytics, and Data Mining
+## Relationship Between Big Data, Data Analytics, and Data Mining
 - **Big Data** menyediakan bahan mentah (kumpulan data yang besar dan kompleks) untuk analisis.
 - **Data Analytics** adalah proses pemeriksaan data yang lebih luas untuk mengekstrak wawasan.
 - **Data Mining** adalah teknik khusus dalam analisis data yang berfokus pada penemuan pola dan hubungan dalam data.
 
 Dengan kata lain, Big Data adalah fondasinya, analisis data adalah prosesnya, dan data mining adalah salah satu alat yang digunakan dalam proses tersebut.
 
-# Data Analytics Use Cases
+## Data Analytics Use Cases
 Data Berikut adalah beberapa aplikasi analisis data dan penambangan data di dunia nyata:
 1. **Customer Segmentation**:
    - Mengelompokkan pelanggan berdasarkan perilaku, demografi, atau preferensi untuk menyesuaikan strategi pemasaran.

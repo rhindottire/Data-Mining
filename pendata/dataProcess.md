@@ -99,7 +99,7 @@ Perusahaan telekomunikasi menerapkan model prediksi churn ke dalam sistem manaje
 
 ---
 
-# Summary of the Data Mining Process
+## Summary of the Data Mining Process
 
 1. **Business Understanding**: Definisikan masalah dan tujuan.
 2. **Data Understanding**: Jelajahi dan menilai data.
@@ -110,5 +110,5 @@ Perusahaan telekomunikasi menerapkan model prediksi churn ke dalam sistem manaje
 
 ---
 
-# Why is This Process Important?
+## Why is This Process Important?
 Proses penambangan data memastikan bahwa project data bersifat sistematis, dapat diulang, dan selaras dengan tujuan bisnis. Hal ini membantu menghindari kesalahan umum, seperti penggunaan data berkualitas buruk, membuat model yang tidak relevan, atau gagal memberikan wawasan yang dapat ditindaklanjuti.
