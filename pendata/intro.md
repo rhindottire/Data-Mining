@@ -25,4 +25,4 @@ Here are some valuable resources to help you get started with **Data Mining**:
 
 - **Lecturer**: [MULA'AB, S.Si., M.Kom](https://moelaab.github.io/datamining) - A comprehensive guide to Data Mining concepts.
 - **YouTube**: [KuliahInformatika](https://www.youtube.com/@KuliahInformatika/playlists) - Playlists on Data Analytics & Data Mining for _visual learners_.
-- **Honorable Mention**: [Dr. Achmad Solichin](https://www.youtube.com/@AchmadSolichin/streams) - You might need this for more advanced topics.
+- **Honorable Mention**: [Dr. Achmad Solichin](https://www.youtube.com/@AchmadSolichin/playlists) - You might need this for more advanced topics.
