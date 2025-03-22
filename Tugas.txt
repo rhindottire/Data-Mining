@@ -1,0 +1,21 @@
+Tugas 1:
+Data IRIS ditaruh didua database
+- Menarik data base dengan python dan digabung menjadi 1 tabel
+- Membuat profiling data
+	-Statistik diskriptif data
+- Mengeksplorasi data
+-visualisasi data
+hasil ditambahkan di webstatis menjadi menu data undertanding
+
+Tugas 2:
+- Data understanding menjelaskan tipe" data
+- deteksi outlier menggunakan knn dengan penjelasan konsepnya, menggunakan data iris yang sudah di ubah
+
+Tugas 3:
+membuat materi LOF dengan contoh manual dengan k=3
+dan data sebanyak 10 dengan 2 fitur di web statis
+dan dibandingkan hasilnya dengan pakek library sylearn
+
+Tugas 4:
+membandingkan akurasi dari data iris tanpa oulier(menghapus data outlier)
+dan menggunakan outlier menggunakan naive bayes
