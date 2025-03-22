@@ -2,14 +2,14 @@ Tugas 1:
 Data IRIS ditaruh didua database
 - Menarik data base dengan python dan digabung menjadi 1 tabel
 - Membuat profiling data
-	-Statistik diskriptif data
+- Statistik diskriptif data
 - Mengeksplorasi data
--visualisasi data
+- Visualisasi data
 hasil ditambahkan di webstatis menjadi menu data undertanding
 
 Tugas 2:
 - Data understanding menjelaskan tipe" data
-- deteksi outlier menggunakan knn dengan penjelasan konsepnya, menggunakan data iris yang sudah di ubah
+- Deteksi outlier menggunakan knn dengan penjelasan konsepnya, menggunakan data iris yang sudah di ubah
 
 Tugas 3:
 membuat materi LOF dengan contoh manual dengan k=3
