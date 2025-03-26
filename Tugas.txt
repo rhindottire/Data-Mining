@@ -14,7 +14,7 @@ Tugas 2:
 Tugas 3:
 membuat materi LOF dengan contoh manual dengan k=3
 dan data sebanyak 10 dengan 2 fitur di web statis
-dan dibandingkan hasilnya dengan pakek library sylearn
+dan dibandingkan hasilnya dengan pakek library sklearn
 
 Tugas 4:
 membandingkan akurasi dari data iris tanpa oulier(menghapus data outlier)
