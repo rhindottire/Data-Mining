@@ -33,7 +33,14 @@ jobs:
           echo "MYSQL_URL=${{ secrets.MYSQL_URL }}" >> $GITHUB_ENV
           echo "POSTGRES_URL=${{ secrets.POSTGRES_URL }}" >> $GITHUB_ENV
 
+      - name: Restore ca.pem from secret
+        run: |
+          mkdir -p certs
+          echo "${{ secrets.CA_PEM_BASE64 }}" | base64 -d > certs/ca.pem
+
       - name: Run Jupyter Notebook (Execute pendata/Tugas1.ipynb)
+        env:
+          SSL_ROOT_CERT: certs/ca.pem
         run: |
           jupyter nbconvert --to notebook --execute pendata/Tugas1.ipynb --output Tugas.ipynb
 
