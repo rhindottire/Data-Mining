@@ -11,4 +11,8 @@ chapters:
 - file: Tugas3
 - file: Tugas4
 - file: UTS
-- file: keyword
+- section:
+    title: Statistics & Mathematics
+    chapters:
+      - file: math/euclidean
+      - file: math/knn
