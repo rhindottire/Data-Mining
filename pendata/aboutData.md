@@ -25,7 +25,7 @@ Big Data merujuk pada himpunan data berukuran sangat besar dan kompleks yang ter
 3. **Variety**: Keragaman tipe data termasuk yang terstruktur (database), tidak terstruktur (teks & gambar), dan semi terstruktur (file JSON).
 4. **Veracity**: Kualitas data (Big Data sering berisi data berisik, tidak lengkap, dan tidak konsisten).
 
-### Why is Big Data Important?
+**Why is Big Data Important?**
 Big Data berkaitan erat dengan topik **Data Analytics** dan **Data Mining** karena menyediakan bahan mentah untuk analisis. Tanpa Big Data, aplikasi modern berbasis data _(recommendation systems, market trend prediction, and fraud detection)_ tidak akan mungkin terjadi. Tantangan Big Data _(storage, processing, and analysis)_ mengarah pada pengembangan alat dan teknologi canggih seperti **Hadoop, Spark, and Cloud computing**.
 
 ## Data Analytics

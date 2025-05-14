@@ -19,3 +19,8 @@ dan dibandingkan hasilnya dengan pakek library sklearn
 Tugas 4:
 membandingkan akurasi dari data iris tanpa oulier(menghapus data outlier)
 dan menggunakan outlier menggunakan naive bayes
+
+Tugas 5:
+dengan data iriss menghapus class dan menghitung K-mean klastering
+dan mencoba 2-4 klaster mencari silhouette dan SSE banyak klaster yang terbaik 
+menggunakan library sylearn minggu depan cek tugas diletakkan di web statis

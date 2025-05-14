@@ -1,6 +1,9 @@
+```{contents}
+```
+
 # Statistics & Mathematics
 
-## Mean, Median, Mode
+<!-- ## Mean, Median, Mode
 ## Variance, Standard Deviation
 
 ## Normalization
@@ -41,4 +44,4 @@
 ## Reinforcement Learning (Konsep Dasar)
 
 ## RMSE, MAE (untuk regresi)
-## Silhouette Score (untuk clustering)
+## Silhouette Score (untuk clustering) -->
