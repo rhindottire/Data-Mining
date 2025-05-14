@@ -24,7 +24,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
-          pip install pandas sqlalchemy pymysql psycopg2-binary jupyter nbconvert python-dotenv
+          pip install pandas numpy matplotlib seaborn sqlalchemy python-dotenv scikit-learn pymysql psycopg2-binary jupyter nbconvert
 
       - name: Set environment variables
         run: |
