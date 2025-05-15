@@ -1,0 +1,908 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Naive Bayes &#8212; Data-Mining</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Tugas4';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="UTS" href="UTS.html" />
+    <link rel="prev" title="Local Outlier Factor" href="Tugas3.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/ElysiaJS.webp" class="logo__image only-light" alt="Data-Mining - Home"/>
+    <script>document.write(`<img src="_static/ElysiaJS.webp" class="logo__image only-dark" alt="Data-Mining - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="aboutData.html">What is Data?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dataProcess.html">Data Mining Process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas1.html">Data Understanding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas2.html">Outlier and K-NN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas3.html">Local Outlier Factor</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Naive Bayes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UTS.html">UTS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas5.html">Clustering and K-Means</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="keyword.html">Statistics &amp; Mathematics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="math/euclidean.html">Euclidean Distance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="math/knn.html">K-Nearest Neighbors (KNN)</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/rhindottire/Data-Mining" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/rhindottire/Data-Mining/issues/new?title=Issue%20on%20page%20%2FTugas4.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Tugas4.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Naive Bayes</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#teorema-bayes">Teorema Bayes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#asumsi-independensi">Asumsi Independensi</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#training">Training</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prediction">Prediction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#advantages-disadvantages">Advantages &amp; Disadvantages</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#types-of-naive-bayes">Types of Naïve Bayes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-naive-bayes-gnb">Gaussian Naïve Bayes (GNB)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multinomial-naive-bayes">Multinomial Naïve Bayes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bernoulli-naive-bayes">Bernoulli Naïve Bayes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#get-cleaned-data">Get Cleaned Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#independence-assumption">Independence Assumption</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#predictions">Predictions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Teorema Bayes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prior-probability-p-y">Prior Probability (<span class="math notranslate nohighlight">\(P(y)\)</span>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#likelihood-p-x-y">Likelihood (<span class="math notranslate nohighlight">\(P(x|y)\)</span>)</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="naive-bayes">
+<h1>Naive Bayes<a class="headerlink" href="#naive-bayes" title="Link to this heading">#</a></h1>
+<p>Naïve Bayes adalah algoritma <code class="docutils literal notranslate"><span class="pre">classification</span></code> yang didasarkan pada prinsip <strong>probabilitas</strong> dan <strong>Teorema Bayes</strong>, menyatakan bahwa peluang suatu hipotesis dapat dihitung dari peluang data, asalkan setiap fitur dianggap <em><strong>independent</strong></em>. Algoritma ini menghitung <strong>probabilitas</strong> <em>a priori</em> dari setiap kelas dan mengalikannya dengan <strong>probabilitas</strong> kondisi setiap fitur muncul dalam data, menghasilkan <strong>probabilitas</strong> <em>posterior</em>. Meskipun asumsi independensi antar fitur sering kali tidak sepenuhnya realistis di dunia nyata, Naïve Bayes tetap efektif dan efisien, terutama untuk masalah dengan data berukuran besar dan dimensi tinggi seperti pengolahan bahasa alami, deteksi spam, dan diagnosis medis. Pendekatan ini juga mencakup varian-varian seperti <strong>Gaussian Naïve</strong> Bayes untuk data kontinu, serta <em>Multinomial</em> dan <em>Bernoulli</em> Naïve Bayes untuk data teks dan biner, di mana teknik seperti <code class="docutils literal notranslate"><span class="pre">Laplace</span> <span class="pre">smoothing</span></code> digunakan untuk mengatasi masalah <strong>probabilitas</strong> nol. Secara keseluruhan, Naïve Bayes menawarkan metode sederhana namun kuat untuk <code class="docutils literal notranslate"><span class="pre">classification</span></code>, memanfaatkan teori <strong>probabilitas</strong> untuk memberikan prediksi yang cepat dan andal dalam berbagai aplikasi data mining.</p>
+<section id="teorema-bayes">
+<h2>Teorema Bayes<a class="headerlink" href="#teorema-bayes" title="Link to this heading">#</a></h2>
+<div class="math notranslate nohighlight">
+\[
+P(A|B) = \frac{P(B|A) \cdot P(A)}{P(B)}
+\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( P(A|B) \)</span>: Probabilitas hipotesis <span class="math notranslate nohighlight">\( A \)</span> terjadi jika evidence <span class="math notranslate nohighlight">\( B \)</span> teramati (<em>posterior</em>).</p></li>
+<li><p><span class="math notranslate nohighlight">\( P(B|A) \)</span>: Probabilitas evidence <span class="math notranslate nohighlight">\( B \)</span> muncul jika hipotesis <span class="math notranslate nohighlight">\( A \)</span> benar (<em>likelihood</em>).</p></li>
+<li><p><span class="math notranslate nohighlight">\( P(A) \)</span>: Probabilitas awal hipotesis <span class="math notranslate nohighlight">\( A \)</span> (<em>prior</em>).</p></li>
+<li><p><span class="math notranslate nohighlight">\( P(B) \)</span>: Probabilitas evidence <span class="math notranslate nohighlight">\( B \)</span> (<em>evidence</em>).</p></li>
+</ul>
+<p>Dalam klasifikasi Naïve Bayes, kita ingin mencari probabilitas kelas <span class="math notranslate nohighlight">\( C \)</span> dari suatu sampel dengan fitur <span class="math notranslate nohighlight">\( X_1, X_2, ..., X_n \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+P(C|X_1, X_2, ..., X_n) = \frac{P(X_1, X_2, ..., X_n|C) P(C)}{P(X_1, X_2, ..., X_n)}
+\]</div>
+<p>Karena asumsi independensi antar fitur, maka:</p>
+<div class="math notranslate nohighlight">
+\[
+P(X_1, X_2, ..., X_n|C) = P(X_1|C) P(X_2|C) ... P(X_n|C)
+\]</div>
+<p>Sehingga rumus Naïve Bayes menjadi:</p>
+<div class="math notranslate nohighlight">
+\[
+P(C|X_1, X_2, ..., X_n) \propto P(C) \prod_{i=1}^{n} P(X_i|C)
+\]</div>
+<section id="asumsi-independensi">
+<h3>Asumsi Independensi<a class="headerlink" href="#asumsi-independensi" title="Link to this heading">#</a></h3>
+<p>Naive Bayes mengasumsikan semua fitur (<span class="math notranslate nohighlight">\( x_1, x_2, ..., x_n \)</span>) independen terhadap satu lain jika kelas (<span class="math notranslate nohighlight">\( y \)</span>) diketahui:</p>
+<div class="math notranslate nohighlight">
+\[
+P(x_1, x_2, ..., x_n | y) = P(x_1|y) \cdot P(x_2|y) \cdot ... \cdot P(x_n|y)
+\]</div>
+<p>Asumsi ini menyederhanakan perhitungan, tetapi bisa mengurangi akurasi jika fitur saling berkorelasi.</p>
+</section>
+<section id="training">
+<h3>Training<a class="headerlink" href="#training" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Hitung prior probability untuk setiap kelas:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+  P(y) = \frac{\text{Jumlah sampel kelas } y}{\text{Total sampel}}
+  \]</div>
+<ol class="arabic simple" start="2">
+<li><p>Hitung likelihood setiap fitur berdasarkan kelas:</p></li>
+</ol>
+<ul>
+<li><p>Untuk Gaussian: Hitung mean (<span class="math notranslate nohighlight">\( \mu \)</span>) dan deviasi standar (<span class="math notranslate nohighlight">\( \sigma \)</span>) fitur.</p></li>
+<li><p>Untuk Multinomial/Bernoulli: Hitung probabilitas fitur <span class="math notranslate nohighlight">\( x_i \)</span> pada kelas <span class="math notranslate nohighlight">\( y \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+    P(x_i|y) = \frac{\text{Frekuensi } x_i \text{ di kelas } y + \alpha}{\text{Total fitur di kelas } y + \alpha \cdot n}
+    \]</div>
+</li>
+</ul>
+<p>(<span class="math notranslate nohighlight">\( \alpha \)</span> = Laplace smoothing untuk menghindari probabilitas nol).</p>
+</section>
+<section id="prediction">
+<h3>Prediction<a class="headerlink" href="#prediction" title="Link to this heading">#</a></h3>
+<p>Untuk sampel baru (<span class="math notranslate nohighlight">\( x_1, x_2, ..., x_n \)</span>), pilih kelas <span class="math notranslate nohighlight">\( y \)</span> dengan nilai posterior tertinggi:</p>
+<div class="math notranslate nohighlight">
+\[
+y = \arg\max_{y} \left( P(y) \cdot \prod_{i=1}^n P(x_i|y) \right)
+\]</div>
+</section>
+<section id="advantages-disadvantages">
+<h3>Advantages &amp; Disadvantages<a class="headerlink" href="#advantages-disadvantages" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Kelebihan</p></th>
+<th class="head"><p>Disadvantages</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Cepat dan efisien untuk dataset besar.</p></td>
+<td><p>Asumsi independensi fitur sering tidak valid.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Handal pada data dimensi tinggi.</p></td>
+<td><p>Sensitif terhadap data tidak seimbang (<em>class imbalance</em>).</p></td>
+</tr>
+<tr class="row-even"><td><p>Cocok untuk klasifikasi teks.</p></td>
+<td><p>Tidak bisa menangani fitur yang saling bergantung.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="types-of-naive-bayes">
+<h2>Types of Naïve Bayes<a class="headerlink" href="#types-of-naive-bayes" title="Link to this heading">#</a></h2>
+<p>Terdapat beberapa varian utama dari Naïve Bayes, tergantung pada tipe data fitur yang digunakan:</p>
+<section id="gaussian-naive-bayes-gnb">
+<h3>Gaussian Naïve Bayes (GNB)<a class="headerlink" href="#gaussian-naive-bayes-gnb" title="Link to this heading">#</a></h3>
+<ul>
+<li><p>Digunakan ketika fitur berupa data kontinu dan diasumsikan mengikuti distribusi normal (Gaussian).</p></li>
+<li><p>Probabilitas dihitung menggunakan fungsi distribusi normal:</p>
+<div class="math notranslate nohighlight">
+\[
+  P(X_i|C) = \frac{1}{\sqrt{2\pi\sigma_C^2}} e^{-\frac{(X_i - \mu_C)^2}{2\sigma_C^2}}
+  \]</div>
+</li>
+</ul>
+<p>di mana <span class="math notranslate nohighlight">\( \mu_C \)</span> dan <span class="math notranslate nohighlight">\( \sigma_C^2 \)</span> adalah rata-rata dan varians fitur <span class="math notranslate nohighlight">\( X_i \)</span> dalam kelas <span class="math notranslate nohighlight">\( C \)</span>.</p>
+</section>
+<section id="multinomial-naive-bayes">
+<h3>Multinomial Naïve Bayes<a class="headerlink" href="#multinomial-naive-bayes" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Cocok untuk data kategori dengan distribusi multinomial.</p></li>
+<li><p>Sering digunakan dalam text classification seperti spam detection.</p></li>
+<li><p>Probabilitas dihitung berdasarkan frekuensi kata dalam dokumen.</p></li>
+</ul>
+</section>
+<section id="bernoulli-naive-bayes">
+<h3>Bernoulli Naïve Bayes<a class="headerlink" href="#bernoulli-naive-bayes" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Digunakan untuk data biner (0/1), misalnya kehadiran atau ketidakhadiran kata dalam dokumen.</p></li>
+<li><p>Probabilitas dihitung berdasarkan kehadiran fitur dalam kelas tertentu.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.naive_bayes</span><span class="w"> </span><span class="kn">import</span> <span class="n">GaussianNB</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">classification_report</span><span class="p">,</span> <span class="n">confusion_matrix</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="get-cleaned-data">
+<h2>Get Cleaned Data<a class="headerlink" href="#get-cleaned-data" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;iris_cleaned.csv&quot;</span><span class="p">)</span>
+<span class="c1"># Hapus kolom &#39;id&#39; (tidak diperlukan untuk pemodelan)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;5 Baris Pertama Data:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5 Baris Pertama Data:
+         class  petal length  petal width  sepal length  sepal width
+0  Iris-setosa           1.4          0.2           4.9          3.0
+1  Iris-setosa           1.3          0.2           4.8          3.2
+2  Iris-setosa           1.5          0.2           4.6          3.1
+3  Iris-setosa           1.4          0.2           5.0          3.6
+4  Iris-setosa           1.7          0.4           5.4          3.9
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Visualisasi Distribusi Kelas</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">countplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;class&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>  <span class="c1"># Gunakan kolom &#39;class&#39;</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Distribusi Kelas&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/1af138a659a550628ff20f4dd033897773f27130a880074612381636ed98553a.png" src="_images/1af138a659a550628ff20f4dd033897773f27130a880074612381636ed98553a.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Visualisasi Pairplot</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;class&#39;</span><span class="p">)</span>  <span class="c1"># Gunakan kolom &#39;class&#39;</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/e6031c2c0c372aa7d1ac734c50ffbcb35bfc170a42c3cf4acb21fa1e40b90d0c.png" src="_images/e6031c2c0c372aa7d1ac734c50ffbcb35bfc170a42c3cf4acb21fa1e40b90d0c.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Pisahkan fitur (X) dan target (y)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;class&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;class&#39;</span><span class="p">]</span>
+<span class="c1"># Split data</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="independence-assumption">
+<h3>Independence Assumption<a class="headerlink" href="#independence-assumption" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+P(x_1, x_2, ..., x_n | y) = P(x_1|y) \cdot P(x_2|y) \cdot ... \cdot P(x_n|y)
+\]</div>
+<p><strong>Implementasi dalam Kode</strong>:</p>
+<ul>
+<li><p>Asumsi ini “tertanam” dalam algoritma <code class="docutils literal notranslate"><span class="pre">GaussianNB()</span></code> di <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code>.</p></li>
+<li><p>Perkalian likelihood dilakukan otomatis saat prediksi:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">posterior</span> <span class="o">=</span> <span class="n">prior</span> <span class="o">*</span> <span class="p">(</span><span class="n">likelihood_feature1</span> <span class="o">*</span> <span class="n">likelihood_feature2</span> <span class="o">*</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">GaussianNB</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="predictions">
+<h3>Predictions<a class="headerlink" href="#predictions" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+y = \arg\max_{y} \left( P(y) \cdot \prod_{i=1}^n P(x_i|y) \right)
+\]</div>
+<p>Implementasi dalam Kode:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">model.predict()</span></code> melakukan perhitungan ini untuk setiap sampel di <code class="docutils literal notranslate"><span class="pre">X_test</span></code>.</p></li>
+<li><p>Hasil prediksi disimpan di <code class="docutils literal notranslate"><span class="pre">y_pred</span></code>.</p></li>
+</ul>
+</section>
+<section id="id1">
+<h3>Teorema Bayes<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+P(y|x) = \frac{P(x|y) \cdot P(y)}{P(x)}
+\]</div>
+<p>Implementasi dalam Kode:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">model.fit(X_train,</span> <span class="pre">y_train)</span></code> menghitung <span class="math notranslate nohighlight">\(P(y)\)</span> (<strong>prior</strong>) dan <span class="math notranslate nohighlight">\(P(x|y)\)</span> (<strong>likelihood</strong>).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">model.predict(X_test)</span></code> menghitung <span class="math notranslate nohighlight">\(P(y|x)\)</span> (<strong>posterior</strong>) untuk setiap kelas dan memilih kelas dengan posterior tertinggi.</p></li>
+<li><p><strong>Evidence (<span class="math notranslate nohighlight">\(P(x)\)</span>)</strong> tidak dihitung langsung karena pada klasifikasi, <span class="math notranslate nohighlight">\(P(x)\)</span> konstan untuk semua kelas, cukup membandingkan pembilang (<span class="math notranslate nohighlight">\(P(x|y) \cdot P(y)\)</span>).</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="prior-probability-p-y">
+<h3>Prior Probability (<span class="math notranslate nohighlight">\(P(y)\)</span>)<a class="headerlink" href="#prior-probability-p-y" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+P(y) = \frac{\text{Jumlah sampel kelas } y}{\text{Total sampel}}
+\]</div>
+<p>Implementasi dalam Kode:</p>
+<ul class="simple">
+<li><p>Prior probability dihitung saat <code class="docutils literal notranslate"><span class="pre">model.fit()</span></code> dan disimpan di <code class="docutils literal notranslate"><span class="pre">model.class_prior_</span></code>.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Prior Probability:&quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">class_prior_</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Prior Probability: [0.34513274 0.32743363 0.32743363]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="likelihood-p-x-y">
+<h3>Likelihood (<span class="math notranslate nohighlight">\(P(x|y)\)</span>)<a class="headerlink" href="#likelihood-p-x-y" title="Link to this heading">#</a></h3>
+<p>Rumus (Gaussian Naive Bayes):</p>
+<div class="math notranslate nohighlight">
+\[
+P(x_i|y) = \frac{1}{\sqrt{2\pi\sigma_y^2}} \exp\left(-\frac{(x_i - \mu_y)^2}{2\sigma_y^2}\right)
+\]</div>
+<p>Implementasi dalam Kode:</p>
+<ul class="simple">
+<li><p>Mean (<span class="math notranslate nohighlight">\(\mu_y\)</span>) dan Varians (<span class="math notranslate nohighlight">\(\sigma_y^2\)</span>) dihitung saat <code class="docutils literal notranslate"><span class="pre">model.fit()</span></code> dan disimpan di:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">model.theta_</span></code> (mean)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">model.var_</span></code> (variance)</p></li>
+</ul>
+</li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mean (μ):&quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">theta_</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Variance (σ²):&quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">var_</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mean (μ): [[1.46923077 0.25128205 5.01025641 3.44102564]
+ [4.28108108 1.34054054 5.98918919 2.82162162]
+ [5.51891892 2.04054054 6.55675676 2.95945946]]
+Variance (σ²): [[0.03033531 0.01224195 0.11579225 0.12754767]
+ [0.22585829 0.04024836 0.24420745 0.09899197]
+ [0.23504748 0.07484295 0.28353543 0.05484295]]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Confusion Matrix</span>
+<span class="n">cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">cm</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Blues&#39;</span><span class="p">,</span> <span class="n">xticklabels</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">classes_</span><span class="p">,</span> <span class="n">yticklabels</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">classes_</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Predicted&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Actual&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Confusion Matrix&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Classification Report</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/36e5d388761a5480e6e431d5caff7e735ea80c8bffadb6b55550cf96d618ffd5.png" src="_images/36e5d388761a5480e6e431d5caff7e735ea80c8bffadb6b55550cf96d618ffd5.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                 precision    recall  f1-score   support
+
+    Iris-setosa       1.00      1.00      1.00         9
+Iris-versicolor       0.92      1.00      0.96        12
+ Iris-virginica       1.00      0.88      0.93         8
+
+       accuracy                           0.97        29
+      macro avg       0.97      0.96      0.96        29
+   weighted avg       0.97      0.97      0.97        29
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Tugas3.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Local Outlier Factor</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="UTS.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">UTS</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#teorema-bayes">Teorema Bayes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#asumsi-independensi">Asumsi Independensi</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#training">Training</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prediction">Prediction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#advantages-disadvantages">Advantages &amp; Disadvantages</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#types-of-naive-bayes">Types of Naïve Bayes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-naive-bayes-gnb">Gaussian Naïve Bayes (GNB)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multinomial-naive-bayes">Multinomial Naïve Bayes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bernoulli-naive-bayes">Bernoulli Naïve Bayes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#get-cleaned-data">Get Cleaned Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#independence-assumption">Independence Assumption</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#predictions">Predictions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Teorema Bayes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prior-probability-p-y">Prior Probability (<span class="math notranslate nohighlight">\(P(y)\)</span>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#likelihood-p-x-y">Likelihood (<span class="math notranslate nohighlight">\(P(x|y)\)</span>)</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By ACHMAD RIDHO FA'IZ
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
