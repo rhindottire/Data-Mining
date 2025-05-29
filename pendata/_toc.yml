@@ -12,7 +12,8 @@ chapters:
 - file: Tugas4
 - file: UTS
 - file: Tugas5
-- file: keyword
-  sections:
-    - file: math/euclidean
-    - file: math/knn
+- file: Tugas6
+# - file: keyword
+#   sections:
+#     - file: math/euclidean
+#     - file: math/knn
