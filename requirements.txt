@@ -10,3 +10,4 @@ seaborn
 sqlalchemy
 python-dotenv
 scikit-learn
+cryptography
