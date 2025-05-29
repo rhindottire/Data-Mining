@@ -13,7 +13,3 @@ chapters:
 - file: UTS
 - file: Tugas5
 - file: Tugas6
-# - file: keyword
-#   sections:
-#     - file: math/euclidean
-#     - file: math/knn
