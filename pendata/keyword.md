@@ -45,3 +45,39 @@
 
 ## RMSE, MAE (untuk regresi)
 ## Silhouette Score (untuk clustering) -->
+
+### 2. **Markdown Editor dengan Mermaid Support**
+Lorem:
+- [Mermaid.live](https://mermaid.live/)
+- [StackEdit](https://stackedit.io/)
+- [StackEdit](https://stackedit.io/)
+- [Obsidian](https://obsidian.md/)
+- [Typora](https://typora.io/)
+- GitHub README (pastikan didukung di repo kamu)
+
+Contoh dalam markdown:
+````markdown
+```mermaid
+graph TD
+    A[Data Mentah] --> B[Preprocessing]
+    B --> C[Perhitungan Manual]
+    B --> D[Model Sklearn]
+    C --> E[Aturan Decision Tree]
+    D --> E
+    E --> F[Pengujian 2 Data Baru]
+    C --> G[Akurasi Manual]
+    D --> H[Akurasi Sklearn]
+    G --> I[Perbandingan]
+    H --> I
+
+Contoh dalam markdown:
+```mermaid
+graph LR
+    A[Data Asli] --> B[Transformasi Fitur]
+    B --> C[Data Baru: Sepal+Petal Area]
+    C --> D{Decision Tree Manual}
+    C --> E{Decision Tree Sklearn}
+    D --> F[Prediksi Manual]
+    E --> G[Prediksi Sklearn]
+    F --> H[Akurasi vs Label Asli]
+    G --> H

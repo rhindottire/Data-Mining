@@ -24,3 +24,11 @@ Tugas 5:
 dengan data iriss menghapus class dan menghitung K-mean klastering
 dan mencoba 2-4 klaster mencari silhouette dan SSE banyak klaster yang terbaik 
 menggunakan library sylearn minggu depan cek tugas diletakkan di web statis
+
+Tugas 6:
+Kalkulasi data original iris menggunakan perhitungan Fuzzy C-Means
+
+Tugas 7:
+Buat hitungan manual menggunakan Information Gain, untuk klasifikasi dengan jumlah 15 data dengan 2 fitur dan 3 kelas.
+Bandingkan hasilnya menggunakan sklearn DecisionTreeClassifier.
+Buat pohonnya dan hasilkan rulenya dan uji dengan 2 data baru.
