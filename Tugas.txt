@@ -32,3 +32,7 @@ Tugas 7:
 Buat hitungan manual menggunakan Information Gain, untuk klasifikasi dengan jumlah 15 data dengan 2 fitur dan 3 kelas.
 Bandingkan hasilnya menggunakan sklearn DecisionTreeClassifier.
 Buat pohonnya dan hasilkan rulenya dan uji dengan 2 data baru.
+
+Tugas 8:
+Menjelaskan proses Discretization menggunakan K-Means Clustering pada data iris,
+dan lakukan dengan model Naive Bayes dan Decision Tree on data that has been Discretized and before Discretization.
