@@ -36,3 +36,33 @@ Buat pohonnya dan hasilkan rulenya dan uji dengan 2 data baru.
 Tugas 8:
 Menjelaskan proses Discretization menggunakan K-Means Clustering pada data iris,
 dan lakukan dengan model Naive Bayes dan Decision Tree on data that has been Discretized and before Discretization.
+
+
+
+
+
+
+
+
+saya sangat puas dengan hasil data understanding yang kamu berikan ini.
+dengan senang hati jika kamu mau membantu saya melanjutkan ke tahap Data Preparation.
+
+sebelumnya kamu menuliskan:
+### 3. Data Preparation
+- **Split data**: Training set (70%) vs Testing set (30%).
+- **Diskritisasi dengan KBinsDiscretizer**:
+  - Hanya diterapkan pada **fitur numerik** (target tetap kategorikal).
+  - Parameter: `strategy='kmeans'`, `n_bins=3`, `encode='ordinal'`.
+  - **Hanya fitting pada training set** (untuk hindari data leakage).
+- **Output**:
+  - Versi data kontinu (asli).
+  - Versi data diskret (hasil transformasi).
+
+berikut adalah informasi yang saya ketahui tentang data preparation:
+Data Cleaning: Menangani missing values, menghapus duplikat, dan memperbaiki kesalahan.
+
+Data Transformation: Normalize or Standardize data, membuat fitur baru (rekayasa fitur), dan menyandikan variabel kategori.
+
+Data Integration: Menggabungkan data dari berbagai sumber.
+
+Data Reduction: Kurangi ukuran kumpulan data dengan memilih fitur atau pengambilan sampel yang relevan.
