@@ -1,4 +1,4 @@
-sepal_length_disc,sepal_width_disc,petal_length_disc,petal_width_disc,class
+sepal_length_disc,sepal_width_disc,petal_length_disc,petal_width_disc,Class
 0.0,0.0,1.0,1.0,Iris-versicolor
 1.0,0.0,1.0,1.0,Iris-versicolor
 0.0,2.0,0.0,0.0,Iris-setosa
