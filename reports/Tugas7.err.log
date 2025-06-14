@@ -1,0 +1,135 @@
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.10.17/x64/lib/python3.10/site-packages/jupyter_core/utils/__init__.py", line 154, in wrapped
+    asyncio.get_running_loop()
+RuntimeError: no running event loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.10.17/x64/lib/python3.10/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/opt/hostedtoolcache/Python/3.10.17/x64/lib/python3.10/site-packages/nbclient/client.py", line 1319, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/opt/hostedtoolcache/Python/3.10.17/x64/lib/python3.10/site-packages/jupyter_core/utils/__init__.py", line 158, in wrapped
+    return loop.run_until_complete(inner)
+  File "/opt/hostedtoolcache/Python/3.10.17/x64/lib/python3.10/asyncio/base_events.py", line 649, in run_until_complete
+    return future.result()
+  File "/opt/hostedtoolcache/Python/3.10.17/x64/lib/python3.10/site-packages/nbclient/client.py", line 709, in async_execute
+    await self.async_execute_cell(
+  File "/opt/hostedtoolcache/Python/3.10.17/x64/lib/python3.10/site-packages/nbclient/client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/opt/hostedtoolcache/Python/3.10.17/x64/lib/python3.10/site-packages/nbclient/client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+# Test dengan data training
+predictions = tree_model.predict(features)
+
+# Create comprehensive results DataFrame
+results_df = pd.DataFrame({
+    'Index': range(len(features)),
+    'Sepal_Area': features['Sepal_Area'].round(2),
+    'Petal_Area': features['Petal_Area'].round(2),
+    'Actual': target,
+    'Predicted': predictions,
+    'Correct': ['✅' if actual == pred else '❌' for actual, pred in zip(target, predictions)]
+})
+
+print("🎯 DETAILED PREDICTION RESULTS")
+print("=" * 80)
+print(results_df.to_string(index=False))
+
+# Enhanced accuracy metrics
+accuracy = np.mean(predictions == target)
+print(f"\n📊 PERFORMANCE METRICS")
+print("=" * 40)
+print(f"Training Accuracy: {accuracy:.3f} ({accuracy*100:.1f}%)")
+
+# Per-class accuracy
+print(f"\nPer-Class Performance:")
+for class_name in sorted(target.unique()):
+    class_mask = target == class_name
+    class_predictions = [predictions[i] for i in range(len(predictions)) if class_mask.iloc[i]]
+    class_actual = target[class_mask]
+    class_accuracy = np.mean(class_predictions == class_actual)
+    print(f"  {class_name}: {class_accuracy:.3f} ({class_accuracy*100:.1f}%)")
+
+# Beautiful confusion matrix
+plt.figure(figsize=(10, 8))
+cm = confusion_matrix(target, predictions)
+class_names = sorted(target.unique())
+class_names_short = [name.split('-')[1] for name in class_names]
+
+sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', 
+            xticklabels=class_names_short, yticklabels=class_names_short,
+            cbar_kws={'label': 'Count'})
+plt.title('Confusion Matrix - Manual Decision Tree', fontsize=16, fontweight='bold')
+plt.xlabel('Predicted Class', fontsize=12)
+plt.ylabel('Actual Class', fontsize=12)
+plt.show()
+
+# Tree statistics
+def get_tree_stats(node):
+    """Get tree statistics"""
+    if node['is_leaf']:
+        return {'nodes': 1, 'leaves': 1, 'max_depth': 0}
+    
+    left_stats = get_tree_stats(node['left'])
+    right_stats = get_tree_stats(node['right'])
+    
+    return {
+        'nodes': 1 + left_stats['nodes'] + right_stats['nodes'],
+        'leaves': left_stats['leaves'] + right_stats['leaves'],
+        'max_depth': 1 + max(left_stats['max_depth'], right_stats['max_depth'])
+    }
+
+stats = get_tree_stats(tree_model.tree)
+print(f"\n🌳 TREE STATISTICS")
+print("=" * 30)
+print(f"Total Nodes: {stats['nodes']}")
+print(f"Leaf Nodes: {stats['leaves']}")
+print(f"Internal Nodes: {stats['nodes'] - stats['leaves']}")
+print(f"Tree Depth: {stats['max_depth']}")
+------------------
+
+----- stdout -----
+🎯 DETAILED PREDICTION RESULTS
+================================================================================
+ Index  Sepal_Area  Petal_Area          Actual       Predicted Correct
+     0       17.85        0.28     Iris-setosa     Iris-setosa       ✅
+     1       14.70        0.28     Iris-setosa     Iris-setosa       ✅
+     2       15.04        0.26     Iris-setosa     Iris-setosa       ✅
+     3       14.26        0.30     Iris-setosa     Iris-setosa       ✅
+     4       18.00        0.28     Iris-setosa     Iris-setosa       ✅
+     5       22.40        6.58 Iris-versicolor Iris-versicolor       ✅
+     6       20.48        6.75 Iris-versicolor Iris-versicolor       ✅
+     7       21.39        7.35 Iris-versicolor Iris-versicolor       ✅
+     8       12.65        5.20 Iris-versicolor Iris-versicolor       ✅
+     9       18.20        6.90 Iris-versicolor Iris-versicolor       ✅
+    10       20.79       15.00  Iris-virginica  Iris-virginica       ✅
+    11       15.66        9.69  Iris-virginica  Iris-virginica       ✅
+    12       21.30       12.39  Iris-virginica  Iris-virginica       ✅
+    13       18.27       10.08  Iris-virginica  Iris-virginica       ✅
+    14       19.50       12.76  Iris-virginica  Iris-virginica       ✅
+
+📊 PERFORMANCE METRICS
+========================================
+Training Accuracy: 1.000 (100.0%)
+
+Per-Class Performance:
+  Iris-setosa: 1.000 (100.0%)
+  Iris-versicolor: 1.000 (100.0%)
+  Iris-virginica: 1.000 (100.0%)
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mNameError[0m                                 Traceback (most recent call last)
+Cell [0;32mIn[20], line 35[0m
+[1;32m     33[0m [38;5;66;03m# Beautiful confusion matrix[39;00m
+[1;32m     34[0m plt[38;5;241m.[39mfigure(figsize[38;5;241m=[39m([38;5;241m10[39m, [38;5;241m8[39m))
+[0;32m---> 35[0m cm [38;5;241m=[39m [43mconfusion_matrix[49m(target, predictions)
+[1;32m     36[0m class_names [38;5;241m=[39m [38;5;28msorted[39m(target[38;5;241m.[39munique())
+[1;32m     37[0m class_names_short [38;5;241m=[39m [name[38;5;241m.[39msplit([38;5;124m'[39m[38;5;124m-[39m[38;5;124m'[39m)[[38;5;241m1[39m] [38;5;28;01mfor[39;00m name [38;5;129;01min[39;00m class_names]
+
+[0;31mNameError[0m: name 'confusion_matrix' is not defined
+
