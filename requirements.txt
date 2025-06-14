@@ -11,3 +11,5 @@ sqlalchemy
 python-dotenv
 scikit-learn
 cryptography
+
+ydata-profiling
