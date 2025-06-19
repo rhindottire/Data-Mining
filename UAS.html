@@ -1,0 +1,1807 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>UAS &#8212; Data-Mining</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'UAS';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="KBinsDiscretizer" href="Tugas8.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/ElysiaJS.webp" class="logo__image only-light" alt="Data-Mining - Home"/>
+    <script>document.write(`<img src="_static/ElysiaJS.webp" class="logo__image only-dark" alt="Data-Mining - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="aboutData.html">What is Data?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dataProcess.html">Data Mining Process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas1.html">Data Understanding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas2.html">Outlier and K-NN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas3.html">Local Outlier Factor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas4.html">Naive Bayes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UTS.html">UTS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas5.html">Clustering and K-Means</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas6.html">Fuzzy C-Means</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas7.html">Decision Tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas8.html">KBinsDiscretizer</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">UAS</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/rhindottire/Data-Mining" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/rhindottire/Data-Mining/issues/new?title=Issue%20on%20page%20%2FUAS.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/UAS.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>UAS</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wine-quality">Wine Quality</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-information">Dataset Information</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introductory-paper">Introductory Paper</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variable-table">Variable Table</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-variable-information">Additional Variable Information</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-files">Dataset Files</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#more-information">More Information</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#assignment-to-do">Assignment To-Do</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-mining-process-crisp-dm">Data Mining Process (<code class="docutils literal notranslate"><span class="pre">CRISP-DM</span></code>)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#business-understanding">1. Business Understanding</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#define-the-problem">1.1. Define the Problem</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">1.2. Objectives</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#identify-stakeholders">1.3. Identify Stakeholders</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#success-criteria">1.4. Success Criteria</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-understanding">2. Data Understanding</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#data-collection">2.1 Data Collection</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#data-description">2.2. Data Description</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#data-exploration">2.3. Data Exploration</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#data-quality">2.4. Data Quality</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-preparation">3. Data Preparation</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#data-cleaning">3.1 Data Cleaning</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#data-transformation">3.2. Data Transformation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#data-integration">3.3. Data Integration</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#data-reduction">3.4. Data Reduction</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modeling">4. Modeling</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#modeling-techniques">4.1. Modeling Techniques</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#build-models">4.2. Build Models</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#tune-models">4.3. Tune Models</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#validate-models">4.4. Validate Models</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation">5. Evaluation</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluate-results">5.1. Evaluate Results</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#roc">5.1.1. ROC</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#auc">5.1.2. AUC</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#review-business-objectives">5.2. Review Business Objectives</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#model-limitations">5.3. Model Limitations</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">5.4. Next Steps</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deployment">6. Deployment</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="uas">
+<h1>UAS<a class="headerlink" href="#uas" title="Link to this heading">#</a></h1>
+<p>Assignment Refrence: <a class="reference external" href="https://umarmuchtar.github.io/uas_datamining_git/uas.html">umarmuchtar</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="w"> </span><span class="nn">subprocess</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># file_path = os.path.abspath(&#39;resource/winequality-red.csv&#39;)</span>
+<span class="c1"># try:</span>
+<span class="c1">#     subprocess.run([&#39;start&#39;, &#39;&#39;, file_path], shell=True)</span>
+<span class="c1"># except Exception as e:</span>
+<span class="c1">#     print(&quot;Something went wrong:&quot;, e)</span>
+
+<span class="n">df_red</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;resource/winequality-red.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
+<span class="n">df_white</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;resource/winequality-white.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_red</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 1599 entries, 0 to 1598
+Data columns (total 12 columns):
+ #   Column                Non-Null Count  Dtype  
+---  ------                --------------  -----  
+ 0   fixed acidity         1599 non-null   float64
+ 1   volatile acidity      1599 non-null   float64
+ 2   citric acid           1599 non-null   float64
+ 3   residual sugar        1599 non-null   float64
+ 4   chlorides             1599 non-null   float64
+ 5   free sulfur dioxide   1599 non-null   float64
+ 6   total sulfur dioxide  1599 non-null   float64
+ 7   density               1599 non-null   float64
+ 8   pH                    1599 non-null   float64
+ 9   sulphates             1599 non-null   float64
+ 10  alcohol               1599 non-null   float64
+ 11  quality               1599 non-null   int64  
+dtypes: float64(11), int64(1)
+memory usage: 150.0 KB
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_white</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 4898 entries, 0 to 4897
+Data columns (total 12 columns):
+ #   Column                Non-Null Count  Dtype  
+---  ------                --------------  -----  
+ 0   fixed acidity         4898 non-null   float64
+ 1   volatile acidity      4898 non-null   float64
+ 2   citric acid           4898 non-null   float64
+ 3   residual sugar        4898 non-null   float64
+ 4   chlorides             4898 non-null   float64
+ 5   free sulfur dioxide   4898 non-null   float64
+ 6   total sulfur dioxide  4898 non-null   float64
+ 7   density               4898 non-null   float64
+ 8   pH                    4898 non-null   float64
+ 9   sulphates             4898 non-null   float64
+ 10  alcohol               4898 non-null   float64
+ 11  quality               4898 non-null   int64  
+dtypes: float64(11), int64(1)
+memory usage: 459.3 KB
+</pre></div>
+</div>
+</div>
+</div>
+<section id="wine-quality">
+<h2>Wine Quality<a class="headerlink" href="#wine-quality" title="Link to this heading">#</a></h2>
+<p>Donated on 10/6/2009</p>
+<p>Two datasets are included, related to red and white vinho verde wine samples, from the north of Portugal. The goal is to model wine quality based on physicochemical tests (see <a class="reference external" href="http://www3.dsi.uminho.pt/pcortez/wine/">Cortez et al., 2009</a>).</p>
+<p>Wine Quality Datasets
+These datasets are public available for research purposes only. The details are described in
+[Cortez et al., 2009]: <a class="reference external" href="https://www.sciencedirect.com/science/article/abs/pii/S0167923609001377?via%3Dihub">[©Elsevier]</a> <a class="reference external" href="http://www3.dsi.uminho.pt/pcortez/wine5.pdf">[Pre-press (pdf)]</a> <a class="reference external" href="http://www3.dsi.uminho.pt/pcortez/dss09-bib.txt">[bib]</a>. Please include this citation if you plan to use these datasets:
+P. Cortez, A. Cerdeira, F. Almeida, T. Matos and J. Reis. Modeling wine preferences by data mining from physicochemical properties. In Decision Support Systems, Elsevier, 47(4):547-553, 2009.</p>
+<p>The data can be used to test (ordinal) regression or classification (in effect, this is a multi-class task, where the clases are ordered) methods. Other research issues are feature selection and outlier detection. The data includes two datasets:</p>
+<p>winequality-red.csv - red wine preference samples;
+winequality-white.csv - white wine preference samples;
+The datasets are available here: <a class="reference internal" href="#"><span class="xref myst">winequality.zip</span></a>
+Vinho verde is a unique product from the Minho (northwest) region of Portugal. Medium in alcohol, is it particularly appreciated due to its freshness (specially in the summer). More details can be found at: <a class="reference external" href="http://www.vinhoverde.pt/en/">http://www.vinhoverde.pt/en/</a></p>
+<p>Return to: <a class="reference external" href="http://www3.dsi.uminho.pt/pcortez/Downloads.html">Paulo Cortez Downloads</a> <a class="reference external" href="https://pcortez.dsi.uminho.pt/">Paulo Cortez Home Pagex</a></p>
+<ul class="simple">
+<li><p>Dataset Characteristics: Multivariate</p></li>
+<li><p>Subject Area: Business</p></li>
+<li><p>Associated Tasks: Classification, Regression</p></li>
+<li><p>Feature Type: Real</p></li>
+<li><p>Instance: 4898</p></li>
+<li><p>Features: 11</p></li>
+</ul>
+<section id="dataset-information">
+<h3>Dataset Information<a class="headerlink" href="#dataset-information" title="Link to this heading">#</a></h3>
+<p><strong>Additional Information</strong><br />
+The two datasets are related to red and white variants of the Portuguese “Vinho Verde” wine. For more details, consult: <a class="reference external" href="http://www.vinhoverde.pt/en/">http://www.vinhoverde.pt/en/</a> or the reference [Cortez et al., 2009].  Due to privacy and logistic issues, only physicochemical (inputs) and sensory (the output) variables are available (e.g. there is no data about grape types, wine brand, wine selling price, etc.).</p>
+<p>These datasets can be viewed as <code class="docutils literal notranslate"><span class="pre">classification</span></code> or <code class="docutils literal notranslate"><span class="pre">regression</span></code> tasks.  The classes are ordered and not balanced (e.g. there are many more normal wines than excellent or poor ones). Outlier detection algorithms could be used to detect the few excellent or poor wines. Also, we are not sure if all input variables are relevant. So it could be interesting to test feature selection methods.</p>
+</section>
+<section id="introductory-paper">
+<h3>Introductory Paper<a class="headerlink" href="#introductory-paper" title="Link to this heading">#</a></h3>
+<p><a class="reference external" href="https://www.semanticscholar.org/paper/Modeling-wine-preferences-by-data-mining-from-Cortez-Cerdeira/bf15a0ccc14ac1deb5cea570c870389c16be019c">Modeling wine preferences by data mining from physicochemical properties</a><br />
+By P. Cortez, A. Cerdeira, Fernando Almeida, Telmo Matos, J. Reis. 2009<br />
+Published in Decision Support Systems</p>
+</section>
+<section id="variable-table">
+<h3>Variable Table<a class="headerlink" href="#variable-table" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Variable Name</p></th>
+<th class="head"><p>Role</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Decription</p></th>
+<th class="head"><p>Units</p></th>
+<th class="head"><p>Missing Values</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>fixed_acidity</p></td>
+<td><p>Feature</p></td>
+<td><p>Continuous</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-odd"><td><p>volatile_acidity</p></td>
+<td><p>Feature</p></td>
+<td><p>Continuous</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-even"><td><p>citric_acid</p></td>
+<td><p>Feature</p></td>
+<td><p>Continuous</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-odd"><td><p>residual_sugar</p></td>
+<td><p>Feature</p></td>
+<td><p>Continuous</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-even"><td><p>chlorides</p></td>
+<td><p>Feature</p></td>
+<td><p>Continuous</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-odd"><td><p>free_sulfur_dioxide</p></td>
+<td><p>Feature</p></td>
+<td><p>Continuous</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-even"><td><p>total_sulfur_dioxide</p></td>
+<td><p>Feature</p></td>
+<td><p>Continuous</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-odd"><td><p>density</p></td>
+<td><p>Feature</p></td>
+<td><p>Continuous</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-even"><td><p>pH</p></td>
+<td><p>Feature</p></td>
+<td><p>Continuous</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-odd"><td><p>sulphates</p></td>
+<td><p>Feature</p></td>
+<td><p>Continuous</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-even"><td><p>alcohol</p></td>
+<td><p>Feature</p></td>
+<td><p>Continuous</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">quality</span></code></p></td>
+<td><p>Target</p></td>
+<td><p>Integer</p></td>
+<td><p>score between 0 and 10</p></td>
+<td><p>…</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>color</strong></p></td>
+<td><p>Other</p></td>
+<td><p>Categorical</p></td>
+<td><p>red or white</p></td>
+<td><p>…</p></td>
+<td><p>No</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="additional-variable-information">
+<h3>Additional Variable Information<a class="headerlink" href="#additional-variable-information" title="Link to this heading">#</a></h3>
+<p>For more information, read [Cortez et al., 2009].</p>
+<ul class="simple">
+<li><p>Input variables (based on physicochemical tests):</p>
+<ul>
+<li><p>1 - fixed acidity</p></li>
+<li><p>2 - volatile acidity</p></li>
+<li><p>3 - citric acid</p></li>
+<li><p>4 - residual sugar</p></li>
+<li><p>5 - chlorides</p></li>
+<li><p>6 - free sulfur dioxide</p></li>
+<li><p>7 - total sulfur dioxide</p></li>
+<li><p>8 - density</p></li>
+<li><p>9 - pH</p></li>
+<li><p>10 - sulphates</p></li>
+<li><p>11 - alcohol</p></li>
+</ul>
+</li>
+<li><p>Output variable (based on sensory data):</p>
+<ul>
+<li><p>12 - quality (score between 0 and 10)</p></li>
+</ul>
+</li>
+</ul>
+<p>Source: <a class="reference external" href="https://archive.ics.uci.edu/dataset/186/wine+quality">Wine Quality</a></p>
+</section>
+<section id="dataset-files">
+<h3>Dataset Files<a class="headerlink" href="#dataset-files" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>File</p></th>
+<th class="head"><p>Size</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>winequality-white.csv</p></td>
+<td><p>258.2 KB</p></td>
+</tr>
+<tr class="row-odd"><td><p>winequality-red.csv</p></td>
+<td><p>82.2 KB</p></td>
+</tr>
+<tr class="row-even"><td><p>winequality.names</p></td>
+<td><p>3.2 KB</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="more-information">
+<h3>More Information<a class="headerlink" href="#more-information" title="Link to this heading">#</a></h3>
+<p>Install the ucimlrepo package:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">ucimlrepo</span>
+</pre></div>
+</div>
+<p>Import the dataset into your code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ucimlrepo</span><span class="w"> </span><span class="kn">import</span> <span class="n">fetch_ucirepo</span> 
+  
+<span class="c1"># fetch dataset </span>
+<span class="n">wine_quality</span> <span class="o">=</span> <span class="n">fetch_ucirepo</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">186</span><span class="p">)</span> 
+  
+<span class="c1"># data (as pandas dataframes) </span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">wine_quality</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">features</span> 
+<span class="n">y</span> <span class="o">=</span> <span class="n">wine_quality</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">targets</span> 
+  
+<span class="c1"># metadata </span>
+<span class="nb">print</span><span class="p">(</span><span class="n">wine_quality</span><span class="o">.</span><span class="n">metadata</span><span class="p">)</span> 
+  
+<span class="c1"># variable information </span>
+<span class="nb">print</span><span class="p">(</span><span class="n">wine_quality</span><span class="o">.</span><span class="n">variables</span><span class="p">)</span> 
+</pre></div>
+</div>
+<p><a class="reference external" href="https://github.com/uci-ml-repo/ucimlrepo">View Full Documentation</a><br />
+License: This dataset is licensed under a <a class="reference external" href="http://creativecommons.org/licenses/by/4.0/legalcode">Creative Commons Attribution 4.0 International</a> (CC BY 4.0) license.</p>
+</section>
+</section>
+<section id="assignment-to-do">
+<h2>Assignment To-Do<a class="headerlink" href="#assignment-to-do" title="Link to this heading">#</a></h2>
+</section>
+<section id="data-mining-process-crisp-dm">
+<h2>Data Mining Process (<code class="docutils literal notranslate"><span class="pre">CRISP-DM</span></code>)<a class="headerlink" href="#data-mining-process-crisp-dm" title="Link to this heading">#</a></h2>
+<section id="business-understanding">
+<h3>1. Business Understanding<a class="headerlink" href="#business-understanding" title="Link to this heading">#</a></h3>
+<section id="define-the-problem">
+<h4>1.1. Define the Problem<a class="headerlink" href="#define-the-problem" title="Link to this heading">#</a></h4>
+</section>
+<section id="objectives">
+<h4>1.2. Objectives<a class="headerlink" href="#objectives" title="Link to this heading">#</a></h4>
+</section>
+<section id="identify-stakeholders">
+<h4>1.3. Identify Stakeholders<a class="headerlink" href="#identify-stakeholders" title="Link to this heading">#</a></h4>
+</section>
+<section id="success-criteria">
+<h4>1.4. Success Criteria<a class="headerlink" href="#success-criteria" title="Link to this heading">#</a></h4>
+</section>
+</section>
+<section id="data-understanding">
+<h3>2. Data Understanding<a class="headerlink" href="#data-understanding" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="data-collection">
+<h4>2.1 Data Collection<a class="headerlink" href="#data-collection" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_red</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;resource/winequality-red.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
+<span class="n">df_white</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;resource/winequality-white.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="data-description">
+<h4>2.2. Data Description<a class="headerlink" href="#data-description" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">info_red</span> <span class="o">=</span> <span class="n">df_red</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 1599 entries, 0 to 1598
+Data columns (total 12 columns):
+ #   Column                Non-Null Count  Dtype  
+---  ------                --------------  -----  
+ 0   fixed acidity         1599 non-null   float64
+ 1   volatile acidity      1599 non-null   float64
+ 2   citric acid           1599 non-null   float64
+ 3   residual sugar        1599 non-null   float64
+ 4   chlorides             1599 non-null   float64
+ 5   free sulfur dioxide   1599 non-null   float64
+ 6   total sulfur dioxide  1599 non-null   float64
+ 7   density               1599 non-null   float64
+ 8   pH                    1599 non-null   float64
+ 9   sulphates             1599 non-null   float64
+ 10  alcohol               1599 non-null   float64
+ 11  quality               1599 non-null   int64  
+dtypes: float64(11), int64(1)
+memory usage: 150.0 KB
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">desc_red</span> <span class="o">=</span> <span class="n">df_red</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">desc_red</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>       fixed acidity  volatile acidity  citric acid  residual sugar  \
+count    1599.000000       1599.000000  1599.000000     1599.000000   
+mean        8.319637          0.527821     0.270976        2.538806   
+std         1.741096          0.179060     0.194801        1.409928   
+min         4.600000          0.120000     0.000000        0.900000   
+25%         7.100000          0.390000     0.090000        1.900000   
+50%         7.900000          0.520000     0.260000        2.200000   
+75%         9.200000          0.640000     0.420000        2.600000   
+max        15.900000          1.580000     1.000000       15.500000   
+
+         chlorides  free sulfur dioxide  total sulfur dioxide      density  \
+count  1599.000000          1599.000000           1599.000000  1599.000000   
+mean      0.087467            15.874922             46.467792     0.996747   
+std       0.047065            10.460157             32.895324     0.001887   
+min       0.012000             1.000000              6.000000     0.990070   
+25%       0.070000             7.000000             22.000000     0.995600   
+50%       0.079000            14.000000             38.000000     0.996750   
+75%       0.090000            21.000000             62.000000     0.997835   
+max       0.611000            72.000000            289.000000     1.003690   
+
+                pH    sulphates      alcohol      quality  
+count  1599.000000  1599.000000  1599.000000  1599.000000  
+mean      3.311113     0.658149    10.422983     5.636023  
+std       0.154386     0.169507     1.065668     0.807569  
+min       2.740000     0.330000     8.400000     3.000000  
+25%       3.210000     0.550000     9.500000     5.000000  
+50%       3.310000     0.620000    10.200000     6.000000  
+75%       3.400000     0.730000    11.100000     6.000000  
+max       4.010000     2.000000    14.900000     8.000000  
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">info_white</span> <span class="o">=</span> <span class="n">df_white</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 4898 entries, 0 to 4897
+Data columns (total 12 columns):
+ #   Column                Non-Null Count  Dtype  
+---  ------                --------------  -----  
+ 0   fixed acidity         4898 non-null   float64
+ 1   volatile acidity      4898 non-null   float64
+ 2   citric acid           4898 non-null   float64
+ 3   residual sugar        4898 non-null   float64
+ 4   chlorides             4898 non-null   float64
+ 5   free sulfur dioxide   4898 non-null   float64
+ 6   total sulfur dioxide  4898 non-null   float64
+ 7   density               4898 non-null   float64
+ 8   pH                    4898 non-null   float64
+ 9   sulphates             4898 non-null   float64
+ 10  alcohol               4898 non-null   float64
+ 11  quality               4898 non-null   int64  
+dtypes: float64(11), int64(1)
+memory usage: 459.3 KB
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">desc_white</span> <span class="o">=</span> <span class="n">df_white</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">desc_white</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>       fixed acidity  volatile acidity  citric acid  residual sugar  \
+count    4898.000000       4898.000000  4898.000000     4898.000000   
+mean        6.854788          0.278241     0.334192        6.391415   
+std         0.843868          0.100795     0.121020        5.072058   
+min         3.800000          0.080000     0.000000        0.600000   
+25%         6.300000          0.210000     0.270000        1.700000   
+50%         6.800000          0.260000     0.320000        5.200000   
+75%         7.300000          0.320000     0.390000        9.900000   
+max        14.200000          1.100000     1.660000       65.800000   
+
+         chlorides  free sulfur dioxide  total sulfur dioxide      density  \
+count  4898.000000          4898.000000           4898.000000  4898.000000   
+mean      0.045772            35.308085            138.360657     0.994027   
+std       0.021848            17.007137             42.498065     0.002991   
+min       0.009000             2.000000              9.000000     0.987110   
+25%       0.036000            23.000000            108.000000     0.991723   
+50%       0.043000            34.000000            134.000000     0.993740   
+75%       0.050000            46.000000            167.000000     0.996100   
+max       0.346000           289.000000            440.000000     1.038980   
+
+                pH    sulphates      alcohol      quality  
+count  4898.000000  4898.000000  4898.000000  4898.000000  
+mean      3.188267     0.489847    10.514267     5.877909  
+std       0.151001     0.114126     1.230621     0.885639  
+min       2.720000     0.220000     8.000000     3.000000  
+25%       3.090000     0.410000     9.500000     5.000000  
+50%       3.180000     0.470000    10.400000     6.000000  
+75%       3.280000     0.550000    11.400000     6.000000  
+max       3.820000     1.080000    14.200000     9.000000  
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="data-exploration">
+<h4>2.3. Data Exploration<a class="headerlink" href="#data-exploration" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">countplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;quality&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_red</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Red Wine Quality Distribution&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">countplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;quality&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_white</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;White Wine Quality Distribution&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;White Wine Quality Distribution&#39;)
+</pre></div>
+</div>
+<img alt="_images/e1929a7663dae3b4780f93a470cbcc85d8124984a2559bfd59590df9e7850f66.png" src="_images/e1929a7663dae3b4780f93a470cbcc85d8124984a2559bfd59590df9e7850f66.png" />
+</div>
+</div>
+</section>
+<section id="data-quality">
+<h4>2.4. Data Quality<a class="headerlink" href="#data-quality" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">missing_red</span> <span class="o">=</span> <span class="n">df_red</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">missing_red</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>fixed acidity           0
+volatile acidity        0
+citric acid             0
+residual sugar          0
+chlorides               0
+free sulfur dioxide     0
+total sulfur dioxide    0
+density                 0
+pH                      0
+sulphates               0
+alcohol                 0
+quality                 0
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">missing_white</span> <span class="o">=</span> <span class="n">df_white</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">missing_white</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>fixed acidity           0
+volatile acidity        0
+citric acid             0
+residual sugar          0
+chlorides               0
+free sulfur dioxide     0
+total sulfur dioxide    0
+density                 0
+pH                      0
+sulphates               0
+alcohol                 0
+quality                 0
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Q1</span> <span class="o">=</span> <span class="n">df_red</span><span class="p">[</span><span class="s1">&#39;chlorides&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.25</span><span class="p">)</span>
+<span class="n">Q3</span> <span class="o">=</span> <span class="n">df_red</span><span class="p">[</span><span class="s1">&#39;chlorides&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.75</span><span class="p">)</span>
+<span class="n">IQR</span> <span class="o">=</span> <span class="n">Q3</span> <span class="o">-</span> <span class="n">Q1</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">IQR</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.01999999999999999
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="data-preparation">
+<h3>3. Data Preparation<a class="headerlink" href="#data-preparation" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.feature_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">SelectKBest</span><span class="p">,</span> <span class="n">f_classif</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="data-cleaning">
+<h4>3.1 Data Cleaning<a class="headerlink" href="#data-cleaning" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">handle_outliers</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">column</span><span class="p">):</span>
+    <span class="n">Q1</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.25</span><span class="p">)</span>
+    <span class="n">Q3</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.75</span><span class="p">)</span>
+    <span class="n">IQR</span> <span class="o">=</span> <span class="n">Q3</span> <span class="o">-</span> <span class="n">Q1</span>
+    <span class="n">lower_bound</span> <span class="o">=</span> <span class="n">Q1</span> <span class="o">-</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">IQR</span>
+    <span class="n">upper_bound</span> <span class="o">=</span> <span class="n">Q3</span> <span class="o">+</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">IQR</span>
+    <span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">lower_bound</span><span class="p">,</span> <span class="n">lower_bound</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">])</span>
+    <span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">upper_bound</span><span class="p">,</span> <span class="n">upper_bound</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">df</span>
+
+<span class="n">outlier_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;residual sugar&#39;</span><span class="p">,</span> <span class="s1">&#39;chlorides&#39;</span><span class="p">,</span> <span class="s1">&#39;free sulfur dioxide&#39;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">outlier_cols</span><span class="p">:</span>
+    <span class="n">df_red</span> <span class="o">=</span> <span class="n">handle_outliers</span><span class="p">(</span><span class="n">df_red</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span>
+    <span class="n">df_white</span> <span class="o">=</span> <span class="n">handle_outliers</span><span class="p">(</span><span class="n">df_white</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="data-transformation">
+<h4>3.2. Data Transformation<a class="headerlink" href="#data-transformation" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Binning target quality menjadi 3 kelas</span>
+<span class="n">bins</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;low&#39;</span><span class="p">,</span> <span class="s1">&#39;medium&#39;</span><span class="p">,</span> <span class="s1">&#39;high&#39;</span><span class="p">]</span>
+
+<span class="n">df_red</span><span class="p">[</span><span class="s1">&#39;quality_class&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">df_red</span><span class="p">[</span><span class="s1">&#39;quality&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">)</span>
+<span class="n">df_white</span><span class="p">[</span><span class="s1">&#39;quality_class&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">df_white</span><span class="p">[</span><span class="s1">&#39;quality&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">)</span>
+
+<span class="c1"># Feature engineering: buat fitur baru</span>
+<span class="k">for</span> <span class="n">df</span> <span class="ow">in</span> <span class="p">[</span><span class="n">df_red</span><span class="p">,</span> <span class="n">df_white</span><span class="p">]:</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;acidity_ratio&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;fixed acidity&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;volatile acidity&#39;</span><span class="p">]</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;sulfur_ratio&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;free sulfur dioxide&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;total sulfur dioxide&#39;</span><span class="p">]</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;alcohol_sugar_interaction&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;alcohol&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;residual sugar&#39;</span><span class="p">]</span>
+
+<span class="c1"># Normalisasi fitur numerik</span>
+<span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">num_features</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;fixed acidity&#39;</span><span class="p">,</span> <span class="s1">&#39;volatile acidity&#39;</span><span class="p">,</span> <span class="s1">&#39;citric acid&#39;</span><span class="p">,</span> <span class="s1">&#39;residual sugar&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;chlorides&#39;</span><span class="p">,</span> <span class="s1">&#39;free sulfur dioxide&#39;</span><span class="p">,</span> <span class="s1">&#39;total sulfur dioxide&#39;</span><span class="p">,</span> <span class="s1">&#39;density&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;pH&#39;</span><span class="p">,</span> <span class="s1">&#39;sulphates&#39;</span><span class="p">,</span> <span class="s1">&#39;alcohol&#39;</span><span class="p">,</span> <span class="s1">&#39;acidity_ratio&#39;</span><span class="p">,</span> <span class="s1">&#39;sulfur_ratio&#39;</span><span class="p">,</span> 
+                <span class="s1">&#39;alcohol_sugar_interaction&#39;</span><span class="p">]</span>
+
+<span class="n">df_red</span><span class="p">[</span><span class="n">num_features</span><span class="p">]</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df_red</span><span class="p">[</span><span class="n">num_features</span><span class="p">])</span>
+<span class="n">df_white</span><span class="p">[</span><span class="n">num_features</span><span class="p">]</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df_white</span><span class="p">[</span><span class="n">num_features</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="data-integration">
+<h4>3.3. Data Integration<a class="headerlink" href="#data-integration" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_red_int</span> <span class="o">=</span> <span class="n">df_red</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">df_white_int</span> <span class="o">=</span> <span class="n">df_white</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="n">df_red_int</span><span class="p">[</span><span class="s1">&#39;wine_type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span>
+<span class="n">df_white_int</span><span class="p">[</span><span class="s1">&#39;wine_type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;white&#39;</span>
+
+<span class="c1"># Gabungkan dataset</span>
+<span class="n">df_combined</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df_red_int</span><span class="p">,</span> <span class="n">df_white_int</span><span class="p">])</span>
+
+<span class="c1"># Encoding variabel kategori</span>
+<span class="n">df_combined</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">df_combined</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;wine_type&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="data-reduction">
+<h4>3.4. Data Reduction<a class="headerlink" href="#data-reduction" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Untuk red wine</span>
+<span class="n">X_red</span> <span class="o">=</span> <span class="n">df_red</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">number</span><span class="p">])</span>
+<span class="n">y_red</span> <span class="o">=</span> <span class="n">df_red</span><span class="p">[</span><span class="s1">&#39;quality_class&#39;</span><span class="p">]</span>
+
+<span class="c1"># Untuk white wine</span>
+<span class="n">X_white</span> <span class="o">=</span> <span class="n">df_white</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">number</span><span class="p">])</span>
+<span class="n">y_white</span> <span class="o">=</span> <span class="n">df_white</span><span class="p">[</span><span class="s1">&#39;quality_class&#39;</span><span class="p">]</span>
+
+<span class="c1"># Seleksi fitur untuk red wine</span>
+<span class="n">selector_red</span> <span class="o">=</span> <span class="n">SelectKBest</span><span class="p">(</span><span class="n">score_func</span><span class="o">=</span><span class="n">f_classif</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">X_red_selected</span> <span class="o">=</span> <span class="n">selector_red</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_red</span><span class="p">,</span> <span class="n">y_red</span><span class="p">)</span>
+
+<span class="c1"># Dapatkan nama fitur terpilih</span>
+<span class="n">selected_features_red</span> <span class="o">=</span> <span class="n">X_red</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="n">selector_red</span><span class="o">.</span><span class="n">get_support</span><span class="p">()]</span>
+<span class="n">df_red_final</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">X_red_selected</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">selected_features_red</span><span class="p">)</span>
+<span class="n">df_red_final</span><span class="p">[</span><span class="s1">&#39;quality_class&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">y_red</span><span class="o">.</span><span class="n">values</span>
+
+<span class="c1"># Seleksi fitur untuk white wine</span>
+<span class="n">selector_white</span> <span class="o">=</span> <span class="n">SelectKBest</span><span class="p">(</span><span class="n">score_func</span><span class="o">=</span><span class="n">f_classif</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">X_white_selected</span> <span class="o">=</span> <span class="n">selector_white</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_white</span><span class="p">,</span> <span class="n">y_white</span><span class="p">)</span>
+
+<span class="c1"># Dapatkan nama fitur terpilih</span>
+<span class="n">selected_features_white</span> <span class="o">=</span> <span class="n">X_white</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="n">selector_white</span><span class="o">.</span><span class="n">get_support</span><span class="p">()]</span>
+<span class="n">df_white_final</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">X_white_selected</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">selected_features_white</span><span class="p">)</span>
+<span class="n">df_white_final</span><span class="p">[</span><span class="s1">&#39;quality_class&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">y_white</span><span class="o">.</span><span class="n">values</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Red Wine Final Shape:&quot;</span><span class="p">,</span> <span class="n">df_red_final</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;White Wine Final Shape:&quot;</span><span class="p">,</span> <span class="n">df_white_final</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Red Wine Features:&quot;</span><span class="p">,</span> <span class="n">selected_features_red</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;White Wine Features:&quot;</span><span class="p">,</span> <span class="n">selected_features_white</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Red Wine Final Shape: (1599, 11)
+White Wine Final Shape: (4898, 11)
+
+Red Wine Features: [&#39;volatile acidity&#39;, &#39;citric acid&#39;, &#39;chlorides&#39;, &#39;total sulfur dioxide&#39;, &#39;density&#39;, &#39;sulphates&#39;, &#39;alcohol&#39;, &#39;quality&#39;, &#39;acidity_ratio&#39;, &#39;alcohol_sugar_interaction&#39;]
+White Wine Features: [&#39;volatile acidity&#39;, &#39;residual sugar&#39;, &#39;chlorides&#39;, &#39;free sulfur dioxide&#39;, &#39;total sulfur dioxide&#39;, &#39;density&#39;, &#39;alcohol&#39;, &#39;quality&#39;, &#39;sulfur_ratio&#39;, &#39;alcohol_sugar_interaction&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="modeling">
+<h3>4. Modeling<a class="headerlink" href="#modeling" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span><span class="p">,</span> <span class="n">GridSearchCV</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.tree</span><span class="w"> </span><span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.naive_bayes</span><span class="w"> </span><span class="kn">import</span> <span class="n">GaussianNB</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.neural_network</span><span class="w"> </span><span class="kn">import</span> <span class="n">MLPClassifier</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">f1_score</span><span class="p">,</span> <span class="n">classification_report</span><span class="p">,</span> <span class="n">confusion_matrix</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">LabelEncoder</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_pipeline</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.compose</span><span class="w"> </span><span class="kn">import</span> <span class="n">ColumnTransformer</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="modeling-techniques">
+<h4>4.1. Modeling Techniques<a class="headerlink" href="#modeling-techniques" title="Link to this heading">#</a></h4>
+<ol class="arabic simple">
+<li><p>Decision Tree: Model interpretable dengan kemampuan handle non-linear relationship</p></li>
+<li><p>Naive Bayes: Model probabilistik sederhana dengan asumsi independensi fitur</p></li>
+<li><p>ANN (MLPClassifier): Jaringan saraf tiruan untuk pattern recognition kompleks</p></li>
+</ol>
+</section>
+<section id="build-models">
+<h4>4.2. Build Models<a class="headerlink" href="#build-models" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fungsi untuk memproses dataset dengan lebih aman</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">prepare_data</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+    <span class="c1"># Pisahkan fitur dan target</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;quality_class&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;quality_class&#39;</span><span class="p">]</span>
+    
+    <span class="c1"># Encode target labels</span>
+    <span class="n">le</span> <span class="o">=</span> <span class="n">LabelEncoder</span><span class="p">()</span>
+    <span class="n">y_encoded</span> <span class="o">=</span> <span class="n">le</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+    
+    <span class="c1"># Simpan nama fitur</span>
+    <span class="n">feature_names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+    
+    <span class="c1"># Konversi ke array numpy</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">values</span>
+    
+    <span class="c1"># Split data (80% train, 20% test)</span>
+    <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">y_encoded</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y_encoded</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">le</span><span class="p">,</span> <span class="n">feature_names</span>
+
+<span class="c1"># Siapkan data red wine</span>
+<span class="n">X_red_train</span><span class="p">,</span> <span class="n">X_red_test</span><span class="p">,</span> <span class="n">y_red_train</span><span class="p">,</span> <span class="n">y_red_test</span><span class="p">,</span> <span class="n">le_red</span><span class="p">,</span> <span class="n">red_features</span> <span class="o">=</span> <span class="n">prepare_data</span><span class="p">(</span><span class="n">df_red_final</span><span class="p">)</span>
+
+<span class="c1"># Siapkan data white wine</span>
+<span class="n">X_white_train</span><span class="p">,</span> <span class="n">X_white_test</span><span class="p">,</span> <span class="n">y_white_train</span><span class="p">,</span> <span class="n">y_white_test</span><span class="p">,</span> <span class="n">le_white</span><span class="p">,</span> <span class="n">white_features</span> <span class="o">=</span> <span class="n">prepare_data</span><span class="p">(</span><span class="n">df_white_final</span><span class="p">)</span>
+
+<span class="c1"># Inisialisasi model dasar</span>
+<span class="n">models</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Decision Tree&#39;</span><span class="p">:</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">),</span>
+    <span class="s1">&#39;Naive Bayes&#39;</span><span class="p">:</span> <span class="n">GaussianNB</span><span class="p">(),</span>
+    <span class="s1">&#39;ANN&#39;</span><span class="p">:</span> <span class="n">MLPClassifier</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">early_stopping</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1"># Fungsi untuk melatih model</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">train_models</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">):</span>
+    <span class="n">trained_models</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">models</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Training </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+        <span class="n">trained_models</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span>
+    <span class="k">return</span> <span class="n">trained_models</span>
+
+<span class="c1"># Latih model untuk red wine</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Training models for Red Wine...&quot;</span><span class="p">)</span>
+<span class="n">red_models</span> <span class="o">=</span> <span class="n">train_models</span><span class="p">(</span><span class="n">X_red_train</span><span class="p">,</span> <span class="n">y_red_train</span><span class="p">)</span>
+
+<span class="c1"># Latih model untuk white wine</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Training models for White Wine...&quot;</span><span class="p">)</span>
+<span class="n">white_models</span> <span class="o">=</span> <span class="n">train_models</span><span class="p">(</span><span class="n">X_white_train</span><span class="p">,</span> <span class="n">y_white_train</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Training models for Red Wine...
+Training Decision Tree...
+Training Naive Bayes...
+Training ANN...
+
+Training models for White Wine...
+Training Decision Tree...
+Training Naive Bayes...
+Training ANN...
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="tune-models">
+<h4>4.3. Tune Models<a class="headerlink" href="#tune-models" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Hyperparameter tuning untuk Decision Tree</span>
+<span class="n">dt_params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
+    <span class="s1">&#39;min_samples_split&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
+    <span class="s1">&#39;criterion&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;gini&#39;</span><span class="p">,</span> <span class="s1">&#39;entropy&#39;</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="c1"># Hyperparameter tuning untuk ANN</span>
+<span class="n">ann_params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;hidden_layer_sizes&#39;</span><span class="p">:</span> <span class="p">[(</span><span class="mi">50</span><span class="p">,),</span> <span class="p">(</span><span class="mi">100</span><span class="p">,),</span> <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">)],</span>
+    <span class="s1">&#39;activation&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;relu&#39;</span><span class="p">,</span> <span class="s1">&#39;tanh&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.0001</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">],</span>
+    <span class="s1">&#39;learning_rate_init&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="c1"># Fungsi untuk tuning model</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">tune_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">):</span>
+    <span class="n">grid</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span>
+        <span class="n">estimator</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+        <span class="n">param_grid</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+        <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;f1_weighted&#39;</span><span class="p">,</span>
+        <span class="n">cv</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>  <span class="c1"># Mengurangi cv untuk mempercepat</span>
+        <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span>
+    <span class="p">)</span>
+    <span class="n">grid</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Best params: </span><span class="si">{</span><span class="n">grid</span><span class="o">.</span><span class="n">best_params_</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">grid</span><span class="o">.</span><span class="n">best_estimator_</span>
+
+<span class="c1"># Tuning hanya untuk model yang memerlukan</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Tuning models for Red Wine...&quot;</span><span class="p">)</span>
+<span class="n">red_models</span><span class="p">[</span><span class="s1">&#39;Decision Tree&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tune_model</span><span class="p">(</span>
+    <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">),</span>
+    <span class="n">dt_params</span><span class="p">,</span>
+    <span class="n">X_red_train</span><span class="p">,</span>
+    <span class="n">y_red_train</span>
+<span class="p">)</span>
+
+<span class="c1"># ANN untuk red wine - menggunakan early stopping</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Tuning ANN for Red Wine (ini mungkin memerlukan waktu)...&quot;</span><span class="p">)</span>
+<span class="n">red_models</span><span class="p">[</span><span class="s1">&#39;ANN&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tune_model</span><span class="p">(</span>
+    <span class="n">MLPClassifier</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">early_stopping</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+    <span class="n">ann_params</span><span class="p">,</span>
+    <span class="n">X_red_train</span><span class="p">,</span>
+    <span class="n">y_red_train</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Tuning models for White Wine...&quot;</span><span class="p">)</span>
+<span class="n">white_models</span><span class="p">[</span><span class="s1">&#39;Decision Tree&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tune_model</span><span class="p">(</span>
+    <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">),</span>
+    <span class="n">dt_params</span><span class="p">,</span>
+    <span class="n">X_white_train</span><span class="p">,</span>
+    <span class="n">y_white_train</span>
+<span class="p">)</span>
+
+<span class="c1"># ANN untuk white wine - menggunakan early stopping</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Tuning ANN for White Wine (ini mungkin memerlukan waktu)...&quot;</span><span class="p">)</span>
+<span class="n">white_models</span><span class="p">[</span><span class="s1">&#39;ANN&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tune_model</span><span class="p">(</span>
+    <span class="n">MLPClassifier</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">early_stopping</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+    <span class="n">ann_params</span><span class="p">,</span>
+    <span class="n">X_white_train</span><span class="p">,</span>
+    <span class="n">y_white_train</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tuning models for Red Wine...
+Fitting 3 folds for each of 30 candidates, totalling 90 fits
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Best params: {&#39;criterion&#39;: &#39;gini&#39;, &#39;max_depth&#39;: 3, &#39;min_samples_split&#39;: 2}
+
+Tuning ANN for Red Wine (ini mungkin memerlukan waktu)...
+Fitting 3 folds for each of 36 candidates, totalling 108 fits
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Best params: {&#39;activation&#39;: &#39;tanh&#39;, &#39;alpha&#39;: 0.01, &#39;hidden_layer_sizes&#39;: (50, 50), &#39;learning_rate_init&#39;: 0.01}
+
+Tuning models for White Wine...
+Fitting 3 folds for each of 30 candidates, totalling 90 fits
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Best params: {&#39;criterion&#39;: &#39;gini&#39;, &#39;max_depth&#39;: 3, &#39;min_samples_split&#39;: 2}
+
+Tuning ANN for White Wine (ini mungkin memerlukan waktu)...
+Fitting 3 folds for each of 36 candidates, totalling 108 fits
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Best params: {&#39;activation&#39;: &#39;tanh&#39;, &#39;alpha&#39;: 0.0001, &#39;hidden_layer_sizes&#39;: (50, 50), &#39;learning_rate_init&#39;: 0.01}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="validate-models">
+<h4>4.4. Validate Models<a class="headerlink" href="#validate-models" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">evaluate_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">le</span><span class="p">):</span>
+    <span class="c1"># Prediksi</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+    
+    <span class="c1"># Decode labels</span>
+    <span class="n">y_test_decoded</span> <span class="o">=</span> <span class="n">le</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span>
+    <span class="n">y_pred_decoded</span> <span class="o">=</span> <span class="n">le</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)</span>
+    
+    <span class="c1"># Hitung metrik</span>
+    <span class="n">f1</span> <span class="o">=</span> <span class="n">f1_score</span><span class="p">(</span><span class="n">y_test_decoded</span><span class="p">,</span> <span class="n">y_pred_decoded</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s1">&#39;weighted&#39;</span><span class="p">)</span>
+    <span class="n">report</span> <span class="o">=</span> <span class="n">classification_report</span><span class="p">(</span><span class="n">y_test_decoded</span><span class="p">,</span> <span class="n">y_pred_decoded</span><span class="p">)</span>
+    <span class="n">cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test_decoded</span><span class="p">,</span> <span class="n">y_pred_decoded</span><span class="p">)</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">50</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">model</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> Performance&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;F1-score (weighted): </span><span class="si">{</span><span class="n">f1</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Classification Report:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">report</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Confusion Matrix:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">cm</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">f1</span>
+
+<span class="c1"># Evaluasi model untuk red wine</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Evaluating Red Wine Models...&quot;</span><span class="p">)</span>
+<span class="n">red_results</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">red_models</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Evaluating </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> for Red Wine&quot;</span><span class="p">)</span>
+    <span class="n">f1</span> <span class="o">=</span> <span class="n">evaluate_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X_red_test</span><span class="p">,</span> <span class="n">y_red_test</span><span class="p">,</span> <span class="n">le_red</span><span class="p">)</span>
+    <span class="n">red_results</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">f1</span>
+
+<span class="c1"># Evaluasi model untuk white wine</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Evaluating White Wine Models...&quot;</span><span class="p">)</span>
+<span class="n">white_results</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">white_models</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Evaluating </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> for White Wine&quot;</span><span class="p">)</span>
+    <span class="n">f1</span> <span class="o">=</span> <span class="n">evaluate_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X_white_test</span><span class="p">,</span> <span class="n">y_white_test</span><span class="p">,</span> <span class="n">le_white</span><span class="p">)</span>
+    <span class="n">white_results</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">f1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Evaluating Red Wine Models...
+
+Evaluating Decision Tree for Red Wine
+
+==================================================
+DecisionTreeClassifier Performance
+F1-score (weighted): 1.0000
+
+Classification Report:
+              precision    recall  f1-score   support
+
+        high       1.00      1.00      1.00        43
+         low       1.00      1.00      1.00        13
+      medium       1.00      1.00      1.00       264
+
+    accuracy                           1.00       320
+   macro avg       1.00      1.00      1.00       320
+weighted avg       1.00      1.00      1.00       320
+
+
+Confusion Matrix:
+[[ 43   0   0]
+ [  0  13   0]
+ [  0   0 264]]
+
+Evaluating Naive Bayes for Red Wine
+
+==================================================
+GaussianNB Performance
+F1-score (weighted): 0.9842
+
+Classification Report:
+              precision    recall  f1-score   support
+
+        high       1.00      0.93      0.96        43
+         low       0.92      0.92      0.92        13
+      medium       0.99      1.00      0.99       264
+
+    accuracy                           0.98       320
+   macro avg       0.97      0.95      0.96       320
+weighted avg       0.98      0.98      0.98       320
+
+
+Confusion Matrix:
+[[ 40   0   3]
+ [  0  12   1]
+ [  0   1 263]]
+
+Evaluating ANN for Red Wine
+
+==================================================
+MLPClassifier Performance
+F1-score (weighted): 0.9900
+
+Classification Report:
+              precision    recall  f1-score   support
+
+        high       1.00      1.00      1.00        43
+         low       1.00      0.77      0.87        13
+      medium       0.99      1.00      0.99       264
+
+    accuracy                           0.99       320
+   macro avg       1.00      0.92      0.95       320
+weighted avg       0.99      0.99      0.99       320
+
+
+Confusion Matrix:
+[[ 43   0   0]
+ [  0  10   3]
+ [  0   0 264]]
+
+Evaluating White Wine Models...
+
+Evaluating Decision Tree for White Wine
+
+==================================================
+DecisionTreeClassifier Performance
+F1-score (weighted): 1.0000
+
+Classification Report:
+              precision    recall  f1-score   support
+
+        high       1.00      1.00      1.00       212
+         low       1.00      1.00      1.00        37
+      medium       1.00      1.00      1.00       731
+
+    accuracy                           1.00       980
+   macro avg       1.00      1.00      1.00       980
+weighted avg       1.00      1.00      1.00       980
+
+
+Confusion Matrix:
+[[212   0   0]
+ [  0  37   0]
+ [  0   0 731]]
+
+Evaluating Naive Bayes for White Wine
+
+==================================================
+GaussianNB Performance
+F1-score (weighted): 0.9689
+
+Classification Report:
+              precision    recall  f1-score   support
+
+        high       0.99      0.89      0.94       212
+         low       0.95      0.95      0.95        37
+      medium       0.97      0.99      0.98       731
+
+    accuracy                           0.97       980
+   macro avg       0.97      0.94      0.95       980
+weighted avg       0.97      0.97      0.97       980
+
+
+Confusion Matrix:
+[[188   0  24]
+ [  0  35   2]
+ [  2   2 727]]
+
+Evaluating ANN for White Wine
+
+==================================================
+MLPClassifier Performance
+F1-score (weighted): 0.9939
+
+Classification Report:
+              precision    recall  f1-score   support
+
+        high       1.00      0.98      0.99       212
+         low       1.00      0.97      0.99        37
+      medium       0.99      1.00      1.00       731
+
+    accuracy                           0.99       980
+   macro avg       1.00      0.98      0.99       980
+weighted avg       0.99      0.99      0.99       980
+
+
+Confusion Matrix:
+[[207   0   5]
+ [  0  36   1]
+ [  0   0 731]]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">50</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Final Model Performance Summary&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">50</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Red Wine Performance:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">model</span><span class="p">,</span> <span class="n">score</span> <span class="ow">in</span> <span class="n">red_results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;- </span><span class="si">{</span><span class="n">model</span><span class="si">}</span><span class="s2">: F1-score = </span><span class="si">{</span><span class="n">score</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">White Wine Performance:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">model</span><span class="p">,</span> <span class="n">score</span> <span class="ow">in</span> <span class="n">white_results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;- </span><span class="si">{</span><span class="n">model</span><span class="si">}</span><span class="s2">: F1-score = </span><span class="si">{</span><span class="n">score</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Simpan model terbaik untuk deployment</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">joblib</span>
+
+<span class="c1"># Untuk red wine</span>
+<span class="n">best_red_model</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">red_models</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">red_results</span><span class="o">.</span><span class="n">get</span><span class="p">)</span>
+<span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">((</span><span class="n">red_models</span><span class="p">[</span><span class="n">best_red_model</span><span class="p">],</span> <span class="n">le_red</span><span class="p">,</span> <span class="n">red_features</span><span class="p">),</span> <span class="s1">&#39;best_red_wine_model.pkl&#39;</span><span class="p">)</span>
+
+<span class="c1"># Untuk white wine</span>
+<span class="n">best_white_model</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">white_models</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">white_results</span><span class="o">.</span><span class="n">get</span><span class="p">)</span>
+<span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">((</span><span class="n">white_models</span><span class="p">[</span><span class="n">best_white_model</span><span class="p">],</span> <span class="n">le_white</span><span class="p">,</span> <span class="n">white_features</span><span class="p">),</span> <span class="s1">&#39;best_white_wine_model.pkl&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Saved best model for Red Wine: </span><span class="si">{</span><span class="n">best_red_model</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saved best model for White Wine: </span><span class="si">{</span><span class="n">best_white_model</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>==================================================
+Final Model Performance Summary
+==================================================
+
+Red Wine Performance:
+- Decision Tree: F1-score = 1.0000
+- Naive Bayes: F1-score = 0.9842
+- ANN: F1-score = 0.9900
+
+White Wine Performance:
+- Decision Tree: F1-score = 1.0000
+- Naive Bayes: F1-score = 0.9689
+- ANN: F1-score = 0.9939
+
+Saved best model for Red Wine: Decision Tree
+Saved best model for White Wine: Decision Tree
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="evaluation">
+<h3>5. Evaluation<a class="headerlink" href="#evaluation" title="Link to this heading">#</a></h3>
+<section id="evaluate-results">
+<h4>5.1. Evaluate Results<a class="headerlink" href="#evaluate-results" title="Link to this heading">#</a></h4>
+<section id="roc">
+<h5>5.1.1. ROC<a class="headerlink" href="#roc" title="Link to this heading">#</a></h5>
+</section>
+<section id="auc">
+<h5>5.1.2. AUC<a class="headerlink" href="#auc" title="Link to this heading">#</a></h5>
+</section>
+</section>
+<section id="review-business-objectives">
+<h4>5.2. Review Business Objectives<a class="headerlink" href="#review-business-objectives" title="Link to this heading">#</a></h4>
+</section>
+<section id="model-limitations">
+<h4>5.3. Model Limitations<a class="headerlink" href="#model-limitations" title="Link to this heading">#</a></h4>
+</section>
+<section id="next-steps">
+<h4>5.4. Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h4>
+</section>
+</section>
+<section id="deployment">
+<h3>6. Deployment<a class="headerlink" href="#deployment" title="Link to this heading">#</a></h3>
+<p>We’re working on it ;)</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Tugas8.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">KBinsDiscretizer</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wine-quality">Wine Quality</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-information">Dataset Information</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introductory-paper">Introductory Paper</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variable-table">Variable Table</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-variable-information">Additional Variable Information</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-files">Dataset Files</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#more-information">More Information</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#assignment-to-do">Assignment To-Do</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-mining-process-crisp-dm">Data Mining Process (<code class="docutils literal notranslate"><span class="pre">CRISP-DM</span></code>)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#business-understanding">1. Business Understanding</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#define-the-problem">1.1. Define the Problem</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">1.2. Objectives</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#identify-stakeholders">1.3. Identify Stakeholders</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#success-criteria">1.4. Success Criteria</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-understanding">2. Data Understanding</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#data-collection">2.1 Data Collection</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#data-description">2.2. Data Description</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#data-exploration">2.3. Data Exploration</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#data-quality">2.4. Data Quality</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-preparation">3. Data Preparation</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#data-cleaning">3.1 Data Cleaning</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#data-transformation">3.2. Data Transformation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#data-integration">3.3. Data Integration</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#data-reduction">3.4. Data Reduction</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modeling">4. Modeling</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#modeling-techniques">4.1. Modeling Techniques</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#build-models">4.2. Build Models</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#tune-models">4.3. Tune Models</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#validate-models">4.4. Validate Models</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation">5. Evaluation</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluate-results">5.1. Evaluate Results</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#roc">5.1.1. ROC</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#auc">5.1.2. AUC</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#review-business-objectives">5.2. Review Business Objectives</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#model-limitations">5.3. Model Limitations</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">5.4. Next Steps</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deployment">6. Deployment</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By ACHMAD RIDHO FA'IZ
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

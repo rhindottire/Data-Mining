@@ -1,0 +1,667 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Data Mining Process &#8212; Data-Mining</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'dataProcess';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Data Understanding" href="Tugas1.html" />
+    <link rel="prev" title="What is Data?" href="aboutData.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/ElysiaJS.webp" class="logo__image only-light" alt="Data-Mining - Home"/>
+    <script>document.write(`<img src="_static/ElysiaJS.webp" class="logo__image only-dark" alt="Data-Mining - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="aboutData.html">What is Data?</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Data Mining Process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas1.html">Data Understanding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas2.html">Outlier and K-NN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas3.html">Local Outlier Factor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas4.html">Naive Bayes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UTS.html">UTS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas5.html">Clustering and K-Means</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas6.html">Fuzzy C-Means</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas7.html">Decision Tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas8.html">KBinsDiscretizer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UAS.html">UAS</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/rhindottire/Data-Mining" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/rhindottire/Data-Mining/issues/new?title=Issue%20on%20page%20%2FdataProcess.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/dataProcess.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Data Mining Process</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#business-understanding">1. Business Understanding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-understanding">2. Data Understanding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-preparation">3. Data Preparation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modeling">4. Modeling</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation">5. Evaluation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deployment">6. Deployment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-of-the-data-mining-process">Summary of the Data Mining Process</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-is-this-process-important">Why is This Process Important?</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="data-mining-process">
+<h1>Data Mining Process<a class="headerlink" href="#data-mining-process" title="Link to this heading">#</a></h1>
+<p>Proses penambangan data adalah pendekatan terstruktur untuk mengekstraksi pola dan wawasan yang bermakna dari data. Hal ini sering digambarkan sebagai serangkaian langkah yang memandu ilmuwan dan analis data mulai dari definisi masalah hingga penerapan solusi. Salah satu kerangka kerja yang paling banyak digunakan untuk proses ini adalah <strong>CRISP-DM</strong> <em>(Proses Standar Lintas Industri untuk Penambangan Data)</em>, yang terdiri dari enam fase utama:</p>
+<p><img alt="Data Mining Process" src="_images/dataProcess.png" /></p>
+<hr class="docutils" />
+<section id="business-understanding">
+<h2>1. Business Understanding<a class="headerlink" href="#business-understanding" title="Link to this heading">#</a></h2>
+<p>Ini adalah phase pertama dan paling penting dari proses penambangan data. Ini berfokus pada pemahaman masalah bisnis dan menentukan tujuan proyek penambangan data.</p>
+<p><em>Key Activities</em>:</p>
+<ul class="simple">
+<li><p><strong>Define the Problem</strong>: Nyatakan dengan jelas masalah bisnis yang ingin Anda selesaikan. Misalnya, “Mengapa pelanggan berpindah?” atau “Bagaimana kita dapat meningkatkan penjualan?”</p></li>
+<li><p><strong>Set Objectives</strong>: Tentukan apa yang ingin Anda capai dengan proyek penambangan data. Misalnya, “Kurangi churn pelanggan sebesar 20%”.</p></li>
+<li><p><strong>Identify Stakeholders</strong>:  Pahami siapa yang akan mendapat manfaat dari proyek ini dan apa harapan mereka.</p></li>
+<li><p><strong>Define Success Criteria</strong>: Tetapkan bagaimana Anda akan mengukur keberhasilan proyek (Accuracy, Return on Investment, dll).</p></li>
+</ul>
+<p><em>Example</em>:
+Sebuah perusahaan telekomunikasi ingin mengurangi churn pelanggan. Tujuan bisnisnya adalah untuk mengidentifikasi pelanggan yang kemungkinan besar akan keluar dan mengambil tindakan proaktif untuk mempertahankan mereka.</p>
+</section>
+<hr class="docutils" />
+<section id="data-understanding">
+<h2>2. Data Understanding<a class="headerlink" href="#data-understanding" title="Link to this heading">#</a></h2>
+<p>Pada phase ini, Anda menjelajahi dan membiasakan diri dengan data yang tersedia untuk proyek tersebut. Tujuannya adalah untuk mengidentifikasi sumber data yang relevan, menilai kualitas data, dan mendapatkan wawasan awal. <strong>Outlier detection</strong> memainkan peran penting dalam memahami distribusi data dan memastikan kualitas data.</p>
+<p><em>Key Activities</em>:</p>
+<ul class="simple">
+<li><p><strong>Collect Data</strong>:</p>
+<ul>
+<li><p><em>Gather</em> atau Kumpulkan data dari berbagai sumber (database, API, file).</p></li>
+<li><p>Pastikan data relevan dengan masalah bisnis.</p></li>
+</ul>
+</li>
+<li><p><strong>Describe Data</strong>:</p>
+<ul>
+<li><p><em>Summarize</em> atau Meringkas data (jumlah catatan, variabel, tipe data).</p></li>
+<li><p>Gunakan <em>Descriptive Statistics (mean, median, mode, standard deviation, etc.)</em> untuk memahami distribusi data.</p></li>
+</ul>
+</li>
+<li><p><strong>Explore Data</strong>:</p>
+<ul>
+<li><p>Lakukan <em>Exploratory Data Analysis (EDA)</em> untuk mengidentifikasi pola, trend, dan anomali.</p></li>
+<li><p>Visualisasikan data menggunakan plot  (histograms, box plots, scatter plots) untuk mendeteksi <strong>outlier</strong> dan memahami hubungan antar variabel.</p></li>
+</ul>
+</li>
+<li><p><strong>Verify Data Quality</strong>:</p>
+<ul>
+<li><p>Periksa <em>missing values</em> atau nilai yang hilang, inkonsistensi, dan kesalahan.</p></li>
+<li><p>Identifikasi dan analisis <strong>outlier</strong> untuk menentukan apakah <strong>outlier</strong> tersebut merupakan titik data yang valid atau kesalahan.</p></li>
+</ul>
+</li>
+</ul>
+<p><em>Example</em>:
+Perusahaan telekomunikasi mengumpulkan data tentang demografi pelanggan, pola penggunaan, riwayat penagihan, dan interaksi layanan pelanggan. Mereka menemukan bahwa beberapa catatan memiliki nilai yang hilang untuk bidang “kepemilikan pelanggan”.</p>
+</section>
+<hr class="docutils" />
+<section id="data-preparation">
+<h2>3. Data Preparation<a class="headerlink" href="#data-preparation" title="Link to this heading">#</a></h2>
+<p>Ini seringkali merupakan phase yang paling memakan waktu dan melibatkan pembersihan, transformasi, dan persiapan data untuk pemodelan.</p>
+<p><em>Key Activities</em>:</p>
+<ul class="simple">
+<li><p><strong>Data Cleaning</strong>: Menangani <em>missing values</em>, menghapus duplikat, dan memperbaiki kesalahan.</p></li>
+<li><p><strong>Data Transformation</strong>: <em>Normalize or Standardize data</em>, membuat fitur baru (rekayasa fitur), dan menyandikan variabel kategori.</p></li>
+<li><p><strong>Data Integration</strong>: Menggabungkan data dari berbagai sumber.</p></li>
+<li><p><strong>Data Reduction</strong>: Kurangi ukuran kumpulan data dengan memilih fitur atau pengambilan sampel yang relevan.</p></li>
+</ul>
+<p><em>Example</em>:
+Perusahaan telekomunikasi membersihkan data dengan memasukkan nilai yang hilang untuk “masa jabatan pelanggan” dan membuat fitur baru yang disebut “penggunaan bulanan rata-rata” dengan menggabungkan data penggunaan.</p>
+</section>
+<hr class="docutils" />
+<section id="modeling">
+<h2>4. Modeling<a class="headerlink" href="#modeling" title="Link to this heading">#</a></h2>
+<p>Pada phase ini, Anda memilih dan menerapkan algoritma data mining untuk membangun model prediktif atau deskriptif.</p>
+<p><em>Key Activities</em>:</p>
+<ul class="simple">
+<li><p><strong>Select Modeling Techniques</strong>: Pilih algoritma yang sesuai berdasarkan masalahnya <em>(classification, regression, clustering)</em>.</p></li>
+<li><p><strong>Build Models</strong>: Latih model menggunakan data yang telah disiapkan.</p></li>
+<li><p><strong>Tune Models</strong>: Optimalkan parameter model untuk meningkatkan kinerja.</p></li>
+<li><p><strong>Validate Models</strong>: Uji model pada data yang tidak terlihat untuk memastikan model dapat digeneralisasi dengan baik.</p></li>
+</ul>
+<p><em>Example</em>:
+Perusahaan telekomunikasi menggunakan algoritma pohon keputusan untuk memprediksi perpindahan pelanggan. Mereka melatih model berdasarkan data historis dan menyesuaikannya untuk meningkatkan akurasi.</p>
+</section>
+<hr class="docutils" />
+<section id="evaluation">
+<h2>5. Evaluation<a class="headerlink" href="#evaluation" title="Link to this heading">#</a></h2>
+<p>Phase ini berfokus pada penilaian kinerja model dan menentukan apakah model tersebut memenuhi tujuan bisnis.</p>
+<p><em>Key Activities</em>:</p>
+<ul class="simple">
+<li><p><strong>Evaluate Results</strong>: Ukur performa model menggunakan metrik seperti akurasi, presisi, perolehan, skor F1, atau ROC-AUC.</p>
+<ul>
+<li><p><strong>ROC (Receiver Operating Characteristic) Curve</strong> → Grafik yang menunjukkan hubungan antara <em>True Positive Rate (TPR)</em> dan <em>False Positive Rate (FPR)</em> pada berbagai threshold classification.</p></li>
+<li><p><strong>AUC (Area Under the Curve)</strong> → Nilai antara 0 dan 1 yang mengukur seberapa baik model membedakan antara dua kelas (churn vs. tidak churn).</p></li>
+</ul>
+</li>
+<li><p><strong>Review Business Objectives</strong>: Pastikan model selaras dengan tujuan bisnis awal.</p></li>
+<li><p><strong>Identify Limitations</strong>: Pahami kelemahan model dan area potensial untuk perbaikan.</p></li>
+<li><p><strong>Decide Next Steps</strong>:  Tentukan apakah akan melanjutkan penerapan atau meninjau kembali fase sebelumnya.</p></li>
+</ul>
+<p><em>Example</em>:
+Perusahaan telekomunikasi mengevaluasi model prediksi churn dan menemukan bahwa model tersebut memiliki akurasi 85%. Namun, mereka menyadari bahwa model tersebut berkinerja buruk bagi pelanggan dengan penggunaan rendah.</p>
+</section>
+<hr class="docutils" />
+<section id="deployment">
+<h2>6. Deployment<a class="headerlink" href="#deployment" title="Link to this heading">#</a></h2>
+<p>Pada phase terakhir, model diterapkan ke lingkungan produksi yang dapat digunakan untuk membuat keputusan atau menghasilkan wawasan.</p>
+<p><em>Key Activities</em>:</p>
+<ul class="simple">
+<li><p><strong>Deploy the Model</strong>: Integrasikan model ke dalam proses bisnis (CRM / Customer Relationship Management systems, dashboards).</p></li>
+<li><p><strong>Monitor Performance</strong>: Terus lacak performa model dalam skenario dunia nyata.</p></li>
+<li><p><strong>Maintain the Model</strong>: Perbarui model saat data baru tersedia atau kondisi bisnis berubah.</p></li>
+<li><p><strong>Document Results</strong>: Membuat laporan dan dokumentasi untuk pemangku kepentingan.</p></li>
+</ul>
+<p><em>Example</em>:
+Perusahaan telekomunikasi menerapkan model prediksi churn ke dalam sistem manajemen hubungan pelanggan (CRM). Sistem menandai pelanggan yang berisiko, dan tim pemasaran mengirimi mereka penawaran retensi yang dipersonalisasi.</p>
+</section>
+<hr class="docutils" />
+<section id="summary-of-the-data-mining-process">
+<h2>Summary of the Data Mining Process<a class="headerlink" href="#summary-of-the-data-mining-process" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Business Understanding</strong>: Definisikan masalah dan tujuan.</p></li>
+<li><p><strong>Data Understanding</strong>: Jelajahi dan menilai data.</p></li>
+<li><p><strong>Data Preparation</strong>: Membersihkan, mengubah, dan menyiapkan data.</p></li>
+<li><p><strong>Modeling</strong>: Membangun dan menyempurnakan model prediktif atau deskriptif.</p></li>
+<li><p><strong>Evaluation</strong>: Menilai kinerja model dan keselarasan dengan tujuan bisnis.</p></li>
+<li><p><strong>Deployment</strong>: Terapkan model dan pantau kinerjanya.</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="why-is-this-process-important">
+<h2>Why is This Process Important?<a class="headerlink" href="#why-is-this-process-important" title="Link to this heading">#</a></h2>
+<p>Proses penambangan data memastikan bahwa project data bersifat sistematis, dapat diulang, dan selaras dengan tujuan bisnis. Hal ini membantu menghindari kesalahan umum, seperti penggunaan data berkualitas buruk, membuat model yang tidak relevan, atau gagal memberikan wawasan yang dapat ditindaklanjuti.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="aboutData.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">What is Data?</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Tugas1.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Data Understanding</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#business-understanding">1. Business Understanding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-understanding">2. Data Understanding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-preparation">3. Data Preparation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modeling">4. Modeling</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation">5. Evaluation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deployment">6. Deployment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-of-the-data-mining-process">Summary of the Data Mining Process</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-is-this-process-important">Why is This Process Important?</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By ACHMAD RIDHO FA'IZ
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
