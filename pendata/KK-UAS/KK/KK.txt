@@ -1,0 +1,133 @@
+python -m notebook
+
+load data
+hitung keseluruhan data berdasarkan tahun
+print head and info (5 data)
+korelasi tinggi sangat berpengaruh pada fitur!
+hitung missing value and duplicate setiap attribute
+cleaning cols / drop yang tidak dibutuhkan (no urut, bulan, nama, provinsi, kabupaten, jenis fasyankes, kepemilikan fasyankes)
+
+preprocessing {
+  data cleaning, data transformasi (numerik or categorical),
+  data balancing (data sintetis/adasyn), normalisasi,
+}
+balancing (setara tidak = seimbang)? => over/under sampling
+normalisasi (z-score or min max) dan standarisasi (standarscaler) bukannya beda? => mempengaruhi data
+
+modeling {
+  splitting data, tuning hyperparameter, klasifikasi data,
+}
+evaluasi {
+  presisi, recall, f1 score
+}
+
+1.	Tanggal Didaftar
+2.	NIK
+3.	Umur
+4.	Jenis Kelamin
+5.	Lokasi Anatomi
+6.	Hasil Pemeriksaan Foto Toraks
+7.	Status HIV
+8.	Riwayat Diabetes Melitus
+9.	Hasil Pemeriksaan Diagnosis TBC
+10.	Jenis Pemeriksaan Diagnosis
+11.	Tipe Diagnosis
+
+
+
+
+
+
+
+
+
+
+Berikut penjelasan langkah-langkah analisis yang terstruktur dan hubungannya dengan judul penelitian Anda:
+
+---
+
+### **Langkah 1: Pemilihan dan Pembersihan Data**  
+**Tujuan**:  
+- Memastikan data relevan dengan kanker serviks dan valid secara klinis.  
+**Aksi**:  
+- Menghapus kolom redundan (Dx:Cancer, dll.) karena diagnosis definitif sudah ada di kolom **Biopsy**.  
+- Membuang fitur yang tidak relevan untuk deteksi dini (misal: durasi sejak diagnosis STD).  
+**Hubungan dengan Judul**:  
+Memfokuskan analisis pada faktor risiko dini (seperti HPV, kontrasepsi hormonal) daripada diagnosis lanjut.
+
+---
+
+### **Langkah 2: Penanganan Missing Values**  
+**Tujuan**:  
+- Mencegah bias dalam model karena data hilang.  
+**Aksi**:  
+- Menghapus kolom dengan >40% data hilang (misal: *STDs: Time since...*).  
+- Mengisi nilai kosong dengan median/modus untuk mempertahankan distribusi data.  
+**Hubungan dengan Judul**:  
+Kualitas data langsung memengaruhi performa Naive Bayes yang sensitif terhadap missing values.
+
+---
+
+### **Langkah 3: Analisis Ketidakseimbangan Kelas**  
+**Tujuan**:  
+- Mengatasi dominasi kelas negatif (non-kanker) yang umum di dataset medis.  
+**Aksi**:  
+- Menggunakan SMOTE untuk menyeimbangkan jumlah sampel kanker/non-kanker.  
+**Hubungan dengan Judul**:  
+Model Logistic Regression cenderung bias ke kelas mayoritas jika tidak diatasi, sehingga perlu penyeimbangan untuk evaluasi yang adil.
+
+---
+
+### **Langkah 4: Split Data dan Validasi**  
+**Tujuan**:  
+- Mengevaluasi kemampuan generalisasi model.  
+**Aksi**:  
+- Memisahkan data menjadi **training** (80%) dan **testing** (20%) dengan stratifikasi.  
+- Memastikan distribusi kelas kanker/non-kanker tetap proporsional di kedua subset.  
+**Hubungan dengan Judul**:  
+Split data yang tepat kritis untuk membandingkan performa kedua model secara objektif.
+
+---
+
+### **Langkah 5: Preprocessing dan Transformasi Fitur**  
+**Tujuan**:  
+- Menyiapkan data sesuai asumsi model.  
+**Aksi**:  
+- Standarisasi fitur numerik (misal: usia) untuk Logistic Regression.  
+- Mengkodekan fitur kategorikal (misal: riwayat merokok) ke biner.  
+**Hubungan dengan Judul**:  
+Naive Bayes tidak memerlukan normalisasi, tetapi transformasi ini diperlukan untuk memastikan perbandingan yang fair dengan Logistic Regression.
+
+---
+
+### **Langkah 6: Pelatihan dan Evaluasi Model**  
+**Tujuan**:  
+- Membandingkan kemampuan prediksi kedua model.  
+**Aksi**:  
+- **Naive Bayes**: Menggunakan GaussianNB untuk data kontinu.  
+- **Logistic Regression**: Menggunakan regularisasi untuk menghindari overfitting.  
+- Metrik evaluasi: Recall (untuk meminimalkan false negative) dan AUC-ROC.  
+**Hubungan dengan Judul**:  
+Perbedaan fundamental kedua model:  
+1. Naive Bayes: Berbasis probabilitas, cocok untuk data dengan asumsi independensi.  
+2. Logistic Regression: Berbasis koefisien, lebih robust terhadap korelasi fitur.  
+
+---
+
+### **Langkah 7: Interpretasi Hasil**  
+**Tujuan**:  
+- Menjelaskan implikasi klinis dari model terbaik.  
+**Aksi**:  
+- Analisis feature importance untuk mengidentifikasi faktor risiko dominan.  
+- Membandingkan trade-off precision-recall untuk konteks deteksi dini.  
+**Hubungan dengan Judul**:  
+Menjawab pertanyaan: *"Metode mana yang lebih sesuai untuk skrining awal pasien berisiko tinggi?"*
+
+---
+
+### **Mengapa Langkah-Langkah Ini Relevan?**  
+1. **Deteksi Dini** → Fokus pada faktor risiko (HPV, kontrasepsi) daripada gejala lanjut.  
+2. **Naive Bayes** → Efektif untuk data dengan fitur independen (misal: riwayat merokok vs. kehamilan).  
+3. **Logistic Regression** → Cocok untuk mengeksplorasi hubungan linear (misal: peningkatan risiko kanker berdasarkan usia).  
+
+Apa ada bagian tertentu yang ingin didalami lebih lanjut?
