@@ -1,0 +1,1563 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Data Understanding &#8212; Data-Mining</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Tugas1';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Outlier and K-NN" href="Tugas2.html" />
+    <link rel="prev" title="Data Mining Process" href="dataProcess.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/ElysiaJS.webp" class="logo__image only-light" alt="Data-Mining - Home"/>
+    <script>document.write(`<img src="_static/ElysiaJS.webp" class="logo__image only-dark" alt="Data-Mining - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="aboutData.html">What is Data?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dataProcess.html">Data Mining Process</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Data Understanding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas2.html">Outlier and K-NN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas3.html">Local Outlier Factor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas4.html">Naive Bayes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UTS.html">UTS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas5.html">Clustering and K-Means</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas6.html">Fuzzy C-Means</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas7.html">Decision Tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas8.html">KBinsDiscretizer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UAS.html">UAS</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/rhindottire/Data-Mining" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/rhindottire/Data-Mining/issues/new?title=Issue%20on%20page%20%2FTugas1.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Tugas1.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Data Understanding</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-collection">Data Collection</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-source">Data Source</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-types"><em><strong>Data Types</strong></em></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-structure">Data Structure</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#structured-data">Structured Data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#unstructured-data">Unstructured Data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#semi-structured-data">Semi-Structured Data</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-mining-concepts">Data Mining Concepts</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#supervised-learning">Supervised Learning</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#unsupervised-learning">Unsupervised Learning</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation-requirements">Installation Requirements</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-these-packages-together">Why These Packages Together?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-requirements">Import Requirements</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-gathering">Data Gathering</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-profilling">Data Profilling</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-statistics">Data Statistics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-exploration">Data Exploration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-visualization">Data Visualization</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="data-understanding">
+<h1>Data Understanding<a class="headerlink" href="#data-understanding" title="Link to this heading">#</a></h1>
+<p>Data Understanding adalah fase awal dalam proses data mining <em>(model CRISP-DM)</em> yang bertujuan untuk mengenal data secara mendalam sebelum melakukan pemrosesan atau analisis lebih lanjut. Fase ini melibatkan identifikasi karakteristik data, kualitas data, pola, anomali, serta hubungan antar variabel untuk membentuk landasan yang kokoh sebelum membangun model atau algoritma.</p>
+<section id="data-collection">
+<h2>Data Collection<a class="headerlink" href="#data-collection" title="Link to this heading">#</a></h2>
+<p>Memperoleh data mentah dari berbagai sumber (database, API, spreadsheet)
+Details:</p>
+<ul class="simple">
+<li><p>Identifikasi dan akses sumber data (structured, unstructured, atau semi-structured)</p></li>
+<li><p>Gabungkan data dari berbagai sumber (MySQL &amp; PostgreSQL)</p></li>
+<li><p>Dokumentasikan asal, format, dan batasan data.</p></li>
+</ul>
+<p><strong>Why it matters</strong>: Pengumpulan data yang buruk mengarah pada <em><strong>garbage-in-garbage-out (GIGO) scenarios</strong></em>.</p>
+<section id="data-source">
+<h3>Data Source<a class="headerlink" href="#data-source" title="Link to this heading">#</a></h3>
+<p><strong>1. Sumber Data Internal (Private)</strong></p>
+<ul class="simple">
+<li><p>File Spreadsheet (Excel, CSV, JSON)</p>
+<ul>
+<li><p>Excel: File .xlsx untuk analisis sederhana (laporan penjualan bulanan)</p></li>
+<li><p>CSV: File teks dengan pemisah koma (ideal untuk pertukaran data antar sistem)</p></li>
+<li><p>JSON: Format semi-terstruktur untuk data hierarkis (konfigurasi aplikasi)</p></li>
+</ul>
+</li>
+<li><p>Database (MySQL, PostgreSQL, Oracle)</p>
+<ul>
+<li><p>MySQL: RDBMS (relasional) untuk data struktur (laporan penjualan)</p></li>
+<li><p>PostgreSQL: RDBMS (relasional) untuk data struktur (laporan keuangan)</p></li>
+<li><p>Oracle: Database enterprise untuk sistem besar (transaksi bank)</p></li>
+</ul>
+</li>
+<li><p>File Teks (Documents)</p>
+<ul>
+<li><p>Data tidak terstruktur dalam format .txt, .docx, .pdf, atau log file</p></li>
+</ul>
+</li>
+<li><p>Multimedia (Gambar, Video)</p>
+<ul>
+<li><p>Data non-teks seperti gambar (.jpg, .png), audio (.mp3), atau video (.mp4)</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>2. Sumber Data Eksternal (Public)</strong></p>
+<ul class="simple">
+<li><p>Public Data Repository</p>
+<ul>
+<li><p><a class="reference external" href="https://data.go.id">Portal Satu Data Indonesia</a></p></li>
+<li><p><a class="reference external" href="https://data.jakarta.go.id">Portal Data Jakarta</a></p></li>
+<li><p><a class="reference external" href="https://data.bandung.go.id">Portal Data Bandung</a></p></li>
+<li><p><a class="reference external" href="https://www.bps.go.id">Badan Pusat Statistik</a></p></li>
+<li><p><a class="reference external" href="https://tanahair.indonesia.go.id/">Badan Informasi Geospasial</a></p></li>
+<li><p><a class="reference external" href="https://archive.ics.uci.edu/ml/index.php">UCI Machine Learning repository</a></p></li>
+<li><p><a class="reference external" href="https://www.kaggle.com/datasets">Kaggle</a></p></li>
+<li><p><a class="reference external" href="https://data.worldbank.org">World Bank Open Data</a></p></li>
+<li><p><a class="reference external" href="https://data.unicef.org">UNICEF Data</a></p></li>
+<li><p><a class="reference external" href="https://www.who.int/data">WHO Open Data</a></p></li>
+<li><p><a class="reference external" href="https://developer.ibm.com/exchanges/data">IBM Data Asset eXchange</a></p></li>
+<li><p><a class="reference external" href="https://www.dbpedia.org/resources/">DBPedia</a></p></li>
+<li><p><a class="reference external" href="https://www.wikidata.org">Wikidata</a></p></li>
+</ul>
+</li>
+<li><p>Public Web (Situs Web Publik)</p>
+<ul>
+<li><p>Media Sosial: Tweet dari Twitter, posting Instagram</p></li>
+<li><p>E-commerce: Harga produk dari Amazon/Tokopedia</p></li>
+<li><p>Berita: Artikel dari situs berita</p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="https://datasetsearch.research.google.com">Google Dataset Search</a></p></li>
+</ul>
+<p><strong>Pertimbangan Utama</strong>:
+Pertimbangan utama mencakup aspek data internal dan eksternal. Untuk data internal, keamanan menjadi hal krusial dengan penerapan enkripsi dan pembatasan akses, contohnya mengikuti <em>GDPR</em> untuk data EU, serta integrasi data menghindari <em>silo</em> dengan menggabungkan sumber-sumber internal seperti <em>CRM</em> dan database transaksi. Sementara itu, data eksternal perlu perhatian terhadap legalitas, seperti kepatuhan terhadap aturan web scraping <em><strong>(robots.txt)</strong></em> dan hak cipta, serta kualitas data harus diverifikasi, di mana data dari instansi pemerintah umumnya lebih terpercaya dibandingkan dengan blog pribadi.</p>
+</section>
+<section id="data-types">
+<h3><em><strong>Data Types</strong></em><a class="headerlink" href="#data-types" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Nominal Data / Categorical Data: Data kategori tanpa urutan (jenis kota, warna).</p></li>
+<li><p>Ordinal Data: Data kategori berurutan (rating 1-5).</p></li>
+<li><p>Binary Data / Dikotomi: Data kategori dengan 2 nilai (Yes/No).</p></li>
+<li><p>Numerical Data / Quantitative Data:</p>
+<ul>
+<li><p>Discrete: Bilangan bulat (jumlah anak).</p></li>
+<li><p>Continuous: Bilangan desimal (suhu).</p></li>
+</ul>
+</li>
+<li><p>Text Data / String: Data teks tidak terstruktur.</p></li>
+<li><p>Temporal Data / Time Series: Data terkait waktu.</p></li>
+<li><p>Geospatial Data: Data geografis (koordinat).</p></li>
+</ul>
+<p><img alt="dataTypes" src="_images/dataTypes.webp" /></p>
+</section>
+<section id="data-structure">
+<h3>Data Structure<a class="headerlink" href="#data-structure" title="Link to this heading">#</a></h3>
+<pre>
+Attribute  / Feature    / Variable / Column / Kolom : Karakteristik atau properti dari data
+Record    / Tuple      / Instance / Row    / Baris  : Satu entri/data point dalam dataset
+Dataset  / Data Frame / Table    / Matriks          : Kumpulan record dan attribute yang terstruktur
+Label   / Class                                     : Variabel yang ingin diprediksi atau dianalisis
+Schema / Metadata                                   : Deskripsi struktur data (tipe data, constraint)
+</pre><section id="structured-data">
+<h4>Structured Data<a class="headerlink" href="#structured-data" title="Link to this heading">#</a></h4>
+<p>Data terstruktur adalah data yang memiliki format tetap dan terorganisir dalam skema yang jelas, seperti tabel dalam basis data relasional dan disimpan dalam format terorganisir dengan skema tetap, berupa tabel dengan baris (record) dan kolom (field). Data ini disimpan dalam baris dan kolom, di mana setiap kolom merepresentasikan atribut tertentu dan setiap baris adalah satu entitas data. Contoh umum dari data terstruktur termasuk data transaksi di sistem perbankan, daftar pelanggan dalam CRM, dan informasi produk dalam katalog e-commerce. Karena sifatnya yang terstruktur, data ini mudah diproses menggunakan SQL dan alat analisis data lainnya.</p>
+<ul class="simple">
+<li><p>Model data terdefinisikan sebelumnya</p></li>
+<li><p>Format item data berupa text</p></li>
+<li><p>Antar item data terbedakan dengan jelas</p></li>
+<li><p>Ekstraksi dan query langsung cukup mudah</p></li>
+</ul>
+<p>Contoh: Data tabular, data berorientasi object, time series</p>
+</section>
+<section id="unstructured-data">
+<h4>Unstructured Data<a class="headerlink" href="#unstructured-data" title="Link to this heading">#</a></h4>
+<p>Data tidak terstruktur merujuk pada data yang tidak terorganisir dalam format terstruktur seperti tabel atau database relasional. Berbeda dengan structured data yang memiliki skema jelas (misal: kolom “nama” atau “usia”), unstructured data tidak mengikuti pola tertentu dan sering kali berupa teks bebas, gambar, audio, video, atau data dari media sosial. Contohnya termasuk dokumen teks (email, artikel), postingan di platform seperti Twitter atau Instagram, rekaman percakapan, foto medis, atau bahkan file log sistem.</p>
+<ul class="simple">
+<li><p>Model data tidak terdefinisikan sebelumnya</p></li>
+<li><p>Format item data berupa text, citra, suara, video dan format lainnya</p></li>
+<li><p>Antar item data tidak cukup jelas terbedakan karena ketidak terstrukturnya</p></li>
+<li><p>Ekstraksi dan query langsung cukup sulit</p></li>
+</ul>
+<p>Contoh: Dokumen, gambar, video, audio, email, chat, dan lain-lain</p>
+</section>
+<section id="semi-structured-data">
+<h4>Semi-Structured Data<a class="headerlink" href="#semi-structured-data" title="Link to this heading">#</a></h4>
+<p>Data semi-terstruktur adalah jenis data yang memiliki struktur, namun tidak diatur dalam format tabel seperti pada basis data relasional. Meskipun begitu, data ini menggunakan tag atau penanda lain untuk memisahkan dan mengidentifikasi elemen-elemennya serta mengatur hubungan hierarkis di antara elemen tersebut, sehingga informasi yang terkandung dapat diinterpretasikan dengan jelas.</p>
+<p><img alt="dataTypes" src="_images/dataStructure.jpeg" /></p>
+</section>
+</section>
+<section id="data-mining-concepts">
+<h3>Data Mining Concepts<a class="headerlink" href="#data-mining-concepts" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Method</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Classification</p></td>
+<td><p>Klasifikasi data ke dalam kategori.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Regression</p></td>
+<td><p>Prediksi nilai numerik kontinu.</p></td>
+</tr>
+<tr class="row-even"><td><p>Clustering</p></td>
+<td><p>Pengelompokan data tanpa label.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Association Rule Mining</p></td>
+<td><p>Menemukan pola hubungan antar-item.</p></td>
+</tr>
+<tr class="row-even"><td><p>Outlier Detection</p></td>
+<td><p>Identifikasi data tidak wajar.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Dimensionality Reduction</p></td>
+<td><p>Mengurangi jumlah fitur (PCA).</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="supervised-learning">
+<h4>Supervised Learning<a class="headerlink" href="#supervised-learning" title="Link to this heading">#</a></h4>
+<p>Supervised Learning adalah metode pembelajaran mesin di mana model dilatih menggunakan data yang memiliki label atau output yang sudah diketahui sebelumnya. Model belajar dengan cara mengasosiasikan pola dari data input dengan output yang diberikan, sehingga dapat digunakan untuk membuat prediksi terhadap data baru.</p>
+<p>Ciri utama dari Supervised Learning:</p>
+<ul class="simple">
+<li><p>Menggunakan pasangan data input-output selama proses pelatihan.</p></li>
+<li><p>Model belajar dari hubungan antara fitur input dan output yang telah ditentukan.</p></li>
+<li><p>Biasanya digunakan untuk tugas prediksi atau klasifikasi.</p></li>
+</ul>
+<p>Contoh Aplikasi:</p>
+<ul class="simple">
+<li><p>Klasifikasi: Mendeteksi apakah email adalah spam atau bukan berdasarkan fitur kata-kata dalam email.</p></li>
+<li><p>Regresi: Memprediksi harga rumah berdasarkan faktor seperti luas tanah, jumlah kamar, dan lokasi.</p></li>
+</ul>
+</section>
+<section id="unsupervised-learning">
+<h4>Unsupervised Learning<a class="headerlink" href="#unsupervised-learning" title="Link to this heading">#</a></h4>
+<p>Unsupervised Learning adalah metode pembelajaran mesin di mana model dilatih menggunakan data yang tidak memiliki label. Tujuan utama dari metode ini adalah untuk menemukan pola atau struktur tersembunyi dalam data tanpa bimbingan eksplisit.</p>
+<p>Ciri utama dari Unsupervised Learning:</p>
+<ul class="simple">
+<li><p>Tidak menggunakan label atau output yang diketahui.</p></li>
+<li><p>Model harus menemukan pola atau struktur dalam data secara mandiri.</p></li>
+<li><p>Digunakan untuk analisis data eksploratif dan pengelompokan.</p></li>
+</ul>
+<p>Contoh Aplikasi:</p>
+<ul class="simple">
+<li><p>Clustering: Mengelompokkan pelanggan berdasarkan pola belanja mereka untuk strategi pemasaran yang lebih efektif.</p></li>
+<li><p>Association Rule Mining: Menganalisis data transaksi untuk menemukan pola hubungan antar-item dalam belanja, seperti “Pelanggan yang membeli roti cenderung membeli susu.”</p></li>
+</ul>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Aspect</strong></p></th>
+<th class="head"><p><strong>Supervised Learning</strong></p></th>
+<th class="head"><p><strong>Unsupervised Learning</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Data Label</p></td>
+<td><p>Ada label (output diketahui)</p></td>
+<td><p>Tidak ada label (output tidak diketahui)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Tujuan</p></td>
+<td><p>Memprediksi nilai atau kategori baru</p></td>
+<td><p>Menemukan pola tersembunyi dalam data</p></td>
+</tr>
+<tr class="row-even"><td><p>Contoh Metode</p></td>
+<td><p>Classification, Regression</p></td>
+<td><p>Clustering, Association Rule Mining</p></td>
+</tr>
+<tr class="row-odd"><td><p>Contoh Kasus</p></td>
+<td><p>Deteksi penipuan kartu kredit</p></td>
+<td><p>Segmentasi pelanggan, rekomendasi produk</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+</section>
+<section id="installation-requirements">
+<h2>Installation Requirements<a class="headerlink" href="#installation-requirements" title="Link to this heading">#</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>%pip<span class="w"> </span>install<span class="w"> </span>numpy<span class="w"> </span>pandas<span class="w"> </span>sqlalchemy<span class="w"> </span>python-dotenv<span class="w"> </span>matplotlib<span class="w"> </span>seaborn<span class="w"> </span>pymysql<span class="w"> </span>psycopg2-binary
+</pre></div>
+</div>
+<ol class="arabic simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">numpy</span></code></strong></p>
+<ul class="simple">
+<li><p>Tujuan: Library untuk komputasi numerik.</p></li>
+<li><p>Fungsi Utama: Menyediakan array multidimensi dan operasi matematis efisien.</p></li>
+<li><p>Contoh Penggunaan: Mendukung operasi numerik di pandas atau perhitungan statistik.</p></li>
+<li><p>Manfaat: Meningkatkan performa komputasi data.</p></li>
+</ul>
+</li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">pandas</span></code></strong></p>
+<ul class="simple">
+<li><p><strong>Tujuan</strong>: Library untuk manipulasi dan analisis data tabular.</p></li>
+<li><p><strong>Fungsi Utama</strong>: Memproses data dalam format <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> untuk analisis dan transformasi.</p></li>
+<li><p><strong>Contoh Penggunaan</strong>:</p>
+<ul>
+<li><p>Mengimpor data dari CSV, Excel, atau SQL ke <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>.</p></li>
+<li><p>Membersihkan data, melakukan grouping, atau menghitung statistik.</p></li>
+</ul>
+</li>
+<li><p><strong>Manfaat</strong>: Menawarkan alat yang kuat dan intuitif untuk pengolahan dataset besar.</p></li>
+</ul>
+</li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">sqlalchemy</span></code></strong></p>
+<ul class="simple">
+<li><p><strong>Tujuan</strong>: Toolkit SQL dan Object-Relational Mapping (ORM) untuk Python.</p></li>
+<li><p><strong>Fungsi Utama</strong>: Membuat kode database-agnostik yang kompatibel dengan berbagai sistem database (MySQL, PostgreSQL, SQLite, dll.).</p></li>
+<li><p><strong>Contoh Penggunaan</strong>:</p>
+<ul>
+<li><p>Menghubungkan aplikasi ke database menggunakan <code class="docutils literal notranslate"><span class="pre">create_engine</span></code>.</p></li>
+<li><p>Mendefinisikan skema tabel dengan kelas Python (ORM).</p></li>
+<li><p>Mengintegrasikan hasil query ke <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>.</p></li>
+</ul>
+</li>
+<li><p><strong>Manfaat</strong>: Menyederhanakan pengelolaan database dan memungkinkan fleksibilitas lintas platform database.</p></li>
+</ul>
+</li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">python-dotenv</span></code></strong></p>
+<ul class="simple">
+<li><p><strong>Tujuan</strong>: Memuat variabel lingkungan dari file <code class="docutils literal notranslate"><span class="pre">.env</span></code> ke dalam aplikasi.</p></li>
+<li><p><strong>Fungsi Utama</strong>: Mengelola informasi sensitif seperti kredensial database atau kunci API secara aman.</p></li>
+<li><p><strong>Contoh Penggunaan</strong>: Memuat parameter koneksi database dari file <code class="docutils literal notranslate"><span class="pre">.env</span></code> untuk digunakan oleh <code class="docutils literal notranslate"><span class="pre">sqlalchemy</span></code>.</p></li>
+<li><p><strong>Manfaat</strong>: Meningkatkan keamanan dengan menghindari hardcoding data sensitif dan memudahkan konfigurasi lintas lingkungan.</p></li>
+</ul>
+</li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">matplotlib</span></code></strong></p>
+<ul class="simple">
+<li><p><strong>Tujuan</strong>: Library untuk membuat visualisasi data statis, interaktif, atau animasi.</p></li>
+<li><p><strong>Fungsi Utama</strong>: Menghasilkan berbagai jenis grafik seperti plot garis, scatter, histogram, atau bar chart.</p></li>
+<li><p><strong>Contoh Penggunaan</strong>: Memvisualisasikan distribusi data atau tren dalam analisis eksplorasi.</p></li>
+<li><p><strong>Manfaat</strong>: Memberikan fleksibilitas tinggi untuk kustomisasi visualisasi data.</p></li>
+</ul>
+</li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">seaborn</span></code></strong></p>
+<ul class="simple">
+<li><p><strong>Tujuan</strong>: Library visualisasi data berbasis <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> dengan antarmuka yang lebih ramah pengguna.</p></li>
+<li><p><strong>Fungsi Utama</strong>: Membuat visualisasi statistik yang estetis seperti heatmap, boxplot, atau pairplot.</p></li>
+<li><p><strong>Contoh Penggunaan</strong>: Menganalisis hubungan antar variabel atau distribusi data dengan visualisasi yang lebih menarik.</p></li>
+<li><p><strong>Manfaat</strong>: Mempercepat pembuatan visualisasi yang informatif dengan sintaks sederhana dan integrasi langsung dengan <code class="docutils literal notranslate"><span class="pre">pandas</span></code>.</p></li>
+</ul>
+</li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">pymysql</span></code></strong></p>
+<ul class="simple">
+<li><p><strong>Tujuan</strong>: Konektor untuk menghubungkan Python dengan database MySQL.</p></li>
+<li><p><strong>Fungsi Utama</strong>: Menjalankan query SQL dan mengelola koneksi ke database MySQL.</p></li>
+<li><p><strong>Contoh Penggunaan</strong>: Mengambil data dari tabel MySQL atau memperbarui record database.</p></li>
+<li><p><strong>Manfaat</strong>: Menyediakan antarmuka sederhana untuk interaksi langsung dengan database MySQL tanpa memerlukan ORM.</p></li>
+</ul>
+</li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">psycopg2-binary</span></code></strong></p>
+<ul class="simple">
+<li><p><strong>Tujuan</strong>: Adaptor untuk menghubungkan Python dengan database PostgreSQL.</p></li>
+<li><p><strong>Fungsi Utama</strong>: Mengelola koneksi dan eksekusi query pada database PostgreSQL.</p></li>
+<li><p><strong>Contoh Penggunaan</strong>: Menjalankan query kompleks atau mengimpor data PostgreSQL ke dalam aplikasi Python.</p></li>
+<li><p><strong>Manfaat</strong>: Mendukung performa tinggi dan fitur PostgreSQL seperti tipe data khusus (JSON, UUID).</p></li>
+</ul>
+</li>
+</ol>
+<section id="why-these-packages-together">
+<h3>Why These Packages Together?<a class="headerlink" href="#why-these-packages-together" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Terhubung ke database (MySQL/PostgreSQL) melalui pymysql/psycopg2.</p></li>
+<li><p>Menggunakan sqlalchemy untuk interaksi database yang fleksibel.</p></li>
+<li><p>Menggunakan panda untuk manipulasi data.</p></li>
+<li><p>Mengamankan kredensial dengan python-dotenv.</p></li>
+<li><p>Memvisualisasikan hasil dengan matplotlib dan seaborn.</p></li>
+</ol>
+</section>
+<section id="import-requirements">
+<h3>Import Requirements<a class="headerlink" href="#import-requirements" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">os</span></code></strong><br />
+Library bawaan Python untuk berinteraksi dengan sistem operasi.</p>
+<ul class="simple">
+<li><p><strong>Fungsi Utama</strong>: Mengelola file, direktori, dan variabel lingkungan.</p></li>
+<li><p><strong>Contoh Penggunaan</strong>: Membaca path file, membuat direktori baru, atau mengakses variabel lingkungan sistem.</p></li>
+<li><p><strong>Manfaat</strong>: Memudahkan otomatisasi tugas berbasis sistem dan memastikan kode berjalan lintas platform (cross-platform).</p></li>
+</ul>
+</li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">pandas</span></code></strong> (<code class="docutils literal notranslate"><span class="pre">pd</span></code>)<br />
+Library inti untuk manipulasi dan analisis data berbasis Python.</p>
+<ul class="simple">
+<li><p><strong>Fungsi Utama</strong>: Memproses data tabular dalam bentuk <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> atau <code class="docutils literal notranslate"><span class="pre">Series</span></code>.</p></li>
+<li><p><strong>Contoh Penggunaan</strong>: Membersihkan data, filtering, grouping, merging dataset, atau menghitung statistik deskriptif.</p></li>
+<li><p><strong>Manfaat</strong>: Menyederhanakan pengolahan dataset besar dengan sintaks yang intuitif dan performa tinggi.</p></li>
+</ul>
+</li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">sqlalchemy</span></code></strong> (<code class="docutils literal notranslate"><span class="pre">create_engine</span></code>)<br />
+Toolkit SQL dan ORM (Object-Relational Mapping) untuk menghubungkan Python dengan basis data.</p>
+<ul class="simple">
+<li><p><strong>Fungsi Utama</strong>: Membuat koneksi ke database relasional (misalnya, MySQL, PostgreSQL, SQLite) melalui <code class="docutils literal notranslate"><span class="pre">create_engine</span></code>.</p></li>
+<li><p><strong>Contoh Penggunaan</strong>: Mengeksekusi query SQL dan mengimpor hasilnya langsung ke <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> pandas.</p></li>
+<li><p><strong>Manfaat</strong>: Menyediakan antarmuka yang fleksibel untuk integrasi data dari berbagai sumber database.</p></li>
+</ul>
+</li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">dotenv</span></code></strong> (<code class="docutils literal notranslate"><span class="pre">load_dotenv</span></code>)<br />
+Library untuk mengelola variabel lingkungan dari file <code class="docutils literal notranslate"><span class="pre">.env</span></code>.</p>
+<ul class="simple">
+<li><p><strong>Fungsi Utama</strong>: Memuat variabel lingkungan secara aman ke dalam program.</p></li>
+<li><p><strong>Contoh Penggunaan</strong>: Menyimpan kredensial database, API key, atau konfigurasi sensitif lainnya tanpa hardcoding.</p></li>
+<li><p><strong>Manfaat</strong>: Meningkatkan keamanan kode dan memudahkan pengelolaan konfigurasi di berbagai lingkungan (development, production).</p></li>
+</ul>
+</li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">matplotlib.pyplot</span></code></strong> (<code class="docutils literal notranslate"><span class="pre">plt</span></code>)<br />
+Modul dari library <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> untuk visualisasi data.</p>
+<ul class="simple">
+<li><p><strong>Fungsi Utama</strong>: Membuat berbagai jenis plot seperti grafik garis, scatter, histogram, atau bar chart.</p></li>
+<li><p><strong>Contoh Penggunaan</strong>: Memvisualisasikan tren data, distribusi, atau hubungan antar variabel.</p></li>
+<li><p><strong>Manfaat</strong>: Membantu eksplorasi data secara visual dan menyampaikan hasil analisis secara jelas kepada pemangku kepentingan.</p></li>
+</ul>
+</li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">numpy</span></code></strong> (<code class="docutils literal notranslate"><span class="pre">np</span></code>)<br />
+Library fundamental untuk komputasi numerik di Python.</p>
+<ul class="simple">
+<li><p><strong>Fungsi Utama</strong>: Menyediakan struktur data array multidimensi dan operasi matematis yang efisien.</p></li>
+<li><p><strong>Contoh Penggunaan</strong>: Melakukan perhitungan statistik, manipulasi array, atau mendukung operasi di <code class="docutils literal notranslate"><span class="pre">pandas</span></code>.</p></li>
+<li><p><strong>Manfaat</strong>: Meningkatkan performa komputasi data dan mendukung berbagai library data science.</p></li>
+</ul>
+</li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">seaborn</span></code></strong> (<code class="docutils literal notranslate"><span class="pre">sns</span></code>)<br />
+Library visualisasi data yang dibangun di atas <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>.</p>
+<ul class="simple">
+<li><p><strong>Fungsi Utama</strong>: Membuat visualisasi statistik yang menarik dan informatif dengan sintaks yang lebih sederhana.</p></li>
+<li><p><strong>Contoh Penggunaan</strong>: Membuat heatmap, box plot, atau grafik regresi untuk analisis eksplorasi data.</p></li>
+<li><p><strong>Manfaat</strong>: Mempercepat pembuatan visualisasi yang estetis dan mendukung integrasi langsung dengan <code class="docutils literal notranslate"><span class="pre">pandas</span></code>.</p></li>
+</ul>
+</li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sqlalchemy</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_engine</span>
+
+<span class="n">load_dotenv</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>False
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="data-gathering">
+<h2>Data Gathering<a class="headerlink" href="#data-gathering" title="Link to this heading">#</a></h2>
+<p>Dataset Iris merupakan kumpulan data yang mencakup tiga spesies bunga <em>iris setosa, versicolor, dan virginica</em> dengan empat fitur utama, yaitu sepal_length, sepal_width, petal_length, dan petal_width. Data ini dihosting di platform <a class="reference external" href="https://aiven.io/">aiven.io</a>, dengan penyimpanan terpisah antara data petal yang berada di database <strong>MySQL</strong> dan data sepal yang tersimpan di database <strong>PostgreSQL</strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mysql_url</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;MYSQL_URL&quot;</span><span class="p">)</span>
+<span class="n">postgres_url</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;POSTGRES_URL&quot;</span><span class="p">)</span>
+
+<span class="c1"># DB connection</span>
+<span class="n">mysql_engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="n">mysql_url</span><span class="p">)</span>
+<span class="n">postgres_engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="n">postgres_url</span><span class="p">)</span>
+
+<span class="c1"># Get Data from sql and postgres</span>
+<span class="n">df_mysql</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM iris_mysql&quot;</span><span class="p">,</span><span class="n">mysql_engine</span><span class="p">)</span>
+<span class="n">df_postgres</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM iris_postgre ORDER BY id&quot;</span><span class="p">,</span><span class="n">postgres_engine</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">df_mysql</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>class</th>
+      <th>petal length</th>
+      <th>petal width</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>Iris-setosa</td>
+      <td>86.4</td>
+      <td>70.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>Iris-setosa</td>
+      <td>1.4</td>
+      <td>0.2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>Iris-setosa</td>
+      <td>1.3</td>
+      <td>0.2</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>Iris-setosa</td>
+      <td>1.5</td>
+      <td>0.2</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>Iris-setosa</td>
+      <td>1.4</td>
+      <td>0.2</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">df_postgres</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>class</th>
+      <th>sepal length</th>
+      <th>sepal width</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>Iris-setosa</td>
+      <td>20.1</td>
+      <td>30.5</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>Iris-setosa</td>
+      <td>4.9</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>Iris-setosa</td>
+      <td>4.8</td>
+      <td>3.2</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>Iris-setosa</td>
+      <td>4.6</td>
+      <td>3.1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>Iris-setosa</td>
+      <td>5.0</td>
+      <td>3.6</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="data-profilling">
+<h2>Data Profilling<a class="headerlink" href="#data-profilling" title="Link to this heading">#</a></h2>
+<p>Dalam tahap data profiling, data dari kedua sumber MySQL untuk data petal dan PostgreSQL untuk data sepal digabungkan guna memperoleh gambaran menyeluruh mengenai kualitas, konsistensi, dan distribusi fitur dalam dataset Iris. Penggabungan ini memungkinkan analisis lebih mendalam, seperti identifikasi outlier dan evaluasi korelasi antar fitur, serta memastikan integritas data yang telah dikumpulkan. Dengan demikian, pendekatan integrasi data ini sangat tepat untuk mendapatkan insight yang komprehensif dan mendukung pengambilan keputusan berbasis data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_postgres</span> <span class="o">=</span> <span class="n">df_postgres</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;class&quot;</span><span class="p">])</span>
+<span class="n">df_iris</span> <span class="o">=</span> <span class="n">df_mysql</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_postgres</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;id&quot;</span><span class="p">)</span>
+<span class="n">df_iris</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;data/tugas1/iris_combined.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="c1"># convert file to scv</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_iris</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      id           class  petal length  petal width  sepal length  sepal width
+0      1     Iris-setosa          86.4         70.0          20.1         30.5
+1      2     Iris-setosa           1.4          0.2           4.9          3.0
+2      3     Iris-setosa           1.3          0.2           4.8          3.2
+3      4     Iris-setosa           1.5          0.2           4.6          3.1
+4      5     Iris-setosa           1.4          0.2           5.0          3.6
+..   ...             ...           ...          ...           ...          ...
+145  146  Iris-virginica           5.2          2.3           6.7          3.0
+146  147  Iris-virginica           5.0          1.9           6.3          2.5
+147  148  Iris-virginica           5.2          2.0           6.5          3.0
+148  149  Iris-virginica           5.4          2.3           6.2          3.4
+149  150  Iris-virginica           5.1          1.8           5.9          3.0
+
+[150 rows x 6 columns]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="data-statistics">
+<h2>Data Statistics<a class="headerlink" href="#data-statistics" title="Link to this heading">#</a></h2>
+<p><img alt="dataTypes" src="_images/dataStatis.webp" /></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">feature</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;sepal length&quot;</span><span class="p">,</span> <span class="s2">&quot;sepal width&quot;</span><span class="p">,</span> <span class="s2">&quot;petal length&quot;</span><span class="p">,</span> <span class="s2">&quot;petal width&quot;</span><span class="p">]</span>
+
+<span class="c1"># Statistik dasar</span>
+<span class="n">stats</span> <span class="o">=</span> <span class="n">df_iris</span><span class="p">[</span><span class="n">feature</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;median&#39;</span><span class="p">,</span> <span class="s1">&#39;min&#39;</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">,</span> <span class="s1">&#39;var&#39;</span><span class="p">,</span> <span class="s1">&#39;std&#39;</span><span class="p">])</span>
+<span class="n">mode_values</span> <span class="o">=</span> <span class="n">df_iris</span><span class="p">[</span><span class="n">feature</span><span class="p">]</span><span class="o">.</span><span class="n">mode</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">range_values</span> <span class="o">=</span> <span class="n">df_iris</span><span class="p">[</span><span class="n">feature</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">df_iris</span><span class="p">[</span><span class="n">feature</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+<span class="n">stats</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;mode&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mode_values</span>
+<span class="n">stats</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">range_values</span>
+<span class="n">display</span><span class="p">(</span><span class="n">stats</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">stats</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;YlGnBu&quot;</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;.2f&quot;</span><span class="p">,</span> <span class="n">cbar_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;Nilai&#39;</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Heatmap Statistik Deskriptif feature Iris&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Feature&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Statistik&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;data/tugas1/assets/heatmap_statistik_iris.png&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>sepal length</th>
+      <th>sepal width</th>
+      <th>petal length</th>
+      <th>petal width</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>mean</th>
+      <td>5.944000</td>
+      <td>3.234000</td>
+      <td>4.325333</td>
+      <td>1.664000</td>
+    </tr>
+    <tr>
+      <th>median</th>
+      <td>5.800000</td>
+      <td>3.000000</td>
+      <td>4.400000</td>
+      <td>1.300000</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>4.300000</td>
+      <td>2.000000</td>
+      <td>1.000000</td>
+      <td>0.100000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>20.100000</td>
+      <td>30.500000</td>
+      <td>86.400000</td>
+      <td>70.000000</td>
+    </tr>
+    <tr>
+      <th>var</th>
+      <td>2.034427</td>
+      <td>5.209642</td>
+      <td>48.588750</td>
+      <td>32.127017</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>1.426333</td>
+      <td>2.282464</td>
+      <td>6.970563</td>
+      <td>5.668070</td>
+    </tr>
+    <tr>
+      <th>mode</th>
+      <td>5.000000</td>
+      <td>3.000000</td>
+      <td>1.500000</td>
+      <td>0.200000</td>
+    </tr>
+    <tr>
+      <th>range</th>
+      <td>15.800000</td>
+      <td>28.500000</td>
+      <td>85.400000</td>
+      <td>69.900000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><img alt="_images/e08778b7e56f72d0261fbf0619900e84a7661ccd6caf5017e88d95f13338cab7.png" src="_images/e08778b7e56f72d0261fbf0619900e84a7661ccd6caf5017e88d95f13338cab7.png" />
+</div>
+</div>
+</section>
+<section id="data-exploration">
+<h2>Data Exploration<a class="headerlink" href="#data-exploration" title="Link to this heading">#</a></h2>
+<p><img alt="dataTypes" src="_images/dataExploration.png" /></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Matriks korelasi</span>
+<span class="n">corr_matrix</span> <span class="o">=</span> <span class="n">df_iris</span><span class="p">[</span><span class="n">feature</span><span class="p">]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+<span class="n">display</span><span class="p">(</span><span class="n">corr_matrix</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">corr_matrix</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;.2f&#39;</span><span class="p">,</span> <span class="n">cbar_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;Korelasi&#39;</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Heatmap Matriks Korelasi&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;data/tugas1/assets/heatmap.png&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>sepal length</th>
+      <th>sepal width</th>
+      <th>petal length</th>
+      <th>petal width</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>sepal length</th>
+      <td>1.000000</td>
+      <td>0.789700</td>
+      <td>0.916298</td>
+      <td>0.871682</td>
+    </tr>
+    <tr>
+      <th>sepal width</th>
+      <td>0.789700</td>
+      <td>1.000000</td>
+      <td>0.930563</td>
+      <td>0.964198</td>
+    </tr>
+    <tr>
+      <th>petal length</th>
+      <td>0.916298</td>
+      <td>0.930563</td>
+      <td>1.000000</td>
+      <td>0.991532</td>
+    </tr>
+    <tr>
+      <th>petal width</th>
+      <td>0.871682</td>
+      <td>0.964198</td>
+      <td>0.991532</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><img alt="_images/7812c2792c4ecc244f0067b3cd4b412e61a261f6cc07dba88fcdbfb724624553.png" src="_images/7812c2792c4ecc244f0067b3cd4b412e61a261f6cc07dba88fcdbfb724624553.png" />
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 640x480 with 0 Axes&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fungsi deteksi outlier menggunakan IQR</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">detect_outliers_iqr</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">column</span><span class="p">):</span>
+    <span class="n">Q1</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.25</span><span class="p">)</span>
+    <span class="n">Q3</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.75</span><span class="p">)</span>
+    <span class="n">IQR</span> <span class="o">=</span> <span class="n">Q3</span> <span class="o">-</span> <span class="n">Q1</span>
+    <span class="n">lower_bound</span> <span class="o">=</span> <span class="n">Q1</span> <span class="o">-</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">IQR</span>
+    <span class="n">upper_bound</span> <span class="o">=</span> <span class="n">Q3</span> <span class="o">+</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">IQR</span>
+    <span class="n">outliers</span> <span class="o">=</span> <span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">lower_bound</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">upper_bound</span><span class="p">)][</span><span class="n">column</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">outliers</span>
+
+<span class="c1"># Cetak detail outlier menggunakan IQR</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Outliers Detection (IQR):&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">feature</span><span class="p">:</span>
+    <span class="n">outliers</span> <span class="o">=</span> <span class="n">detect_outliers_iqr</span><span class="p">(</span><span class="n">df_iris</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">outliers</span><span class="p">)</span><span class="si">}</span><span class="s2"> outliers&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">outliers</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">outliers</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">feature</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">idx</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">df_iris</span><span class="p">[</span><span class="n">col</span><span class="p">])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Boxplot of </span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Value&#39;</span><span class="p">)</span>
+    <span class="n">outliers</span> <span class="o">=</span> <span class="n">detect_outliers_iqr</span><span class="p">(</span><span class="n">df_iris</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.95</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;Outliers: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">outliers</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> 
+             <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> 
+             <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;top&#39;</span><span class="p">,</span> 
+             <span class="n">transform</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
+             <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;data/tugas1/assets/outliers_detection_(IQR).png&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Outliers Detection (IQR):
+sepal length: 1 outliers
+0    20.1
+Name: sepal length, dtype: float64
+sepal width: 5 outliers
+0     30.5
+15     4.4
+32     4.1
+33     4.2
+60     2.0
+Name: sepal width, dtype: float64
+petal length: 1 outliers
+0    86.4
+Name: petal length, dtype: float64
+petal width: 1 outliers
+0    70.0
+Name: petal width, dtype: float64
+</pre></div>
+</div>
+<img alt="_images/fdbda50fc6df4c27b37421426ed3a276978387c67b01a260aae10e7d47a609f2.png" src="_images/fdbda50fc6df4c27b37421426ed3a276978387c67b01a260aae10e7d47a609f2.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">detect_outliers_zscore</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">column</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">z_scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">((</span><span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">())</span>
+    <span class="n">outliers</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">z_scores</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">][</span><span class="n">column</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">outliers</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Outliers Detection (Z-Score):&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">feature</span><span class="p">:</span>
+    <span class="n">outliers</span> <span class="o">=</span> <span class="n">detect_outliers_zscore</span><span class="p">(</span><span class="n">df_iris</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">outliers</span><span class="p">)</span><span class="si">}</span><span class="s2"> outliers&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">outliers</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">outliers</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">feature</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">feature</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">df_iris</span><span class="p">[</span><span class="n">col</span><span class="p">]</span>
+    <span class="n">z_scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">((</span><span class="n">data</span> <span class="o">-</span> <span class="n">data</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">/</span> <span class="n">data</span><span class="o">.</span><span class="n">std</span><span class="p">())</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Data&#39;</span><span class="p">)</span>
+    <span class="n">outliers</span> <span class="o">=</span> <span class="n">detect_outliers_zscore</span><span class="p">(</span><span class="n">df_iris</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">outliers</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">outliers</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">outliers</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Outliers&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Scatter Plot of </span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s1"> (Z-Score)&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Index&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Value&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.95</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;Outliers: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">outliers</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+             <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span>
+             <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;top&#39;</span><span class="p">,</span>
+             <span class="n">transform</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
+             <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;data/tugas1/assets/outliers_detection_(Z-Score).png&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Outliers Detection (Z-Score):
+sepal length: 1 outliers
+0    20.1
+Name: sepal length, dtype: float64
+sepal width: 1 outliers
+0    30.5
+Name: sepal width, dtype: float64
+petal length: 1 outliers
+0    86.4
+Name: petal length, dtype: float64
+petal width: 1 outliers
+0    70.0
+Name: petal width, dtype: float64
+</pre></div>
+</div>
+<img alt="_images/55f002587d7a81f09d96b24ce5324fd6560b57346c531d8a1e1a7a4a2e6772db.png" src="_images/55f002587d7a81f09d96b24ce5324fd6560b57346c531d8a1e1a7a4a2e6772db.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Missing Values:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_iris</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Jumlah Baris Duplikat:&quot;</span><span class="p">,</span> <span class="n">df_iris</span><span class="o">.</span><span class="n">duplicated</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+<span class="k">if</span> <span class="n">df_iris</span><span class="o">.</span><span class="n">duplicated</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data Duplikat:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">df_iris</span><span class="p">[</span><span class="n">df_iris</span><span class="o">.</span><span class="n">duplicated</span><span class="p">()])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Missing Values:
+id              0
+class           0
+petal length    0
+petal width     0
+sepal length    0
+sepal width     0
+dtype: int64
+
+Jumlah Baris Duplikat: 0
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="data-visualization">
+<h2>Data Visualization<a class="headerlink" href="#data-visualization" title="Link to this heading">#</a></h2>
+<p><img alt="dataTypes" src="_images/dataVisualization.png" /></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Distribusi frekuensi untuk variabel kategorikal (class)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Distribusi Frekuensi untuk class:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_iris</span><span class="p">[</span><span class="s1">&#39;class&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
+
+<span class="c1"># Bar chart untuk variabel kategorikal (class)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">countplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;class&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_iris</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Distribusi class&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;data/tugas1/assets/distribusi_class.png&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Distribusi Frekuensi untuk class:
+class
+Iris-setosa        50
+Iris-versicolor    50
+Iris-virginica     50
+Name: count, dtype: int64
+</pre></div>
+</div>
+<img alt="_images/6ad4c61f75c55348355a8bce9aa3951586d205b528d343ada9e0a1ed96673fb5.png" src="_images/6ad4c61f75c55348355a8bce9aa3951586d205b528d343ada9e0a1ed96673fb5.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Histogram for feature distribution</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;Distribusi feature Dataset Iris&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="o">.</span><span class="n">flat</span><span class="p">,</span> <span class="n">feature</span><span class="p">):</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">df_iris</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;skyblue&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Distribusi </span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Frekuensi&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="n">rect</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.96</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;data/tugas1/assets/iris_histogram.png&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/7f98aa2278d2f553a500695c4ab97eca6f232caa61151df92ed5b7e383d5bee3.png" src="_images/7f98aa2278d2f553a500695c4ab97eca6f232caa61151df92ed5b7e383d5bee3.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Pairplot for feature relationships</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">df_iris</span><span class="p">,</span> <span class="nb">vars</span><span class="o">=</span><span class="n">feature</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;class&quot;</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;Set1&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;Pairplot feature Dataset Iris&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.02</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;data/tugas1/assets/iris_pairplot.png&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/2ef6aad1b9d7ef713d9212e08b996de683c89cbea49c88ddc3a646fbf0d36b23.png" src="_images/2ef6aad1b9d7ef713d9212e08b996de683c89cbea49c88ddc3a646fbf0d36b23.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="dataProcess.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Data Mining Process</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Tugas2.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Outlier and K-NN</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-collection">Data Collection</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-source">Data Source</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-types"><em><strong>Data Types</strong></em></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-structure">Data Structure</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#structured-data">Structured Data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#unstructured-data">Unstructured Data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#semi-structured-data">Semi-Structured Data</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-mining-concepts">Data Mining Concepts</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#supervised-learning">Supervised Learning</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#unsupervised-learning">Unsupervised Learning</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation-requirements">Installation Requirements</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-these-packages-together">Why These Packages Together?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-requirements">Import Requirements</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-gathering">Data Gathering</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-profilling">Data Profilling</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-statistics">Data Statistics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-exploration">Data Exploration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-visualization">Data Visualization</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By ACHMAD RIDHO FA'IZ
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

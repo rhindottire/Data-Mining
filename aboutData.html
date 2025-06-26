@@ -1,0 +1,677 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>What is Data? &#8212; Data-Mining</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'aboutData';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Data Mining Process" href="dataProcess.html" />
+    <link rel="prev" title="Introduction" href="intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/ElysiaJS.webp" class="logo__image only-light" alt="Data-Mining - Home"/>
+    <script>document.write(`<img src="_static/ElysiaJS.webp" class="logo__image only-dark" alt="Data-Mining - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">What is Data?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dataProcess.html">Data Mining Process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas1.html">Data Understanding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas2.html">Outlier and K-NN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas3.html">Local Outlier Factor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas4.html">Naive Bayes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UTS.html">UTS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas5.html">Clustering and K-Means</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas6.html">Fuzzy C-Means</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas7.html">Decision Tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas8.html">KBinsDiscretizer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UAS.html">UAS</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/rhindottire/Data-Mining" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/rhindottire/Data-Mining/issues/new?title=Issue%20on%20page%20%2FaboutData.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/aboutData.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>What is Data?</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examples-of-data">Examples of Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sources-of-data">Sources of Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-big-data">What is Big Data?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-analytics">Data Analytics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-mining">Data Mining</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relationship-between-big-data-data-analytics-and-data-mining">Relationship Between Big Data, Data Analytics, and Data Mining</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-analytics-use-cases">Data Analytics Use Cases</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="what-is-data">
+<h1>What is Data?<a class="headerlink" href="#what-is-data" title="Link to this heading">#</a></h1>
+<p>Data mengacu pada fakta mentah, pengamatan, atau peristiwa yang telah dicatat dan disimpan. Bentuknya bisa bermacam-macam, seperti angka, teks, gambar, audio, atau video. Data menjadi berharga ketika diolah, dianalisis, dan diubah menjadi informasi bermakna yang dapat mendukung pengambilan keputusan</p>
+<section id="examples-of-data">
+<h2>Examples of Data<a class="headerlink" href="#examples-of-data" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Transaksi penjualan di toko e-commerce</p></li>
+<li><p>Postingan dan interaksi media sosial</p></li>
+<li><p>Rekam medis di rumah sakit</p></li>
+</ul>
+</section>
+<section id="sources-of-data">
+<h2>Sources of Data<a class="headerlink" href="#sources-of-data" title="Link to this heading">#</a></h2>
+<p>Data dihasilkan dari berbagai macam sumber, dan sumber tersebut dapat dikategorikan menjadi data terstruktur, dan tidak terstruktur. Berikut adalah beberapa sumber umum:</p>
+<ul class="simple">
+<li><p><strong>Social Media</strong>: Platform seperti Facebook, Twitter, dan Instagram menghasilkan konten buatan pengguna dalam jumlah besar, termasuk teks, gambar, dan video.</p></li>
+<li><p><strong>E-commerce</strong>: Platform belanja online seperti Tokopedia, Shopee, atau Lazada mengumpulkan data tentang pembelian pelanggan, perilaku penelusuran dan ulasan.</p></li>
+<li><p><strong>Online Maps</strong>: Layanan seperti Google Maps menghasilkan data berbasis lokasi, termasuk koordinat GPS dan pola lalu lintas.</p></li>
+<li><p><strong>E-wallets</strong>: Sistem pembayaran digital seperti GoPay, OVO atau ShopeePay mencatat data transaksi, termasuk jumlah, stempel waktu, dan detail pengguna.</p></li>
+<li><p><strong>Internet Browsing</strong>: Browser web dan <em>Search Engine</em> melacak aktivitas pengguna, seperti permintaan pencarian, situs web yang dikunjungi, dan durasi sesi.</p></li>
+<li><p><strong>E-learning</strong>: Platform seperti <em>Ruangguru, Dicoding atau LinkedIn Learning</em> mengumpulkan data tentang kemajuan siswa, tingkat penyelesaian kursus, dan metrik keterlibatan.</p></li>
+<li><p><strong>Medical Records</strong>: Sistem layanan kesehatan menyimpan data pasien, termasuk diagnosis, perawatan, dan riwayat medis.</p></li>
+<li><p><strong>IoT Devices</strong>: Perangkat pintar, seperti pelacak kebugaran atau sistem otomasi rumah, menghasilkan aliran data sensor yang berkelanjutan</p></li>
+</ul>
+</section>
+<section id="what-is-big-data">
+<h2>What is Big Data?<a class="headerlink" href="#what-is-big-data" title="Link to this heading">#</a></h2>
+<p>Big Data merujuk pada himpunan data berukuran sangat besar dan kompleks yang terus berkembang dengan kecepatan tinggi, sehingga metode pemrosesan data tradisional tidak lagi mampu mengelolanya secara efisien. Dalam analisis data modern, Big Data menjadi aset penting karena menyimpan informasi berharga yang dapat memberikan wawasan mendalam bagi berbagai industri. Tantangan utama dalam pengelolaan Big Data tidak hanya terletak pada ukurannya, tetapi juga pada kecepatan akuisisi, keragaman format, serta tingkat keandalan data yang bervariasi. Big Data dicirikan oleh <strong>4V</strong>:</p>
+<ol class="arabic simple">
+<li><p><strong>Volume</strong>: Data yang dihasilkan platform media sosial dapat berupa berukuran terabyte setiap hari.</p></li>
+<li><p><strong>Velocity</strong>: Kecepatan produksi dan pemrosesan data (perangkat IoT mengirim data secara real-time).</p></li>
+<li><p><strong>Variety</strong>: Keragaman tipe data termasuk yang terstruktur (database), tidak terstruktur (teks &amp; gambar), dan semi terstruktur (file JSON).</p></li>
+<li><p><strong>Veracity</strong>: Kualitas data (Big Data sering berisi data berisik, tidak lengkap, dan tidak konsisten).</p></li>
+</ol>
+<p><strong>Why is Big Data Important?</strong>
+Big Data berkaitan erat dengan topik <strong>Data Analytics</strong> dan <strong>Data Mining</strong> karena menyediakan bahan mentah untuk analisis. Tanpa Big Data, aplikasi modern berbasis data <em>(recommendation systems, market trend prediction, and fraud detection)</em> tidak akan mungkin terjadi. Tantangan Big Data <em>(storage, processing, and analysis)</em> mengarah pada pengembangan alat dan teknologi canggih seperti <strong>Hadoop, Spark, and Cloud computing</strong>.</p>
+</section>
+<section id="data-analytics">
+<h2>Data Analytics<a class="headerlink" href="#data-analytics" title="Link to this heading">#</a></h2>
+<p>Data Analytics adalah proses sistematis dalam mengeksplorasi, membersihkan, mentransformasikan, dan memodelkan data dengan tujuan mengidentifikasi pola, tren, serta wawasan yang dapat digunakan untuk mendukung pengambilan keputusan berbasis data. Proses ini tidak hanya berfokus pada pemahaman data historis, tetapi juga mencakup analisis lebih mendalam untuk mengungkap faktor-faktor penyebab, membuat prediksi, dan memberikan rekomendasi tindakan yang optimal. Dengan menggabungkan teknik statistik, algoritma pembelajaran mesin, serta visualisasi data, Data Analytics penting dalam berbagai sektor industri, mulai dari bisnis, kesehatan, keuangan, hingga pemerintahan, guna meningkatkan efisiensi operasional dan merancang strategi berbasis bukti yang lebih akurat. Ini dapat dibagi menjadi empat tipe utama:</p>
+<ol class="arabic simple">
+<li><p><strong>Descriptive Analytics</strong>:</p>
+<ul class="simple">
+<li><p>Berfokus pada merangkum data historis untuk menjawab pertanyaan, “Apa yang terjadi?”.</p></li>
+<li><p>Contoh: Toko ritel menganalisis data penjualan untuk menentukan produk yang terlaris bulan lalu.</p></li>
+</ul>
+</li>
+<li><p><strong>Diagnostic Analytics</strong>:</p>
+<ul class="simple">
+<li><p>Bertujuan untuk memahami penyebab peristiwa masa lalu dengan mengidentifikasi pola dan korelasi.</p></li>
+<li><p>Contoh: Sebuah perusahaan menyelidiki mengapa penjualan turun di wilayah tertentu dengan menganalisis tanggapan pelanggan dan kondisi pasar.</p></li>
+</ul>
+</li>
+<li><p><strong>Predictive Analytics</strong>:</p>
+<ul class="simple">
+<li><p>Menggunakan data historis dan model statistik untuk memperkirakan hasil di masa depan.</p></li>
+<li><p>Contoh: Aplikasi cuaca memprediksi suhu besok berdasarkan data cuaca historis.</p></li>
+</ul>
+</li>
+<li><p><strong>Prescriptive Analytics</strong>:</p>
+<ul class="simple">
+<li><p>Merekomendasikan tindakan untuk mencapai hasil yang diinginkan berdasarkan analisis data.</p></li>
+<li><p>Contoh: Aplikasi navigasi menyarankan rute tercepat untuk menghindari kemacetan lalu lintas.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="data-mining">
+<h2>Data Mining<a class="headerlink" href="#data-mining" title="Link to this heading">#</a></h2>
+<p>Data Mining merupakan salah satu aspek utama dalam analisis data yang berfokus pada eksplorasi dan penggalian wawasan dari kumpulan data berukuran besar dan kompleks. Proses ini bertujuan untuk mengidentifikasi pola tersembunyi, hubungan antar variabel, serta tren yang dapat memberikan nilai strategis dalam pengambilan keputusan. Dengan memanfaatkan algoritma dan teknik statistik, Data Mining memungkinkan transformasi data mentah menjadi informasi yang dapat ditindaklanjuti. Teknik utama meliputi:</p>
+<ol class="arabic simple">
+<li><p><strong>Classification</strong>:</p>
+<ul class="simple">
+<li><p>Menetapkan titik data ke kategori atau label yang telah ditentukan sebelumnya.</p></li>
+<li><p>Contoh: Mengklasifikasikan email sebagai “spam” atau “bukan spam”.</p></li>
+</ul>
+</li>
+<li><p><strong>Prediction</strong>:</p>
+<ul class="simple">
+<li><p>Memperkirakan nilai masa depan berdasarkan data historis.</p></li>
+<li><p>Contoh: Memprediksi harga rumah berdasarkan fitur seperti lokasi dan ukuran.</p></li>
+</ul>
+</li>
+<li><p><strong>Forecasting</strong>:</p>
+<ul class="simple">
+<li><p>Memprediksi trend dari waktu ke waktu, sering kali menggunakan data deret waktu.</p></li>
+<li><p>Contoh: Meramalkan tren atau penjualan pasar saham untuk kuartal berikutnya.</p></li>
+</ul>
+</li>
+<li><p><strong>Association</strong>:</p>
+<ul class="simple">
+<li><p>Mengidentifikasi hubungan antar variabel.</p></li>
+<li><p>Contoh: Analisis keranjang pasar untuk menemukan produk yang sering dibeli secara bersamaan (misalnya, “Pelanggan yang membeli X juga membeli Y”).</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="relationship-between-big-data-data-analytics-and-data-mining">
+<h2>Relationship Between Big Data, Data Analytics, and Data Mining<a class="headerlink" href="#relationship-between-big-data-data-analytics-and-data-mining" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Big Data</strong> menyediakan bahan mentah (kumpulan data yang besar dan kompleks) untuk analisis.</p></li>
+<li><p><strong>Data Analytics</strong> adalah proses pemeriksaan data yang lebih luas untuk mengekstrak wawasan.</p></li>
+<li><p><strong>Data Mining</strong> adalah teknik analisis yang berfokus pada penemuan pola dan hubungan dalam data.</p></li>
+</ul>
+<p>Dengan kata lain, Big Data menyediakan landasan berupa volume data yang sangat besar dan beragam, yang kemudian dianalisis menggunakan pendekatan Data Analytics untuk mengungkap wawasan yang bermanfaat. Di dalam proses ini, Data Mining berperan sebagai metode khusus yang memungkinkan identifikasi pola tersembunyi, tren, dan hubungan antar variabel dalam data yang mungkin tidak terlihat secara eksplisit. Dengan kombinasi ketiga konsep ini, organisasi dapat mengoptimalkan pengolahan data guna mendukung pengambilan keputusan yang lebih akurat dan berbasis fakta.</p>
+</section>
+<section id="data-analytics-use-cases">
+<h2>Data Analytics Use Cases<a class="headerlink" href="#data-analytics-use-cases" title="Link to this heading">#</a></h2>
+<p>Data Berikut adalah beberapa aplikasi analisis data dan penambangan data di dunia nyata:</p>
+<ol class="arabic simple">
+<li><p><strong>Customer Segmentation</strong>:</p>
+<ul class="simple">
+<li><p>Sortir user berdasarkan perilaku, demografi, atau preferensi untuk strategi pemasaran.</p></li>
+<li><p>Contoh: E-commerce mengelompokkan user menjadi “pembeli sering” dan “pembeli sesekali”.</p></li>
+</ul>
+</li>
+<li><p><strong>Market Trend Prediction</strong>:</p>
+<ul class="simple">
+<li><p>Menganalisis data historis untuk memperkirakan tren pasar di masa depan.</p></li>
+<li><p>Contoh: Memprediksi permintaan kendaraan listrik berdasarkan data penjualan masa lalu.</p></li>
+</ul>
+</li>
+<li><p><strong>Pricing Optimization</strong>:</p>
+<ul class="simple">
+<li><p>Menyesuaikan harga secara dinamis berdasarkan permintaan, persaingan, dan perilaku pelanggan.</p></li>
+<li><p>Contoh: Maskapai penerbangan menyesuaikan harga tiket berdasarkan pola pemesanan.</p></li>
+</ul>
+</li>
+<li><p><strong>Product Recommendation</strong>:</p>
+<ul class="simple">
+<li><p>Menyarankan produk kepada pengguna berdasarkan perilaku atau preferensi mereka sebelumnya.</p></li>
+<li><p>Contoh: Netflix merekomendasikan film berdasarkan riwayat penayangan.</p></li>
+</ul>
+</li>
+<li><p><strong>Fraud Detection</strong>:</p>
+<ul class="simple">
+<li><p>Mengidentifikasi pola yang tidak biasa yang mungkin mengindikasikan aktivitas penipuan.</p></li>
+<li><p>Contoh: Bank mendeteksi transaksi mencurigakan secara real-time.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Introduction</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="dataProcess.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Data Mining Process</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examples-of-data">Examples of Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sources-of-data">Sources of Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-big-data">What is Big Data?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-analytics">Data Analytics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-mining">Data Mining</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relationship-between-big-data-data-analytics-and-data-mining">Relationship Between Big Data, Data Analytics, and Data Mining</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-analytics-use-cases">Data Analytics Use Cases</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By ACHMAD RIDHO FA'IZ
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

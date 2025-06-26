@@ -1,0 +1,1400 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Outlier and K-NN &#8212; Data-Mining</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Tugas2';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Local Outlier Factor" href="Tugas3.html" />
+    <link rel="prev" title="Data Understanding" href="Tugas1.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/ElysiaJS.webp" class="logo__image only-light" alt="Data-Mining - Home"/>
+    <script>document.write(`<img src="_static/ElysiaJS.webp" class="logo__image only-dark" alt="Data-Mining - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="aboutData.html">What is Data?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dataProcess.html">Data Mining Process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas1.html">Data Understanding</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Outlier and K-NN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas3.html">Local Outlier Factor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas4.html">Naive Bayes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UTS.html">UTS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas5.html">Clustering and K-Means</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas6.html">Fuzzy C-Means</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas7.html">Decision Tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas8.html">KBinsDiscretizer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UAS.html">UAS</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/rhindottire/Data-Mining" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/rhindottire/Data-Mining/issues/new?title=Issue%20on%20page%20%2FTugas2.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Tugas2.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Outlier and K-NN</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outlier-detection">Outlier Detection</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#methods-for-outlier-detection">Methods for Outlier Detection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-outliers">Handling Outliers</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#k-nearest-neighbors-knn">K-Nearest Neighbors (KNN)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-knn-works">How KNN Works?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-euclidean-distance">What is Euclidean Distance?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-do-we-use-knn">Why do we use KNN?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-should-euclidean-distance">Why should Euclidean Distance?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#minmaxscaler">MinMaxScaler</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#minmaxscaler-formula">MinMaxScaler Formula</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-minmaxscaler-works">How MinMaxScaler Works?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#minmaxscaler-parameters">MinMaxScaler Parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#minmaxscaler-attribute">MinMaxScaler Attribute</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#minmaxscaler-operational-process">MinMaxScaler Operational Process</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-gathering">Data Gathering</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-preparation">Data Preparation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing">Preprocessing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eliminated-outliers">Eliminated Outliers</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-modeling">Data Modeling</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-visualization">Data Visualization</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="outlier-and-k-nn">
+<h1>Outlier and K-NN<a class="headerlink" href="#outlier-and-k-nn" title="Link to this heading">#</a></h1>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.neighbors</span><span class="w"> </span><span class="kn">import</span> <span class="n">NearestNeighbors</span>
+</pre></div>
+</div>
+<p><strong>Outlier</strong> adalah data yang memiliki nilai yang jauh berbeda dari sebagian besar data lainnya dalam sebuah dataset, yang dapat disebabkan oleh kesalahan pengukuran, variasi alami, atau faktor eksternal lainnya. Identifikasi outlier penting dalam analisis data karena dapat memengaruhi hasil <em>pemodelan</em> dan <em>pengambilan keputusan</em>. Sementara itu, <strong>K-Nearest Neighbors (KNN)</strong> adalah algoritma pembelajaran mesin berbasis instance yang digunakan untuk klasifikasi dan regresi dengan menentukan kelas atau nilai suatu data berdasarkan mayoritas dari k tetangga terdekatnya. KNN sangat bergantung pada metrik jarak, seperti <strong>Euclidean Distance</strong>.</p>
+<section id="outlier-detection">
+<h2>Outlier Detection<a class="headerlink" href="#outlier-detection" title="Link to this heading">#</a></h2>
+<p>Outlier adalah titik data yang berbeda secara signifikan dari sebagian besar data. Faktor penyebab:</p>
+<ul class="simple">
+<li><p><strong>Data entry errors</strong>: Nilai yang dicatat salah.</p></li>
+<li><p><strong>Measurement errors</strong>: Sensor atau instrumen rusak.</p></li>
+<li><p><strong>Natural variability</strong>: Pengamatan yang ekstrim namun valid (pendapatan seorang miliarder dalam kumpulan data pendapatan rata-rata).</p></li>
+</ul>
+<p><em><strong>Why is it Important?</strong></em></p>
+<ul class="simple">
+<li><p>Outliers dapat mendistorsi analisis statistik (mean, deviasi standar).</p></li>
+<li><p>Hal ini dapat berdampak negatif terhadap performa model pembelajaran mesin.</p></li>
+<li><p>Dalam beberapa kasus, outlier mungkin mewakili informasi penting (deteksi penipuan).</p></li>
+</ul>
+<section id="methods-for-outlier-detection">
+<h3>Methods for Outlier Detection<a class="headerlink" href="#methods-for-outlier-detection" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Statistical Methods</strong>:</p>
+<ul class="simple">
+<li><p><em>Z-Score</em>: Mengukur berapa banyak standar deviasi suatu titik data dari mean. Titik data dengan skor Z lebih besar dari 3 atau kurang dari -3 sering kali dianggap outlier.</p></li>
+<li><p><em>IQR (Interquartile Range)</em>: Mengidentifikasi outlier sebagai titik data di bawah Q1 - 1,5IQR atau di atas Q3 + 1,5IQR, dengan Q1 dan Q3 masing-masing adalah kuartil pertama dan ketiga.</p></li>
+</ul>
+</li>
+<li><p><strong>Visual Methods</strong>:</p>
+<ul class="simple">
+<li><p><em>Box Plots</em>: Representasi grafis dari distribusi data (ditampilkan sebagai titik di luar “whiskers”).</p></li>
+<li><p><em>Scatter Plots</em>: Berguna untuk mengidentifikasi outlier dalam data bivariat (dua variabel).</p></li>
+</ul>
+</li>
+<li><p><strong>Machine Learning Methods</strong>:</p>
+<ul class="simple">
+<li><p><em>Clustering</em>: Outliers mungkin muncul sebagai titik data yang bukan milik cluster mana pun.</p></li>
+<li><p><em>Isolation Forest</em>: Algoritm dirancang khusus agar mendeteksi outlier dengan mengisolasi titik data.</p></li>
+<li><p><em>DBSCAN (Density-Based Spatial Clustering of Applications with Noise)</em>: Mengidentifikasi outlier sebagai titik di wilayah dengan kepadatan rendah.</p></li>
+<li><p><strong>KNN (K-Nearest Neighbors)</strong>: Menggunakan jarak ke tetangga terdekat untuk mengidentifikasi outlier.</p></li>
+</ul>
+</li>
+<li><p><strong>Domain-Specific Methods</strong>:</p>
+<ul class="simple">
+<li><p>Gunakan pengetahuan domain untuk mengidentifikasi outlier. Misalnya, dalam layanan kesehatan, usia pasien 150 tahun merupakan hal yang berbeda.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="handling-outliers">
+<h3>Handling Outliers<a class="headerlink" href="#handling-outliers" title="Link to this heading">#</a></h3>
+<p>Setelah outlier terdeteksi, Anda perlu memutuskan cara menanganinya:</p>
+<ul class="simple">
+<li><p><strong>Remove</strong>: Jika outlier disebabkan oleh kesalahan atau <strong>noise</strong>.</p></li>
+<li><p><strong>Transform</strong>: Menerapkan transformasi (transformasi log) untuk mengurangi dampak outlier.</p></li>
+<li><p><strong>Cap/Floor</strong>: Ganti outlier dengan nilai ambang batas maksimum atau minimum.</p></li>
+<li><p><strong>Keep</strong>: Jika outlier tersebut valid dan bermakna (kasus penipuan).</p></li>
+</ul>
+<p><em><strong>Summary of Outlier Detection</strong></em></p>
+<ul class="simple">
+<li><p>Outlier adalah titik data yang menyimpang secara signifikan dari data lainnya.</p></li>
+<li><p>Mendeteksi dan menangani outlier sangat penting untuk memastikan kualitas data.</p></li>
+<li><p>Metode untuk mendeteksi outlier mencakup teknik statistik (Z-score, IQR), metode visual (box plots, scatter plots), dan algoritma pembelajaran mesin (Isolation Forest, DBSCAN).</p></li>
+<li><p>Outlier dievaluasi secara hati-hati untuk menentukan apakah itu kesalahan atau pengamatan yang bermakna.</p></li>
+</ul>
+</section>
+</section>
+<section id="k-nearest-neighbors-knn">
+<h2>K-Nearest Neighbors (KNN)<a class="headerlink" href="#k-nearest-neighbors-knn" title="Link to this heading">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.neighbors</span><span class="w"> </span><span class="kn">import</span> <span class="n">NearestNeighbors</span>
+</pre></div>
+</div>
+<p>KNN mengidentifikasi outlier dengan menghitung jarak suatu titik ke K tetangga terdekatnya. Titik dengan rata-rata/total jarak signifikan lebih besar dianggap outlier, karena berada di area kepadatan rendah.</p>
+<p>Parameter Krusial:</p>
+<ol class="arabic simple">
+<li><p>Nilai K:</p>
+<ul class="simple">
+<li><p>K terlalu kecil: Rentan noise (false positive).</p></li>
+<li><p>K terlalu besar: Risiko melewatkan outlier (false negative).</p></li>
+</ul>
+</li>
+<li><p>Metrik Jarak: <em>Euclidean</em> (skala seragam) atau <em>Manhattan</em> (robust terhadap outlier).</p></li>
+<li><p>Normalisasi: Wajib untuk data berskala berbeda (e.g., Z-score).</p></li>
+</ol>
+<p>Perkembangan KNN:</p>
+<ul class="simple">
+<li><p><em>Local Outlier Factor (LOF)</em>: Memperhitungkan kepadatan lokal, lebih akurat untuk anomali kompleks.</p></li>
+<li><p>Kelebihan: Sederhana, intuitif, dan efektif untuk identifikasi data tidak konsisten.</p></li>
+</ul>
+<section id="how-knn-works">
+<h3>How KNN Works?<a class="headerlink" href="#how-knn-works" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Step 1: Choose a Value for K</strong></p>
+<ul class="simple">
+<li><p>Pilih jumlah tetangga (K) yang akan dipertimbangkan. Misalnya, K=3 berarti algoritma akan melihat 3 tetangga terdekat untuk setiap titik data.</p></li>
+</ul>
+</li>
+<li><p><strong>Step 2: Calculate Distances</strong></p>
+<ul class="simple">
+<li><p>Hitung jarak (<strong>Euclidean distance</strong>, Manhattan distance, dan Minkowski distance) antara setiap titik data dan K tetangga terdekatnya.</p></li>
+</ul>
+</li>
+<li><p><strong>Step 3: Identify Outliers</strong></p>
+<ul class="simple">
+<li><p>Titik data dengan jarak yang lebih jauh ke tetangganya dianggap outlier. Misalnya, jika jarak rata-rata ke K tetangga terdekat jauh lebih besar dibandingkan sebagian besar data, maka titik tersebut ditandai sebagai outlier.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="what-is-euclidean-distance">
+<h3>What is Euclidean Distance?<a class="headerlink" href="#what-is-euclidean-distance" title="Link to this heading">#</a></h3>
+<p>Euclidean distance adalah salah satu metrik jarak yang paling umum digunakan dalam ilmu data dan pembelajaran mesin. Ini mengukur jarak garis lurus antara dua titik dalam ruang multidimensi. Ini berasal dari teorema Pythagoras dan digunakan secara luas karena kesederhanaan dan interpretasi intuitifnya.</p>
+<p><em><strong>Euclidean Distance Formula</strong></em>
+Untuk dua titik <span class="math notranslate nohighlight">\( x = (x_1, x_2, \dots, x_n) \)</span> dan <span class="math notranslate nohighlight">\( y = (y_1, y_2, \dots, y_n) \)</span> dalam ruang <span class="math notranslate nohighlight">\( n \)</span>-dimensi:</p>
+<div class="math notranslate nohighlight">
+\[
+d(x, y) = \sqrt{\sum_{i=1}^n (x_i - y_i)^2}
+\]</div>
+<p><em><strong>Sample Case</strong></em>
+Misalkan ada dua titik dalam ruang 2D:</p>
+<ul class="simple">
+<li><p>Titik A: <span class="math notranslate nohighlight">\( (1, 2) \)</span></p></li>
+<li><p>Titik B: <span class="math notranslate nohighlight">\( (4, 6) \)</span></p></li>
+</ul>
+<ol class="arabic simple">
+<li><p>Hitung selisih tiap komponen:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+x_2 - x_1 &amp;= 4 - 1 = 3 \\
+y_2 - y_1 &amp;= 6 - 2 = 4 \\
+\end{align*}
+\end{split}\]</div>
+<ol class="arabic simple" start="2">
+<li><p>Kuadratkan selisih:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+(3)^2 &amp;= 9 \\
+(4)^2 &amp;= 16 \\
+\end{align*}
+\end{split}\]</div>
+<ol class="arabic simple" start="3">
+<li><p>Jumlahkan hasil kuadrat:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+9 + 16 = 25
+\]</div>
+<ol class="arabic simple" start="4">
+<li><p>Akar kuadratkan hasil penjumlahan:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+d(A, B) = \sqrt{25} = 3
+\]</div>
+<p><strong>Hasil</strong>: Jarak Euclidean antara A dan B adalah <strong>5 unit</strong>.</p>
+</section>
+<section id="why-do-we-use-knn">
+<h3>Why do we use KNN?<a class="headerlink" href="#why-do-we-use-knn" title="Link to this heading">#</a></h3>
+<p>KNN (K-Nearest Neighbors) digunakan untuk mendeteksi outlier karena kemampuannya mengukur tingkat isolasi suatu titik data berdasarkan kedekatannya dengan tetangga terdekat dalam ruang fitur. Prinsip dasarnya adalah: data normal cenderung berada di wilayah dengan kepadatan tinggi, sedangkan outlier terletak jauh dari kelompok data mayoritas. Dengan menghitung rata-rata jarak suatu titik ke K tetangga terdekatnya, KNN memberikan anomaly score yang mencerminkan seberapa “tidak biasa” titik tersebut. Misalnya, jika suatu titik memiliki jarak rata-rata ke 5 tetangga terdekat yang 10 kali lebih besar dari titik lain, kemungkinan besar itu adalah outlier. Kelebihan KNN adalah sederhana secara konseptual, tidak memerlukan asumsi distribusi data, dan efektif untuk data multidimensi. Namun, pemilihan nilai K yang tepat krusial nilai terlalu kecil membuat deteksi rentan noise, sementara nilai terlalu besar berisiko mengabaikan outlier yang halus.</p>
+</section>
+<section id="why-should-euclidean-distance">
+<h3>Why should Euclidean Distance?<a class="headerlink" href="#why-should-euclidean-distance" title="Link to this heading">#</a></h3>
+<p>Euclidean distance dipilih karena memberikan interpretasi geometris yang intuitif sebagai jarak garis lurus antara dua titik dalam ruang multidimensi, yang sesuai dengan cara manusia mempersepsikan jarak dalam dunia fisik. Metrik ini menghitung akar kuadrat dari jumlah kuadrat selisih tiap komponen fitur, sehingga secara matematis mudah diimplementasikan dan efisien untuk data dengan skala seragam. Contohnya, pada dataset pengukuran fisik (sepanjang, lebar, tinggi), Euclidean distance secara alami mencerminkan perbedaan ukuran sebenarnya. Namun, kelemahannya adalah sensitivitas terhadap skala fitur-fitur dengan rentang nilai besar (misal: pendapatan dalam jutaan) akan mendominasi perhitungan. Oleh karena itu, normalisasi data (seperti Z-score) wajib dilakukan sebelum menggunakan Euclidean distance. Meskipun ada metrik lain seperti Manhattan atau Mahalanobis, Euclidean tetap populer karena kesederhanaan dan kinerjanya yang baik pada data rendah dimensi.</p>
+</section>
+</section>
+<section id="minmaxscaler">
+<h2>MinMaxScaler<a class="headerlink" href="#minmaxscaler" title="Link to this heading">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">MinMaxScaler</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">MinMaxScaler</span></code> adalah alat dalam pustaka Scikit-learn yang digunakan untuk menormalkan data numerik sehingga nilai-nilai dalam setiap fitur (kolom) berada dalam rentang tertentu, secara default antara 0 dan 1. Normalisasi ini penting untuk algoritma pembelajaran mesin yang sensitif terhadap skala data, seperti K-Nearest Neighbors (KNN), karena memastikan bahwa semua fitur memiliki kontribusi yang seimbang dalam perhitungan, misalnya, saat menghitung jarak antar titik data.</p>
+<p>Tujuan utama <code class="docutils literal notranslate"><span class="pre">MinMaxScaler</span></code> adalah:</p>
+<ul class="simple">
+<li><p>Mengubah data ke rentang yang ditentukan (misalnya, [0, 1]).</p></li>
+<li><p>Menghilangkan perbedaan skala antar fitur, sehingga fitur dengan rentang besar (misalnya, 0-1000) tidak mendominasi fitur dengan rentang kecil (misalnya, 0-1).</p></li>
+<li><p>Menjaga hubungan relatif antar nilai dalam fitur, tanpa mengasumsikan distribusi data tertentu (seperti distribusi normal).</p></li>
+</ul>
+<section id="minmaxscaler-formula">
+<h3>MinMaxScaler Formula<a class="headerlink" href="#minmaxscaler-formula" title="Link to this heading">#</a></h3>
+<p><strong>Kasus Default</strong>:
+Jika rentang tujuan adalah [0, 1] (pengaturan default), rumus disederhanakan menjadi:</p>
+<div class="math notranslate nohighlight">
+\[
+X_{\text{scaled}} = \frac{X - X_{\text{min}}}{X_{\text{max}} - X_{\text{min}}}
+\]</div>
+<p>Rumus ini memetakan:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(X_{\text{min}}\)</span> ke 0.</p></li>
+<li><p><span class="math notranslate nohighlight">\(X_{\text{max}}\)</span> ke 1.</p></li>
+<li><p>Nilai di antara <span class="math notranslate nohighlight">\(X_{\text{min}}\)</span> dan <span class="math notranslate nohighlight">\(X_{\text{max}}\)</span> ke nilai antara 0 dan 1 secara linier.</p></li>
+</ul>
+<hr class="docutils" />
+<div class="math notranslate nohighlight">
+\[
+X_{\text{scaled}} = \frac{X - X_{\text{min}}}{X_{\text{max}} - X_{\text{min}}} \cdot (fr_{\max} - fr_{\min}) + fr_{\min}
+\]</div>
+<p><strong>Penjelasan komponen rumus</strong>:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(X\)</span>: Nilai asli dari fitur untuk suatu titik data.</p></li>
+<li><p><span class="math notranslate nohighlight">\(X_{\text{min}}\)</span>: Nilai minimum dari fitur tersebut di seluruh dataset.</p></li>
+<li><p><span class="math notranslate nohighlight">\(X_{\text{max}}\)</span>: Nilai maksimum dari fitur tersebut di seluruh dataset.</p></li>
+<li><p><span class="math notranslate nohighlight">\(fr_{\min}\)</span>: Batas bawah rentang tujuan (default: 0).</p></li>
+<li><p><span class="math notranslate nohighlight">\(fr_{\max}\)</span>: Batas atas rentang tujuan (default: 1).</p></li>
+<li><p><span class="math notranslate nohighlight">\(X_{\text{scaled}}\)</span>: Nilai yang telah dinormalkan ke rentang tujuan.</p></li>
+</ul>
+<p><strong>Catatan</strong>: <span class="math notranslate nohighlight">\(fr_{\min}\)</span> dan <span class="math notranslate nohighlight">\(fr_{\max}\)</span> merupakan notasi singkat untuk <code class="docutils literal notranslate"><span class="pre">feature_range_min</span></code> dan <code class="docutils literal notranslate"><span class="pre">feature_range_max</span></code>.</p>
+<hr class="docutils" />
+<p><strong>Contoh Manual</strong>:
+Misalkan fitur memiliki nilai [10, 20, 30, 40], dengan <span class="math notranslate nohighlight">\(X_{\text{min}} = 10\)</span> dan <span class="math notranslate nohighlight">\(X_{\text{max}} = 40\)</span>. Untuk nilai <span class="math notranslate nohighlight">\(X = 20\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+X_{\text{scaled}} = \frac{20 - 10}{40 - 10} = \frac{10}{30} \approx 0.333
+\]</div>
+<p>Jadi, nilai 20 menjadi sekitar 0.333 dalam skala [0, 1].</p>
+</section>
+<section id="how-minmaxscaler-works">
+<h3>How MinMaxScaler Works?<a class="headerlink" href="#how-minmaxscaler-works" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Menghitung Parameter (Fit)</strong>:</p>
+<ul class="simple">
+<li><p>Scaler menganalisis data untuk menemukan nilai minimum (<span class="math notranslate nohighlight">\(X_{\text{min}}\)</span>) dan maksimum (<span class="math notranslate nohighlight">\(X_{\text{max}}\)</span>) dari setiap fitur.</p></li>
+<li><p>Informasi ini disimpan untuk digunakan dalam transformasi.</p></li>
+</ul>
+</li>
+<li><p><strong>Menskalakan Data (Transform)</strong>:</p>
+<ul class="simple">
+<li><p>Menggunakan <span class="math notranslate nohighlight">\(X_{\text{min}}\)</span> dan <span class="math notranslate nohighlight">\(X_{\text{max}}\)</span> yang telah dihitung, setiap nilai dalam fitur diubah ke rentang tujuan (misalnya, [0, 1]) dengan rumus di atas.</p></li>
+</ul>
+</li>
+<li><p><strong>Mengembalikan Skala Asli (Inverse Transform)</strong>:</p>
+<ul class="simple">
+<li><p>Scaler dapat mengembalikan data yang telah dinormalkan ke skala aslinya, berguna untuk interpretasi hasil.</p></li>
+</ul>
+</li>
+<li><p><strong>Pembaruan Bertahap (Partial Fit)</strong>:</p>
+<ul class="simple">
+<li><p>Scaler dapat memperbarui <span class="math notranslate nohighlight">\(X_{\text{min}}\)</span> dan <span class="math notranslate nohighlight">\(X_{\text{max}}\)</span> secara bertahap jika data baru ditambahkan, cocok untuk data streaming.</p></li>
+</ul>
+</li>
+</ol>
+<p><strong>Catatan Penting</strong>:</p>
+<ul class="simple">
+<li><p>Parameter <span class="math notranslate nohighlight">\(X_{\text{min}}\)</span> dan <span class="math notranslate nohighlight">\(X_{\text{max}}\)</span> dihitung dari data pelatihan (training data) untuk menghindari kebocoran data (data leakage).</p></li>
+<li><p>Data uji (test data) hanya ditransformasi menggunakan parameter yang sama dari data pelatihan, tanpa menghitung ulang <span class="math notranslate nohighlight">\(X_{\text{min}}\)</span> dan <span class="math notranslate nohighlight">\(X_{\text{max}}\)</span>.</p></li>
+</ul>
+</section>
+<section id="minmaxscaler-parameters">
+<h3>MinMaxScaler Parameters<a class="headerlink" href="#minmaxscaler-parameters" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">MinMaxScaler</span></code> memiliki beberapa parameter yang dapat disesuaikan saat membuat instance:</p>
+<ul class="simple">
+<li><p><strong>feature_range</strong>: Tuple berisi dua nilai <code class="docutils literal notranslate"><span class="pre">(min,</span> <span class="pre">max)</span></code> yang menentukan rentang tujuan untuk data yang dinormalkan.</p>
+<ul>
+<li><p>Default: <code class="docutils literal notranslate"><span class="pre">(0,</span> <span class="pre">1)</span></code>, artinya data diskalakan ke [0, 1].</p></li>
+<li><p>Contoh: Jika <code class="docutils literal notranslate"><span class="pre">feature_range=(-1,</span> <span class="pre">1)</span></code>, data diskalakan ke [-1, 1].</p></li>
+</ul>
+</li>
+<li><p><strong>copy</strong>: Nilai boolean yang menentukan apakah data asli akan disalin sebelum transformasi.</p>
+<ul>
+<li><p>Default: <code class="docutils literal notranslate"><span class="pre">True</span></code>, artinya salinan dibuat untuk mencegah modifikasi data asli.</p></li>
+<li><p>Jika <code class="docutils literal notranslate"><span class="pre">False</span></code>, transformasi dilakukan langsung pada data asli untuk menghemat memori (jarang digunakan).</p></li>
+</ul>
+</li>
+<li><p><strong>clip</strong>: Nilai boolean yang menentukan apakah nilai di luar rentang <span class="math notranslate nohighlight">\(X_{\text{min}}\)</span> dan <span class="math notranslate nohighlight">\(X_{\text{max}}\)</span> akan dipotong ke batas rentang tujuan saat transformasi.</p>
+<ul>
+<li><p>Default: <code class="docutils literal notranslate"><span class="pre">False</span></code>, artinya nilai di luar rentang tetap dihitung sesuai rumus (bisa menghasilkan nilai di luar <code class="docutils literal notranslate"><span class="pre">feature_range</span></code>).</p></li>
+<li><p>Jika <code class="docutils literal notranslate"><span class="pre">True</span></code>, nilai lebih kecil dari <span class="math notranslate nohighlight">\(X_{\text{min}}\)</span> menjadi <code class="docutils literal notranslate"><span class="pre">feature_range_min</span></code>, dan nilai lebih besar dari <span class="math notranslate nohighlight">\(X_{\text{max}}\)</span> menjadi <code class="docutils literal notranslate"><span class="pre">feature_range_max</span></code>.</p></li>
+<li><p>Fitur ini diperkenalkan di Scikit-learn versi 1.1.</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Contoh Penggunaan Parameter</strong>:</p>
+<ul class="simple">
+<li><p>Jika <code class="docutils literal notranslate"><span class="pre">feature_range=(-1,</span> <span class="pre">1)</span></code>, nilai <span class="math notranslate nohighlight">\(X_{\text{min}}\)</span> dipetakan ke -1, dan <span class="math notranslate nohighlight">\(X_{\text{max}}\)</span> ke 1.</p></li>
+<li><p>Jika <code class="docutils literal notranslate"><span class="pre">clip=True</span></code> dan data baru memiliki nilai di luar <span class="math notranslate nohighlight">\(X_{\text{min}}\)</span> atau <span class="math notranslate nohighlight">\(X_{\text{max}}\)</span>, nilai tersebut akan dipaksa masuk ke rentang tujuan.</p></li>
+</ul>
+</section>
+<section id="minmaxscaler-attribute">
+<h3>MinMaxScaler Attribute<a class="headerlink" href="#minmaxscaler-attribute" title="Link to this heading">#</a></h3>
+<p>Setelah scaler di-fit ke data, beberapa atribut tersedia untuk memberikan informasi tentang proses normalisasi:</p>
+<ul class="simple">
+<li><p><strong>min_</strong>: Nilai minimum per fitur setelah penskalaan, dihitung sebagai offset untuk transformasi.</p>
+<ul>
+<li><p>Rumus:<br />
+$<span class="math notranslate nohighlight">\(
+\text{min\_} = -\frac{X_{\text{min}} \cdot (fr_{\max} - fr_{\min})}{X_{\text{max}} - X_{\text{min}}} + fr_{\min}
+\)</span>$</p></li>
+</ul>
+</li>
+<li><p><strong>scale_</strong>: Faktor skala per fitur, yang menunjukkan seberapa besar data asli diskalakan.</p>
+<ul>
+<li><p>Rumus:<br />
+$<span class="math notranslate nohighlight">\(
+\text{scale\_} = \frac{fr_{\max} - fr_{\min}}{X_{\text{max}} - X_{\text{min}}}
+\)</span>$</p></li>
+</ul>
+</li>
+<li><p><strong>data_min_</strong>: Nilai minimum asli per fitur (<span class="math notranslate nohighlight">\(X_{\text{min}}\)</span>).</p></li>
+<li><p><strong>data_max_</strong>: Nilai maksimum asli per fitur (<span class="math notranslate nohighlight">\(X_{\text{max}}\)</span>).</p></li>
+<li><p><strong>data_range_</strong>: Rentang asli per fitur (<span class="math notranslate nohighlight">\(X_{\text{max}} - X_{\text{min}}\)</span>).</p></li>
+<li><p><strong>n_features_in_</strong>: Jumlah fitur yang ditemukan dalam data saat proses <em>fit</em>.</p></li>
+<li><p><strong>feature_names_in_</strong>: Nama fitur jika data input berupa DataFrame (hanya tersedia jika input adalah DataFrame).</p></li>
+</ul>
+<p>Atribut ini berguna untuk memeriksa bagaimana scaler telah menyesuaikan diri dengan data, misalnya, untuk memverifikasi rentang asli fitur atau faktor skala yang digunakan.</p>
+</section>
+<section id="minmaxscaler-operational-process">
+<h3>MinMaxScaler Operational Process<a class="headerlink" href="#minmaxscaler-operational-process" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Fit</strong>: Scaler mempelajari <span class="math notranslate nohighlight">\(X_{\text{min}}\)</span> dan <span class="math notranslate nohighlight">\(X_{\text{max}}\)</span> dari data yang diberikan untuk setiap fitur.</p></li>
+<li><p><strong>Transform</strong>: Scaler menerapkan rumus normalisasi untuk mengubah data ke rentang tujuan.</p></li>
+<li><p><strong>Fit-Transform</strong>: Kombinasi fit dan transform dalam satu langkah, sering digunakan untuk data pelatihan.</p></li>
+<li><p><strong>Inverse Transform</strong>: Mengembalikan data yang telah dinormalkan ke skala aslinya menggunakan parameter yang tersimpan.</p></li>
+<li><p><strong>Partial Fit</strong>: Memperbarui <span class="math notranslate nohighlight">\(X_{\text{min}}\)</span> dan <span class="math notranslate nohighlight">\(X_{\text{max}}\)</span> secara bertahap untuk data baru, berguna dalam skenario data streaming.</p></li>
+</ol>
+<p><strong>Contoh Alur Kerja</strong>:</p>
+<ul class="simple">
+<li><p>Dataset memiliki fitur “usia” dengan nilai [20, 30, 40, 50].</p></li>
+<li><p>Saat fit, scaler menemukan <span class="math notranslate nohighlight">\(X_{\text{min}} = 20\)</span> dan <span class="math notranslate nohighlight">\(X_{\text{max}} = 50\)</span>.</p></li>
+<li><p>Saat transform, nilai 30 menjadi:
+$<span class="math notranslate nohighlight">\(
+X_{\text{scaled}} = \frac{30 - 20}{50 - 20} = \frac{10}{30} \approx 0.333
+\)</span>$</p></li>
+<li><p>Saat inverse transform, nilai 0.333 dikembalikan ke:
+$<span class="math notranslate nohighlight">\(
+X = 0.333 \cdot (50 - 20) + 20 = 10 + 20 = 30
+\)</span>$</p></li>
+</ul>
+</section>
+</section>
+<section id="data-gathering">
+<h2>Data Gathering<a class="headerlink" href="#data-gathering" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sqlalchemy</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_engine</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.neighbors</span><span class="w"> </span><span class="kn">import</span> <span class="n">NearestNeighbors</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">MinMaxScaler</span>
+
+<span class="n">load_dotenv</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>False
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+  <span class="n">mysql_url</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;MYSQL_URL&quot;</span><span class="p">)</span>
+  <span class="n">postgres_url</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;POSTGRES_URL&quot;</span><span class="p">)</span>
+  <span class="n">mysql_engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="n">mysql_url</span><span class="p">)</span>
+  <span class="n">postgres_engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="n">postgres_url</span><span class="p">)</span>
+  <span class="n">df_mysql</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM iris_mysql&quot;</span><span class="p">,</span><span class="n">mysql_engine</span><span class="p">)</span>
+  <span class="n">df_postgres</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM iris_postgre ORDER BY id&quot;</span><span class="p">,</span><span class="n">postgres_engine</span><span class="p">)</span>
+
+  <span class="n">df_postgres</span> <span class="o">=</span> <span class="n">df_postgres</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;class&quot;</span><span class="p">])</span>
+  <span class="n">df_iris</span> <span class="o">=</span> <span class="n">df_mysql</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_postgres</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;id&quot;</span><span class="p">)</span>
+  <span class="n">df_iris</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;iris_combined.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+  <span class="n">display</span><span class="p">(</span><span class="n">df_iris</span><span class="p">)</span>
+
+<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+  <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error message: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">finally</span><span class="p">:</span>
+  <span class="n">mysql_engine</span><span class="o">.</span><span class="n">dispose</span><span class="p">()</span>
+  <span class="n">postgres_engine</span><span class="o">.</span><span class="n">dispose</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>class</th>
+      <th>petal length</th>
+      <th>petal width</th>
+      <th>sepal length</th>
+      <th>sepal width</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>Iris-setosa</td>
+      <td>86.4</td>
+      <td>70.0</td>
+      <td>20.1</td>
+      <td>30.5</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>Iris-setosa</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>4.9</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>Iris-setosa</td>
+      <td>1.3</td>
+      <td>0.2</td>
+      <td>4.8</td>
+      <td>3.2</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>Iris-setosa</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>4.6</td>
+      <td>3.1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>Iris-setosa</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>5.0</td>
+      <td>3.6</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>145</th>
+      <td>146</td>
+      <td>Iris-virginica</td>
+      <td>5.2</td>
+      <td>2.3</td>
+      <td>6.7</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>146</th>
+      <td>147</td>
+      <td>Iris-virginica</td>
+      <td>5.0</td>
+      <td>1.9</td>
+      <td>6.3</td>
+      <td>2.5</td>
+    </tr>
+    <tr>
+      <th>147</th>
+      <td>148</td>
+      <td>Iris-virginica</td>
+      <td>5.2</td>
+      <td>2.0</td>
+      <td>6.5</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>148</th>
+      <td>149</td>
+      <td>Iris-virginica</td>
+      <td>5.4</td>
+      <td>2.3</td>
+      <td>6.2</td>
+      <td>3.4</td>
+    </tr>
+    <tr>
+      <th>149</th>
+      <td>150</td>
+      <td>Iris-virginica</td>
+      <td>5.1</td>
+      <td>1.8</td>
+      <td>5.9</td>
+      <td>3.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>150 rows × 6 columns</p>
+</div></div></div>
+</div>
+</section>
+<section id="data-preparation">
+<h2>Data Preparation<a class="headerlink" href="#data-preparation" title="Link to this heading">#</a></h2>
+<section id="preprocessing">
+<h3>Preprocessing<a class="headerlink" href="#preprocessing" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Drop kolom non-numerik</span>
+<span class="n">df_numeric</span> <span class="o">=</span> <span class="n">df_iris</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;class&#39;</span><span class="p">])</span>
+
+<span class="c1"># Normalisasi data menggunakan MinMaxScaler</span>
+<span class="n">scaler</span> <span class="o">=</span> <span class="n">MinMaxScaler</span><span class="p">()</span>
+<span class="n">df_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df_numeric</span><span class="p">)</span>
+
+<span class="c1"># Normalisasi data (krusial untuk KNN)</span>
+<span class="n">df_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df_numeric</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Pilih K = 3 tetangga terdekat</span>
+<span class="n">k</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">nbrs</span> <span class="o">=</span> <span class="n">NearestNeighbors</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
+<span class="n">nbrs</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df_scaled</span><span class="p">)</span>
+
+<span class="c1"># Hitung jarak ke K tetangga terdekat</span>
+<span class="n">distances</span><span class="p">,</span> <span class="n">indices</span> <span class="o">=</span> <span class="n">nbrs</span><span class="o">.</span><span class="n">kneighbors</span><span class="p">(</span><span class="n">df_scaled</span><span class="p">)</span>
+
+<span class="c1"># Hitung anomaly score (rata-rata jarak ke K tetangga)</span>
+<span class="n">anomaly_scores</span> <span class="o">=</span> <span class="n">distances</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Tentukan threshold outlier (misal: persentil 95)</span>
+<span class="n">threshold</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">anomaly_scores</span><span class="p">,</span> <span class="mi">99</span><span class="p">)</span>
+<span class="n">outliers</span> <span class="o">=</span> <span class="n">df_iris</span><span class="p">[</span><span class="n">anomaly_scores</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="eliminated-outliers">
+<h3>Eliminated Outliers<a class="headerlink" href="#eliminated-outliers" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Untuk menghapus outlier</span>
+<span class="n">df_clean</span> <span class="o">=</span> <span class="n">df_iris</span><span class="p">[</span><span class="n">anomaly_scores</span> <span class="o">&lt;=</span> <span class="n">threshold</span><span class="p">]</span>
+
+<span class="c1"># Untuk menghapus permanen outlier</span>
+<span class="n">df_clean</span> <span class="o">=</span> <span class="n">df_clean</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df_clean</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;data/tugas2/iris_KKN-cleaned.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== Outlier (Total: </span><span class="si">{}</span><span class="s2"> baris) ===&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">outliers</span><span class="p">)))</span>
+<span class="n">display</span><span class="p">(</span><span class="n">outliers</span><span class="p">[[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;class&#39;</span><span class="p">,</span> <span class="s1">&#39;sepal length&#39;</span><span class="p">,</span> <span class="s1">&#39;sepal width&#39;</span><span class="p">,</span> <span class="s1">&#39;petal length&#39;</span><span class="p">,</span> <span class="s1">&#39;petal width&#39;</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== Outlier (Total: 2 baris) ===
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>class</th>
+      <th>sepal length</th>
+      <th>sepal width</th>
+      <th>petal length</th>
+      <th>petal width</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>Iris-setosa</td>
+      <td>20.1</td>
+      <td>30.5</td>
+      <td>86.4</td>
+      <td>70.0</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>42</td>
+      <td>Iris-setosa</td>
+      <td>4.5</td>
+      <td>2.3</td>
+      <td>1.3</td>
+      <td>0.3</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+<section id="data-modeling">
+<h2>Data Modeling<a class="headerlink" href="#data-modeling" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">head</span> <span class="o">=</span> <span class="n">df_clean</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="n">tail</span> <span class="o">=</span> <span class="n">df_clean</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+
+<span class="n">separator</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">[[</span><span class="s1">&#39;...&#39;</span><span class="p">,</span> <span class="s1">&#39;...&#39;</span><span class="p">,</span> <span class="s1">&#39;...&#39;</span><span class="p">,</span> <span class="s1">&#39;...&#39;</span><span class="p">,</span> <span class="s1">&#39;...&#39;</span><span class="p">,</span> <span class="s1">&#39;...&#39;</span><span class="p">]],</span>
+    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;class&#39;</span><span class="p">,</span> <span class="s1">&#39;sepal length&#39;</span><span class="p">,</span> <span class="s1">&#39;sepal width&#39;</span><span class="p">,</span> <span class="s1">&#39;petal length&#39;</span><span class="p">,</span> <span class="s1">&#39;petal width&#39;</span><span class="p">]</span>
+<span class="p">)</span>
+
+<span class="n">combined</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">head</span><span class="p">,</span> <span class="n">separator</span><span class="p">,</span> <span class="n">tail</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== Data Bersih (Total: </span><span class="si">{}</span><span class="s2"> baris) ===&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df_clean</span><span class="p">)))</span>
+<span class="n">display</span><span class="p">(</span><span class="n">combined</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== Data Bersih (Total: 148 baris) ===
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>class</th>
+      <th>petal length</th>
+      <th>petal width</th>
+      <th>sepal length</th>
+      <th>sepal width</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2</td>
+      <td>Iris-setosa</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>4.9</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>3</td>
+      <td>Iris-setosa</td>
+      <td>1.3</td>
+      <td>0.2</td>
+      <td>4.8</td>
+      <td>3.2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4</td>
+      <td>Iris-setosa</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>4.6</td>
+      <td>3.1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>5</td>
+      <td>Iris-setosa</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>5.0</td>
+      <td>3.6</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>6</td>
+      <td>Iris-setosa</td>
+      <td>1.7</td>
+      <td>0.4</td>
+      <td>5.4</td>
+      <td>3.9</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>146</td>
+      <td>Iris-virginica</td>
+      <td>5.2</td>
+      <td>2.3</td>
+      <td>6.7</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>147</td>
+      <td>Iris-virginica</td>
+      <td>5.0</td>
+      <td>1.9</td>
+      <td>6.3</td>
+      <td>2.5</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>148</td>
+      <td>Iris-virginica</td>
+      <td>5.2</td>
+      <td>2.0</td>
+      <td>6.5</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>149</td>
+      <td>Iris-virginica</td>
+      <td>5.4</td>
+      <td>2.3</td>
+      <td>6.2</td>
+      <td>3.4</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>150</td>
+      <td>Iris-virginica</td>
+      <td>5.1</td>
+      <td>1.8</td>
+      <td>5.9</td>
+      <td>3.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="data-visualization">
+<h2>Data Visualization<a class="headerlink" href="#data-visualization" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+
+<span class="c1"># Plot Data Bersih</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;sepal length&#39;</span><span class="p">],</span> <span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;petal length&#39;</span><span class="p">],</span> 
+            <span class="n">c</span><span class="o">=</span><span class="s1">&#39;limegreen&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Bersih&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Sepal Length (cm)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Petal Length (cm)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Data Bersih (n=</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df_clean</span><span class="p">)))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="c1"># Plot Outlier</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;sepal length&#39;</span><span class="p">],</span> <span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;petal length&#39;</span><span class="p">],</span> 
+            <span class="n">c</span><span class="o">=</span><span class="s1">&#39;lightgrey&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Bersih&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">outliers</span><span class="p">[</span><span class="s1">&#39;sepal length&#39;</span><span class="p">],</span> <span class="n">outliers</span><span class="p">[</span><span class="s1">&#39;petal length&#39;</span><span class="p">],</span> 
+            <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Outlier&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Sepal Length (cm)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Petal Length (cm)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Outlier (n=</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">outliers</span><span class="p">)))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;data/tugas2/assets/KNN-Cleaned&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/98e1489a14cf4a6572848a5eb4df1abf8ea2784ca95d6095b45c530598ed83a5.png" src="_images/98e1489a14cf4a6572848a5eb4df1abf8ea2784ca95d6095b45c530598ed83a5.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Tugas1.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Data Understanding</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Tugas3.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Local Outlier Factor</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outlier-detection">Outlier Detection</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#methods-for-outlier-detection">Methods for Outlier Detection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-outliers">Handling Outliers</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#k-nearest-neighbors-knn">K-Nearest Neighbors (KNN)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-knn-works">How KNN Works?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-euclidean-distance">What is Euclidean Distance?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-do-we-use-knn">Why do we use KNN?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-should-euclidean-distance">Why should Euclidean Distance?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#minmaxscaler">MinMaxScaler</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#minmaxscaler-formula">MinMaxScaler Formula</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-minmaxscaler-works">How MinMaxScaler Works?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#minmaxscaler-parameters">MinMaxScaler Parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#minmaxscaler-attribute">MinMaxScaler Attribute</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#minmaxscaler-operational-process">MinMaxScaler Operational Process</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-gathering">Data Gathering</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-preparation">Data Preparation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing">Preprocessing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eliminated-outliers">Eliminated Outliers</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-modeling">Data Modeling</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-visualization">Data Visualization</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By ACHMAD RIDHO FA'IZ
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

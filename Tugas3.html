@@ -1,0 +1,1236 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Local Outlier Factor &#8212; Data-Mining</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Tugas3';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Naive Bayes" href="Tugas4.html" />
+    <link rel="prev" title="Outlier and K-NN" href="Tugas2.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/ElysiaJS.webp" class="logo__image only-light" alt="Data-Mining - Home"/>
+    <script>document.write(`<img src="_static/ElysiaJS.webp" class="logo__image only-dark" alt="Data-Mining - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="aboutData.html">What is Data?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dataProcess.html">Data Mining Process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas1.html">Data Understanding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas2.html">Outlier and K-NN</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Local Outlier Factor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas4.html">Naive Bayes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UTS.html">UTS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas5.html">Clustering and K-Means</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas6.html">Fuzzy C-Means</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas7.html">Decision Tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas8.html">KBinsDiscretizer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UAS.html">UAS</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/rhindottire/Data-Mining" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/rhindottire/Data-Mining/issues/new?title=Issue%20on%20page%20%2FTugas3.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Tugas3.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Local Outlier Factor</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#get-data-from-json">Get Data from JSON</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-contents">Data Contents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lof-calculation-steps"><em><strong>LOF Calculation Steps</strong></em></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-standardscaler"><strong>Calculate StandardScaler</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#euclidean-distance">Euclidean Distance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reachability-distance-rd">Reachability Distance (RD)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#local-reachability-density-lrd">Local Reachability Density (LRD)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><em><strong>Local Outlier Factor</strong></em></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-lof">Summary LOF</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing-data">Preprocessing Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#outlier-detection">Outlier Detection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#result-to-dataframe">Result to DataFrame</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#print-result-by-lof-score">Print Result by LOF Score</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-visualization">Data Visualization</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="local-outlier-factor">
+<h1>Local Outlier Factor<a class="headerlink" href="#local-outlier-factor" title="Link to this heading">#</a></h1>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.neighbors</span><span class="w"> </span><span class="kn">import</span> <span class="n">LocalOutlierFactor</span>
+</pre></div>
+</div>
+<p>Local Outlier Factor (LOF) adalah salah satu metode dalam data mining untuk mendeteksi outlier (pencilan) berdasarkan kepadatan lokal (local density) data. Berbeda dengan metode global outlier detection (seperti Z-score atau IQR), LOF mempertimbangkan distribusi data di sekitar suatu titik (neighborhood), sehingga cocok untuk mendeteksi outlier di daerah dengan kepadatan yang tidak seragam.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.neighbors</span><span class="w"> </span><span class="kn">import</span> <span class="n">LocalOutlierFactor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="get-data-from-json">
+<h2>Get Data from JSON<a class="headerlink" href="#get-data-from-json" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+  <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;data/tugas3/data.json&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error: File &#39;data.json&#39; tidak ditemukan!&quot;</span><span class="p">)</span>
+  <span class="n">exit</span><span class="p">()</span>
+<span class="k">except</span> <span class="n">json</span><span class="o">.</span><span class="n">JSONDecodeError</span><span class="p">:</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error: Format file JSON tidak valid!&quot;</span><span class="p">)</span>
+  <span class="n">exit</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="data-contents">
+<h2>Data Contents<a class="headerlink" href="#data-contents" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;data/tugas3/data.json&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+  <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+<span class="c1"># Header</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;Nama&#39;</span><span class="si">:</span><span class="s2">&lt;15</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="s1">&#39;BB&#39;</span><span class="si">:</span><span class="s2">&gt;5</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="s1">&#39;TB&#39;</span><span class="si">:</span><span class="s2">&gt;5</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">30</span><span class="p">)</span>
+
+<span class="c1"># Isi</span>
+<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+  <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">item</span><span class="p">[</span><span class="s1">&#39;Nama&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">&lt;15</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="n">item</span><span class="p">[</span><span class="s1">&#39;BB&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">&gt;5</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="n">item</span><span class="p">[</span><span class="s1">&#39;TB&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">&gt;5.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Nama            |    BB |    TB
+------------------------------
+Achmad          |   150 |  2.71
+Ridho           |    80 |  1.85
+Fa&#39;iz           |   100 |  4.60
+Edho            |    85 |  1.90
+Nur             |    72 |  1.70
+Ratu            |    71 |  1.65
+Berlian         |    70 |  1.60
+Tri             |    70 |  1.95
+Kurniawati      |    70 |  1.90
+Mendrofa        |    70 |  1.85
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="lof-calculation-steps">
+<h2><em><strong>LOF Calculation Steps</strong></em><a class="headerlink" href="#lof-calculation-steps" title="Link to this heading">#</a></h2>
+<p><strong>Data Preprocessing</strong>: Sebelum menghitung <strong>Local Outlier Factor (LOF)</strong>, kita perlu melakukan preprocessing agar data bisa digunakan dengan benar dalam perhitungan berbasis jarak:</p>
+<ol class="arabic simple">
+<li><p><strong>Menghapus Kolom Nama</strong> → LOF hanya bekerja dengan data numerik.</p></li>
+<li><p><strong>Mengecek Skala Data</strong> → Kolom <strong>BB (Berat Badan)</strong> dan <strong>TB (Tinggi Badan)</strong> memiliki skala berbeda (BB dalam kg dan TB dalam meter). Untuk menghindari dominasi satu fitur, kita perlu <strong>normalisasi</strong> atau <strong>standarisasi</strong> datanya.</p></li>
+<li><p><strong>Normalization or Standardization</strong></p></li>
+</ol>
+<ul>
+<li><p>Normalize menggunakan Min-Max Scaling:</p>
+<div class="math notranslate nohighlight">
+\[
+    X' = \frac{X - X_{\min}}{X_{\max} - X_{\min}}
+    \]</div>
+<ul class="simple">
+<li><p>di mana <span class="math notranslate nohighlight">\( X_{\min} \)</span> dan <span class="math notranslate nohighlight">\( X_{\max} \)</span> adalah nilai minimum dan maksimum dari setiap fitur.</p></li>
+</ul>
+</li>
+<li><p>Standardization menggunakan StandardScaler</p>
+<div class="math notranslate nohighlight">
+\[
+    X' = \frac{X - \mu}{\sigma}
+    \]</div>
+<p>di mana:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( X' \)</span> adalah nilai yang sudah dinormalisasi.</p></li>
+<li><p><span class="math notranslate nohighlight">\( X \)</span> adalah nilai asli.</p></li>
+<li><p><span class="math notranslate nohighlight">\( \mu \)</span> adalah <strong>mean (rata-rata)</strong> dari fitur.</p></li>
+<li><p><span class="math notranslate nohighlight">\( \sigma \)</span> adalah <strong>standar deviasi</strong> dari fitur.</p></li>
+</ul>
+</li>
+</ul>
+<section id="calculate-standardscaler">
+<h3><strong>Calculate StandardScaler</strong><a class="headerlink" href="#calculate-standardscaler" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
+</pre></div>
+</div>
+<ol class="arabic simple">
+<li><p><strong>Mean</strong></p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+\mu_{\text{BB}} = \frac{150 + 80 + 100 + 85 + 72 + 71 + 70 + 70 + 70 + 70}{10} = \frac{838}{10} = 83.8
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\mu_{\text{TB}} = \frac{2.71 + 1.85 + 4.60 + 1.90 + 1.70 + 1.65 + 1.60 + 1.95 + 1.90 + 1.85}{10} = \frac{21.71}{10} = 2.171
+\]</div>
+<ol class="arabic simple" start="2">
+<li><p><strong>Standard Deviation</strong></p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+\sigma_{\text{BB}} = \sqrt{\frac{(150 - 83.8)^2 + (80 - 83.8)^2 + ... + (70 - 83.8)^2}{10}}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\sigma_{\text{BB}} \approx 23.81
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\sigma_{\text{TB}} = \sqrt{\frac{(2.71 - 2.171)^2 + (1.85 - 2.171)^2 + ... + (1.85 - 2.171)^2}{10}}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\sigma_{\text{TB}} \approx 0.886
+\]</div>
+<ol class="arabic simple">
+<li><p><strong>StandardScaler</strong></p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+X' = \frac{X - \mu}{\sigma}
+\]</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Nama</p></th>
+<th class="head"><p>BB</p></th>
+<th class="head"><p>TB</p></th>
+<th class="head"><p>BB_scaled</p></th>
+<th class="head"><p>TB_scaled</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Achmad</p></td>
+<td><p>150</p></td>
+<td><p>2.71</p></td>
+<td><p>2.785</p></td>
+<td><p>0.680</p></td>
+</tr>
+<tr class="row-odd"><td><p>Ridho</p></td>
+<td><p>80</p></td>
+<td><p>1.85</p></td>
+<td><p>-0.160</p></td>
+<td><p>-0.363</p></td>
+</tr>
+<tr class="row-even"><td><p>Fa’iz</p></td>
+<td><p>100</p></td>
+<td><p>4.60</p></td>
+<td><p>0.680</p></td>
+<td><p>2.739</p></td>
+</tr>
+<tr class="row-odd"><td><p>Edho</p></td>
+<td><p>85</p></td>
+<td><p>1.90</p></td>
+<td><p>-0.105</p></td>
+<td><p>-0.307</p></td>
+</tr>
+<tr class="row-even"><td><p>Nur</p></td>
+<td><p>72</p></td>
+<td><p>1.70</p></td>
+<td><p>-0.499</p></td>
+<td><p>-0.531</p></td>
+</tr>
+<tr class="row-odd"><td><p>Ratu</p></td>
+<td><p>71</p></td>
+<td><p>1.65</p></td>
+<td><p>-0.541</p></td>
+<td><p>-0.588</p></td>
+</tr>
+<tr class="row-even"><td><p>Berlian</p></td>
+<td><p>70</p></td>
+<td><p>1.60</p></td>
+<td><p>-0.582</p></td>
+<td><p>-0.645</p></td>
+</tr>
+<tr class="row-odd"><td><p>Tri</p></td>
+<td><p>70</p></td>
+<td><p>1.95</p></td>
+<td><p>-0.582</p></td>
+<td><p>-0.252</p></td>
+</tr>
+<tr class="row-even"><td><p>Kurniawati</p></td>
+<td><p>70</p></td>
+<td><p>1.90</p></td>
+<td><p>-0.582</p></td>
+<td><p>-0.307</p></td>
+</tr>
+<tr class="row-odd"><td><p>Mendrofa</p></td>
+<td><p>70</p></td>
+<td><p>1.85</p></td>
+<td><p>-0.582</p></td>
+<td><p>-0.363</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Standardization Result</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Nama</p></th>
+<th class="head"><p>BB</p></th>
+<th class="head"><p>TB</p></th>
+<th class="head"><p>BB_scaled</p></th>
+<th class="head"><p>TB_scaled</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Fa’iz</p></td>
+<td><p>100</p></td>
+<td><p>4.60</p></td>
+<td><p>2.785</p></td>
+<td><p>0.680</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Sekarang, kita akan menggunakan nilai <strong>BB_scaled</strong> dan <strong>TB_scaled</strong> untuk perhitungan Euclidean.</p>
+</section>
+<section id="euclidean-distance">
+<h3>Euclidean Distance<a class="headerlink" href="#euclidean-distance" title="Link to this heading">#</a></h3>
+<p>Untuk <strong>k=3</strong>, kita harus mencari 3 tetangga terdekat dari <code class="docutils literal notranslate"><span class="pre">Fa'iz</span></code> berdasarkan jarak Euclidean.</p>
+<p><strong>Rumus Euclidean Distance</strong></p>
+<div class="math notranslate nohighlight">
+\[
+d(A, B) = \sqrt{(x_1 - x_2)^2 + (y_1 - y_2)^2}
+\]</div>
+<p>di mana:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( x_1, y_1 \)</span> adalah koordinat <code class="docutils literal notranslate"><span class="pre">Fa'iz</span></code> (<strong>2.785, 0.680</strong>).</p></li>
+<li><p><span class="math notranslate nohighlight">\( x_2, y_2 \)</span> adalah koordinat dari setiap titik lainnya.</p></li>
+</ul>
+<p><strong>Menghitung jarak <code class="docutils literal notranslate"><span class="pre">Fa'iz</span></code> dengan semua titik lainnya</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Nama</p></th>
+<th class="head"><p>BB_scaled</p></th>
+<th class="head"><p>TB_scaled</p></th>
+<th class="head"><p>Jarak Euclidean</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Achmad</strong></p></td>
+<td><p><strong>2.785</strong></p></td>
+<td><p><strong>0.680</strong></p></td>
+<td><p><strong>2.733</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Ridho</strong></p></td>
+<td><p>- 0.160</p></td>
+<td><p>- 0.363</p></td>
+<td><p>3.425</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Edho</strong></p></td>
+<td><p>- 0.105</p></td>
+<td><p>- 0.307</p></td>
+<td><p>3.380</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Nur</strong></p></td>
+<td><p>- 0.499</p></td>
+<td><p>- 0.531</p></td>
+<td><p>3.680</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Ratu</strong></p></td>
+<td><p>- 0.541</p></td>
+<td><p>- 0.588</p></td>
+<td><p>3.770</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Berlian</strong></p></td>
+<td><p>- 0.582</p></td>
+<td><p>- 0.645</p></td>
+<td><p>3.860</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Tri</strong></p></td>
+<td><p>- 0.582</p></td>
+<td><p>- 0.252</p></td>
+<td><p>3.278</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Kurniawati</strong></p></td>
+<td><p>- 0.582</p></td>
+<td><p>- 0.307</p></td>
+<td><p>3.318</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Mendrofa</strong></p></td>
+<td><p>- 0.582</p></td>
+<td><p>- 0.363</p></td>
+<td><p>3.367</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Tiga tetangga terdekat Fa’iz adalah:</strong></p>
+<ol class="arabic simple">
+<li><p>Achmad (2.733)</p></li>
+<li><p>Edho (3.380)</p></li>
+<li><p>Ridho (3.425)</p></li>
+</ol>
+</section>
+<section id="reachability-distance-rd">
+<h3>Reachability Distance (RD)<a class="headerlink" href="#reachability-distance-rd" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+RD(A, B) = \max \left( d(A, B), \text{k-distance}(B) \right)
+\]</div>
+<p>Note:</p>
+<ul class="simple">
+<li><p>k-distance(B): Jarak dari titik B ke tetangga ke-k terdekatnya (bukan LRD!).</p></li>
+<li><p>d(A, B): Jarak Euclidean antara titik A dan B.</p></li>
+</ul>
+<p>Langkah untuk Data <code class="docutils literal notranslate"><span class="pre">Fa'iz</span></code> (BB=100, TB=4.60)</p>
+<ol class="arabic simple">
+<li><p>Hitung k-distance untuk Setiap Titik
+Untuk k=3, hitung jarak dari setiap titik ke tetangga ke-3 terdekatnya:</p></li>
+</ol>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Nama</p></th>
+<th class="head"><p>3-Tetangga Terdekat</p></th>
+<th class="head"><p>k-distance</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Fa’iz</p></td>
+<td><p>Achmad (2.733), Edho (3.380), Ridho (3.425)</p></td>
+<td><p>3.425</p></td>
+</tr>
+<tr class="row-odd"><td><p>Achmad</p></td>
+<td><p>Fa’iz (2.733), Edho (3.380), Ridho (3.425)</p></td>
+<td><p>3.425</p></td>
+</tr>
+<tr class="row-even"><td><p>Edho</p></td>
+<td><p>Fa’iz (3.380), Ridho (3.425), Mendrofa (3.367)</p></td>
+<td><p>3.425</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Hitung RD <code class="docutils literal notranslate"><span class="pre">Fa'iz</span></code> ke Tetangganya</p></li>
+</ol>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Tetangga</p></th>
+<th class="head"><p>d(Fa’iz, B)</p></th>
+<th class="head"><p>k-distance(B)</p></th>
+<th class="head"><p>RD(Fa’iz, B)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Achmad</p></td>
+<td><p>2.733</p></td>
+<td><p>3.425</p></td>
+<td><p>3.425</p></td>
+</tr>
+<tr class="row-odd"><td><p>Edho</p></td>
+<td><p>3.380</p></td>
+<td><p>3.425</p></td>
+<td><p>3.425</p></td>
+</tr>
+<tr class="row-even"><td><p>Ridho</p></td>
+<td><p>3.425</p></td>
+<td><p>3.425</p></td>
+<td><p>3.425</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="local-reachability-density-lrd">
+<h3>Local Reachability Density (LRD)<a class="headerlink" href="#local-reachability-density-lrd" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+LRD(A) = \frac{k}{\sum RD(A, B)}
+\]</div>
+<p>Nilai <strong>RD untuk tiap tetangga</strong> yang telah dihitung sebagai berikut:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Tetangga</p></th>
+<th class="head"><p>RD(A, B)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Achmad</p></td>
+<td><p>2.733</p></td>
+</tr>
+<tr class="row-odd"><td><p>Edho</p></td>
+<td><p>3.380</p></td>
+</tr>
+<tr class="row-even"><td><p>Ridho</p></td>
+<td><p>3.425</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="math notranslate nohighlight">
+\[
+LRD_{\text{Fa'iz}} = \frac{3}{(2.733 + 3.380 + 3.425)}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+LRD_{\text{Fa'iz}} = \frac{3}{9.538} = 0.314
+\]</div>
+</section>
+<section id="id1">
+<h3><em><strong>Local Outlier Factor</strong></em><a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>Untuk menghitung LOF, kita harus melalui langkah berikut:</p>
+<ol class="arabic simple">
+<li><p>Hitung Jarak ke Tetangga Terdekat (k-NN Search)</p></li>
+<li><p>Hitung Reachability Distance</p></li>
+<li><p>Hitung Local Reachability Density (LRD)</p></li>
+<li><p>Hitung Local Outlier Factor (LOF)</p></li>
+</ol>
+<p><em>Rumus LOF</em>:</p>
+<div class="math notranslate nohighlight">
+\[
+LOF(A) = \frac{\sum \frac{LRD(B)}{LRD(A)}}{k}
+\]</div>
+<p>Diketahui:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Tetangga</p></th>
+<th class="head"><p>LRD(B)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Achmad</p></td>
+<td><p>1.263</p></td>
+</tr>
+<tr class="row-odd"><td><p>Edho</p></td>
+<td><p>0.550</p></td>
+</tr>
+<tr class="row-even"><td><p>Ridho</p></td>
+<td><p>0.567</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="math notranslate nohighlight">
+\[
+LOF_{\text{Fa'iz}} = \frac{\frac{1.263}{0.314} + \frac{0.550}{0.314} + \frac{0.567}{0.314}}{3}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+LOF_{\text{Fa'iz}} = \frac{4.023 + 1.752 + 1.806}{3}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+LOF_{\text{Fa'iz}} = \frac{7.581}{3} = 4.548
+\]</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Nama</p></th>
+<th class="head"><p>BB</p></th>
+<th class="head"><p>TB</p></th>
+<th class="head"><p>LOF Score</p></th>
+<th class="head"><p>Status</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Fa’iz</p></td>
+<td><p>100</p></td>
+<td><p>4.60</p></td>
+<td><p>4.548231</p></td>
+<td><p>Outlier</p></td>
+</tr>
+<tr class="row-odd"><td><p>Achmad</p></td>
+<td><p>150</p></td>
+<td><p>2.71</p></td>
+<td><p>4.383601</p></td>
+<td><p>Outlier</p></td>
+</tr>
+<tr class="row-even"><td><p>Edho</p></td>
+<td><p>85</p></td>
+<td><p>1.90</p></td>
+<td><p>1.875557</p></td>
+<td><p>Normal</p></td>
+</tr>
+<tr class="row-odd"><td><p>Ridho</p></td>
+<td><p>80</p></td>
+<td><p>1.85</p></td>
+<td><p>1.586740</p></td>
+<td><p>Normal</p></td>
+</tr>
+<tr class="row-even"><td><p>Kurniawati</p></td>
+<td><p>70</p></td>
+<td><p>1.90</p></td>
+<td><p>1.010486</p></td>
+<td><p>Normal</p></td>
+</tr>
+<tr class="row-odd"><td><p>Tri</p></td>
+<td><p>70</p></td>
+<td><p>1.95</p></td>
+<td><p>1.010486</p></td>
+<td><p>Normal</p></td>
+</tr>
+<tr class="row-even"><td><p>Mendrofa</p></td>
+<td><p>70</p></td>
+<td><p>1.85</p></td>
+<td><p>1.010486</p></td>
+<td><p>Normal</p></td>
+</tr>
+<tr class="row-odd"><td><p>Nur</p></td>
+<td><p>72</p></td>
+<td><p>1.70</p></td>
+<td><p>0.989834</p></td>
+<td><p>Normal</p></td>
+</tr>
+<tr class="row-even"><td><p>Ratu</p></td>
+<td><p>71</p></td>
+<td><p>1.65</p></td>
+<td><p>0.989834</p></td>
+<td><p>Normal</p></td>
+</tr>
+<tr class="row-odd"><td><p>Berlian</p></td>
+<td><p>70</p></td>
+<td><p>1.60</p></td>
+<td><p>0.989834</p></td>
+<td><p>Normal</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="summary-lof">
+<h3>Summary LOF<a class="headerlink" href="#summary-lof" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Perhitungan manual membuktikan bahwa Fa’iz memiliki LOF Score = 4.548</strong>, yang menunjukkan dia adalah <strong>outlier</strong>.</p></li>
+<li><p><strong>Tahapan perhitungan LOF sangat panjang</strong> karena melibatkan:</p>
+<ul class="simple">
+<li><p>Normalisasi / Standarisasi Data (StandardScaler)</p></li>
+<li><p>Perhitungan Euclidean Distance</p></li>
+<li><p>Reachability Distance</p></li>
+<li><p>Local Reachability Density</p></li>
+<li><p>LOF Score</p></li>
+</ul>
+</li>
+<li><p><strong>Pemilihan K akan sangat berpengaruh dengan hasil akhir</strong></p></li>
+</ol>
+</section>
+</section>
+<section id="preprocessing-data">
+<h2>Preprocessing Data<a class="headerlink" href="#preprocessing-data" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">X_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s2">&quot;BB&quot;</span><span class="p">,</span> <span class="s2">&quot;TB&quot;</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="outlier-detection">
+<h3>Outlier Detection<a class="headerlink" href="#outlier-detection" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lof</span> <span class="o">=</span> <span class="n">LocalOutlierFactor</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">contamination</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span> <span class="c1"># 20% data fix outlier</span>
+<span class="n">outlier_labels</span> <span class="o">=</span> <span class="n">lof</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">X_scaled</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="result-to-dataframe">
+<h3>Result to DataFrame<a class="headerlink" href="#result-to-dataframe" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;LOF_Score&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">lof</span><span class="o">.</span><span class="n">negative_outlier_factor_</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;Status&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">outlier_labels</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Outlier&quot;</span><span class="p">,</span> <span class="s2">&quot;Normal&quot;</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;ID&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s2">&quot;ID&quot;</span><span class="p">,</span> <span class="s2">&quot;Nama&quot;</span><span class="p">,</span> <span class="s2">&quot;BB&quot;</span><span class="p">,</span> <span class="s2">&quot;TB&quot;</span><span class="p">,</span> <span class="s2">&quot;LOF_Score&quot;</span><span class="p">,</span> <span class="s2">&quot;Status&quot;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="print-result-by-lof-score">
+<h3>Print Result by LOF Score<a class="headerlink" href="#print-result-by-lof-score" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hasil Deteksi Outlier:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;LOF_Score&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Hasil Deteksi Outlier:
+ ID       Nama  BB   TB  LOF_Score  Status
+  3      Fa&#39;iz 100 4.60   4.548231 Outlier
+  1     Achmad 150 2.71   4.383601 Outlier
+  4       Edho  85 1.90   1.875557  Normal
+  2      Ridho  80 1.85   1.586740  Normal
+  9 Kurniawati  70 1.90   1.010486  Normal
+  8        Tri  70 1.95   1.010486  Normal
+ 10   Mendrofa  70 1.85   1.010486  Normal
+  5        Nur  72 1.70   0.989834  Normal
+  6       Ratu  71 1.65   0.989834  Normal
+  7    Berlian  70 1.60   0.989834  Normal
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="data-visualization">
+<h2>Data Visualization<a class="headerlink" href="#data-visualization" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;darkgrid&quot;</span><span class="p">)</span>
+
+<span class="n">scatter</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span>
+    <span class="n">x</span><span class="o">=</span><span class="s2">&quot;BB&quot;</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="s2">&quot;TB&quot;</span><span class="p">,</span>
+    <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;Status&quot;</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="s2">&quot;Status&quot;</span><span class="p">,</span>
+    <span class="n">palette</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Normal&quot;</span><span class="p">:</span> <span class="s2">&quot;dodgerblue&quot;</span><span class="p">,</span> <span class="s2">&quot;Outlier&quot;</span><span class="p">:</span> <span class="s2">&quot;red&quot;</span><span class="p">},</span>
+    <span class="n">markers</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Normal&quot;</span><span class="p">:</span> <span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="s2">&quot;Outlier&quot;</span><span class="p">:</span> <span class="s2">&quot;X&quot;</span><span class="p">},</span>
+    <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+    <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span>
+<span class="p">)</span>
+
+<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">scatter</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+        <span class="n">row</span><span class="p">[</span><span class="s2">&quot;BB&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="mf">1.5</span><span class="p">,</span>
+        <span class="n">row</span><span class="p">[</span><span class="s2">&quot;TB&quot;</span><span class="p">],</span>
+        <span class="n">row</span><span class="p">[</span><span class="s2">&quot;Nama&quot;</span><span class="p">],</span>
+        <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span>
+        <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+        <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+        <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">boxstyle</span><span class="o">=</span><span class="s2">&quot;round,pad=0.3&quot;</span><span class="p">)</span>
+    <span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lime&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;BB Normal (60-80 kg)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhspan</span><span class="p">(</span><span class="mf">1.7</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;TB Normal (1.7-2.0 m)&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Analisis Outlier Profil Karakter&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Berat Badan (kg)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Tinggi Badan (m)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Keterangan&quot;</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">20</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;data/tugas3/assets/LOF-Cleaned&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="s1">&#39;data/tugas3/result.json&#39;</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s1">&#39;records&#39;</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">force_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/de922ab798ecf63bab40e065dcbb7e36ac2becd108eb64123269fbee2136f8ed.png" src="_images/de922ab798ecf63bab40e065dcbb7e36ac2becd108eb64123269fbee2136f8ed.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Tugas2.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Outlier and K-NN</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Tugas4.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Naive Bayes</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#get-data-from-json">Get Data from JSON</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-contents">Data Contents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lof-calculation-steps"><em><strong>LOF Calculation Steps</strong></em></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-standardscaler"><strong>Calculate StandardScaler</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#euclidean-distance">Euclidean Distance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reachability-distance-rd">Reachability Distance (RD)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#local-reachability-density-lrd">Local Reachability Density (LRD)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><em><strong>Local Outlier Factor</strong></em></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-lof">Summary LOF</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing-data">Preprocessing Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#outlier-detection">Outlier Detection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#result-to-dataframe">Result to DataFrame</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#print-result-by-lof-score">Print Result by LOF Score</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-visualization">Data Visualization</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By ACHMAD RIDHO FA'IZ
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
